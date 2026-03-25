@@ -730,6 +730,28 @@ body {
   flex-shrink: 0;
   align-self: flex-start;
 }
+.food-plan-pill {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 100px;
+  background: #16A34A;
+  color: #fff;
+  white-space: nowrap;
+}
+.food-cat-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 10px 20px 6px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+}
 
 /* ───────────────────────────────────────────────────────────
    FREE DAYS (shopping / beach)
@@ -1117,15 +1139,15 @@ body {
 // DATA
 // ═══════════════════════════════════════════════════════════
 const DAYS = [
-  { type:'park', group:'disney',    id:'epcot',    label:'EPCOT',                       date:'Viernes 18 de Abril',   hours:'Early 8:30am · 9am–9pm',    acc:'#0278B0' },
-  { type:'free', group:'shopping',  id:'shopping', label:'Día Libre — Compras',         date:'Sábado 19 de Abril',    hours:'Disney Springs · Outlets',  acc:'#A66000' },
-  { type:'park', group:'disney',    id:'hs',       label:'Hollywood Studios',           date:'Domingo 20 de Abril',   hours:'Early 8:30am · 9am–9:30pm', acc:'#D45200' },
-  { type:'park', group:'disney',    id:'ak',       label:'Animal Kingdom',              date:'Lunes 21 de Abril',     hours:'Early 7:30am · 8am–7pm',    acc:'#1A7A32' },
-  { type:'park', group:'disney',    id:'mk',       label:'Magic Kingdom',               date:'Martes 22 de Abril',    hours:'Early 8:30am · 9am–9pm',    acc:'#6B28C4' },
-  { type:'free', group:'beach',     id:'beach',    label:'Día Libre — Anna Maria',      date:'Miércoles 23 de Abril', hours:'Golfo de México · ~2hs',     acc:'#0278B0' },
-  { type:'park', group:'universal', id:'epic',     label:'Epic Universe',               date:'Jueves 24 de Abril',    hours:'Early 9am · 10am–9pm',      acc:'#C41A1A' },
-  { type:'park', group:'universal', id:'usf',      label:'Universal Studios Florida',   date:'Viernes 25 de Abril',   hours:'Early 8am · 9am–9pm',       acc:'#0A7B72' },
-  { type:'park', group:'universal', id:'ioa',      label:'Islands of Adventure',        date:'Sábado 26 de Abril',    hours:'Early 8am · 9am–9pm',       acc:'#0A7B72' },
+  { type:'park', group:'disney',    id:'epcot',    label:'EPCOT',                       date:'Sábado 18 de Abril',    hours:'Early 8:30am · 9am–9pm',    acc:'#0278B0' },
+  { type:'free', group:'shopping',  id:'shopping', label:'Día Libre — Compras',         date:'Domingo 19 de Abril',   hours:'Disney Springs · Outlets',  acc:'#A66000' },
+  { type:'park', group:'disney',    id:'hs',       label:'Hollywood Studios',           date:'Lunes 20 de Abril',     hours:'Early 8:30am · 9am–9:30pm', acc:'#D45200' },
+  { type:'park', group:'disney',    id:'ak',       label:'Animal Kingdom',              date:'Martes 21 de Abril',    hours:'Early 7:30am · 8am–7pm',    acc:'#1A7A32' },
+  { type:'park', group:'disney',    id:'mk',       label:'Magic Kingdom',               date:'Miércoles 22 de Abril', hours:'Early 8:30am · 9am–9pm',    acc:'#6B28C4' },
+  { type:'free', group:'beach',     id:'beach',    label:'Día Libre — Anna Maria',      date:'Jueves 23 de Abril',    hours:'Golfo de México · ~2hs',     acc:'#0278B0' },
+  { type:'park', group:'universal', id:'epic',     label:'Epic Universe',               date:'Viernes 24 de Abril',   hours:'Early 9am · 10am–9pm',      acc:'#C41A1A' },
+  { type:'park', group:'universal', id:'usf',      label:'Universal Studios Florida',   date:'Sábado 25 de Abril',    hours:'Sin EPA · 9am–9pm · P2P',   acc:'#0A7B72' },
+  { type:'park', group:'universal', id:'ioa',      label:'Islands of Adventure',        date:'Domingo 26 de Abril',   hours:'Early 8am · 9am–9pm · P2P', acc:'#0A7B72' },
 ];
 
 const VISUALS = {
@@ -1169,13 +1191,13 @@ const PARK_MAPS = {
 const PARKS = {
   epcot: {
     name:'EPCOT', acc:'#0278B0',
-    date:'Viernes 18 de Abril  ·  Early Entry 8:30am',
+    date:'Sábado 18 de Abril  ·  Early Entry 8:30am',
     early:'8:30am', open:'9:00am', close:'9:00pm',
-    tip:'Guardians ya <b>NO tiene boarding group</b> — fila normal o Lightning Lane Single Pass ($16-19). Con early entry van directo a las 8:30am, 30 minutos antes del público general.',
-    alerts:['Guardians: SIN virtual queue desde enero 2025 — Lightning Lane Single Pass ($16-19) o early entry directo. Sin boarding group obligatorio.'],
+    tip:'Guardians ya <b>NO tiene boarding group</b> — fila normal, ir directo con early entry a las 8:30am. Test Track <b>3.0 reimaginado</b> (abrió julio 2025) — presentado por GM, nueva experiencia de movilidad del futuro.',
+    alerts:['Guardians: SIN virtual queue — fila standby o Lightning Lane Single Pass. Con early entry van directo 8:30am sin boarding group.'],
     atts:[
-      {n:'Guardians of the Galaxy: Cosmic Rewind', note:'Sin boarding group. Primera parada obligatoria 8:30am.', hot:true},
-      {n:'Test Track', note:'Segunda parada antes de que abra al público general.', hot:true},
+      {n:'Guardians of the Galaxy: Cosmic Rewind', note:'Sin boarding group. Primera parada obligatoria con early entry 8:30am.', hot:true},
+      {n:'Test Track 3.0 — presentado por GM', note:'¡Reimaginado julio 2025! Nueva experiencia futurista. Segunda parada antes que suba la fila.', hot:true},
       {n:'Frozen Ever After', note:'Mundo Noruega — mejor a las 11am con fila moderada.', hot:true},
       {n:"Remy's Ratatouille Adventure", note:'Francia — fila sube rápido, ir antes del mediodía.', hot:false},
       {n:"Soarin' Around the World", note:'Mejor entre las 16 y 17hs cuando bajan las filas.', hot:false},
@@ -1183,69 +1205,75 @@ const PARKS = {
       {n:'Living with the Land', note:'Relajada — entre las atracciones grandes.', hot:false},
     ],
     sched:[
-      {t:'8:30am',txt:'Llegan — Early Entry (hotel Disney)'},
-      {t:'8:35am',txt:'Guardians of the Galaxy directo'},
-      {t:'9:00am',txt:'Test Track antes de la apertura general'},
-      {t:'10:00am',txt:"Remy's Ratatouille + explorar Francia"},
-      {t:'12:00pm',txt:'Almuerzo Katsura Grill (Japón WS)'},
-      {t:'13:30pm',txt:'Frozen Ever After + Mundo Noruega'},
-      {t:'15:30pm',txt:"Soarin' + Mission: SPACE Orange"},
+      {t:'8:30am',txt:'Llegan — Early Entry EPCOT (hotel Disney)'},
+      {t:'8:35am',txt:'Guardians of the Galaxy: Cosmic Rewind directo'},
+      {t:'9:15am',txt:'Test Track 3.0 antes que suba la fila'},
+      {t:'10:15am',txt:"Remy's Ratatouille Adventure + explorar Francia"},
+      {t:'12:00pm',txt:'Almuerzo Katsura Grill (Japón WS) — mobile order'},
+      {t:'13:30pm',txt:'Frozen Ever After + School Bread en Noruega'},
+      {t:'15:30pm',txt:"Soarin' Around the World + Mission: SPACE Orange"},
       {t:'17:30pm',txt:'Recorrer World Showcase al atardecer'},
-      {t:'20:00pm',txt:'Show Harmonious sobre el lago'},
+      {t:'21:00pm',txt:'Show Luminous (nuevo) sobre el lago'},
     ],
     food:[
-      {n:'Katsura Grill',d:'Donburi bowl · Udon · Japón WS',must:true},
-      {n:'Tangierine Cafe',d:'Falafel · Hummus · Shawarma · Marruecos WS',must:false},
-      {n:'Les Halles Boulangerie',d:'Croissants · Quiche · Francia WS',must:true},
-      {n:'Sunshine Seasons',d:'Wraps · Ensaladas · The Land Pavilion',must:false},
-      {n:'School Bread (Noruega)',d:'Pan de cardamomo — snack único de EPCOT',must:false},
+      {n:'Katsura Grill',d:'Donburi bowl · Katsu udon · Tempura · Japón WS',must:true,plan:true},
+      {n:'Les Halles Boulangerie-Patisserie',d:'Croissants · Quiche lorraine · Croque monsieur · Francia WS',must:true,plan:true},
+      {n:'Regal Eagle Smokehouse',d:'Half rack ribs · Pulled pork · Baked beans — bien contundente',must:false,plan:true},
+      {n:'Tangierine Café',d:'Shawarma de pollo · Falafel · Hummus · opción más liviana · Marruecos',must:false,plan:true},
+      {n:'Sunshine Seasons',d:'Bowl de salmón · Ensalada thai · Tofu salteado · la más saludable del parque',must:false,plan:true},
+      {n:'La Cantina de San Angel',d:'Nachos · Burrito · Fish tacos · México WS · frente al lago',must:false,plan:true},
+      {n:'School Bread — Kringla Bakeri',d:'Pan de cardamomo relleno de crema · el snack más icónico de EPCOT · Noruega',must:true,plan:true,snack:true},
+      {n:'Crêpe — La Crêperie de Paris',d:'Crêpe de nutella, frutillas o queso · Francia WS',must:false,plan:true,snack:true},
+      {n:'Helado de mochi — Lotus Blossom',d:'Varios sabores japoneses · China WS',must:false,plan:true,snack:true},
     ]
   },
   hs: {
     name:'Hollywood Studios', acc:'#D45200',
-    date:'Domingo 20 de Abril  ·  Early Entry 8:30am',
+    date:'Lunes 20 de Abril  ·  Early Entry 8:30am',
     early:'8:30am', open:'9:00am', close:'9:30pm',
     tip:'Rise of the Resistance ya es <b>fila standby normal</b>. Rock n Roller Coaster <b>cerrado hasta verano 2026</b> (reabre como The Muppets). El parque más intenso de Disney.',
     alerts:[
-      "Rock n Roller Coaster: CERRADO desde 2 de marzo 2026 — reabre como 'The Muppets' en verano. No disponible el 20 de abril.",
+      "Rock n Roller Coaster: CERRADO desde marzo 2026 — reabre como 'The Muppets' en verano. No disponible el 20 de abril.",
       'Rise of the Resistance: SIN boarding group — fila standby normal o Lightning Lane Single Pass.',
     ],
     atts:[
       {n:'Rise of the Resistance',note:'La mejor atracción de Disney. Fila normal — early entry 8:30am es la ventaja.',hot:true},
-      {n:'Millennium Falcon: Smugglers Run',note:'Nueva misión con Grogu y Mandalorian desde mayo 2026.',hot:true},
-      {n:'Tower of Terror',note:'Clásico. Media mañana mientras las filas están bajas.',hot:true},
+      {n:'Millennium Falcon: Smugglers Run',note:'Nueva misión con Grogu y Mandalorian — segunda parada con early entry.',hot:true},
+      {n:'Tower of Terror',note:'Clásico imprescindible. Media mañana mientras las filas están bajas.',hot:true},
       {n:'Slinky Dog Dash',note:'Toy Story Land — fila moderada al mediodía.',hot:false},
       {n:'Toy Story Mania',note:'Shooter interactivo — muy divertido compitiendo en grupo.',hot:false},
-      {n:'Alien Swirling Saucers',note:'Relajada — tarde para descansar un rato.',hot:false},
+      {n:'Alien Swirling Saucers',note:'Relajada — tarde para descansar entre las grandes.',hot:false},
     ],
     sched:[
       {t:'8:30am',txt:'Llegan — Early Entry Hollywood Studios'},
       {t:'8:35am',txt:'Rise of the Resistance directo'},
-      {t:'9:00am',txt:'Tower of Terror con fila baja'},
-      {t:'10:00am',txt:'Millennium Falcon: Smugglers Run'},
+      {t:'9:15am',txt:'Tower of Terror con fila baja'},
+      {t:'10:15am',txt:'Millennium Falcon: Smugglers Run'},
       {t:'12:00pm',txt:"Woody's Lunch Box + Toy Story Land"},
       {t:'13:30pm',txt:'Slinky Dog Dash + Alien Saucers'},
-      {t:'15:00pm',txt:"Oga's Cantina Star Wars (reserva previa)"},
-      {t:'17:00pm',txt:'Fantasmic! — show nocturno imprescindible'},
+      {t:'15:30pm',txt:"Oga's Cantina Star Wars (drinks temáticos)"},
+      {t:'18:30pm',txt:'Fantasmic! — show nocturno imprescindible'},
     ],
     food:[
-      {n:"Woody's Lunch Box",d:'Totchos · BBQ Brisket · Toy Story Land',must:true},
-      {n:'Docking Bay 7',d:"Pollo Tip-Yip · Star Wars Galaxy's Edge",must:true},
-      {n:'ABC Commissary',d:'Burgers · Wraps · opción rápida y cómoda',must:false},
-      {n:"Oga's Cantina",d:'Bar Star Wars temático · requiere reserva',must:false},
+      {n:"Woody's Lunch Box",d:'Totchos · BBQ Brisket Melt · Toy Story Land — muy contundente',must:true,plan:true},
+      {n:'Docking Bay 7',d:"Pollo Tip-Yip · Noodle Bowl vegano · Galaxy's Edge — tiene opciones light",must:true,plan:true},
+      {n:'ABC Commissary',d:'Burgers · Chicken sandwich · Wraps · la opción más rápida del parque',must:false,plan:true},
+      {n:"Rosie's All-American Cafe",d:'Burger · Chicken strips · Sunset Boulevard',must:false,plan:true},
+      {n:"Milk shake — Woody's Lunch Box",d:'Fresa, chocolate o vainilla · el mejor snack de Toy Story Land',must:true,plan:true,snack:true},
+      {n:'Churros de canela',d:'Varios puestos en el parque · crédito de snack',must:false,plan:true,snack:true},
     ]
   },
   ak: {
     name:'Animal Kingdom', acc:'#1A7A32',
-    date:'Lunes 21 de Abril  ·  Early Entry 7:30am',
+    date:'Martes 21 de Abril  ·  Early Entry 7:30am',
     early:'7:30am', open:'8:00am', close:'7:00pm',
-    tip:'DINOSAUR y DinoLand USA <b>cerraron permanentemente en febrero 2026</b>. Flight of Passage con early entry a las 7:30am tiene 15-20 min de fila versus 2-3 horas después. Corran a Pandora.',
-    alerts:['DINOSAUR y DinoLand USA: CERRADOS permanentemente desde febrero 2026 — área se convierte en Tropical Americas (~2027).'],
+    tip:'DINOSAUR y DinoLand USA <b>cerraron permanentemente en febrero 2026</b>. Flight of Passage con early entry a las 7:30am tiene 15-20 min de fila versus 2-3 horas después. Corran directo a Pandora.',
+    alerts:['DINOSAUR y DinoLand USA: CERRADOS permanentemente desde febrero 2026 — área en transformación a Tropical Americas (~2027).'],
     atts:[
-      {n:'Avatar: Flight of Passage',note:'La más inmersiva de Orlando. Early entry 7:30am: solo 15-20 min.',hot:true},
-      {n:"Na'vi River Journey",note:'En Pandora mientras el área sigue tranquila.',hot:true},
+      {n:'Avatar: Flight of Passage',note:'La más inmersiva de Orlando. Early entry 7:30am: solo 15-20 min de espera.',hot:true},
+      {n:"Na'vi River Journey",note:'En Pandora mientras el área sigue tranquila — segunda parada.',hot:true},
       {n:'Expedition Everest',note:'Coaster con yeti y tramo en reversa. Clásico del parque.',hot:true},
-      {n:'Kilimanjaro Safaris',note:'Safari real con animales africanos auténticos — mejor de mañana.',hot:false},
+      {n:'Kilimanjaro Safaris',note:'Safari real con animales africanos auténticos — mejor por la mañana.',hot:false},
       {n:'Festival of the Lion King',note:'Show en vivo espectacular — recomendado a las 13:30hs.',hot:false},
       {n:'Kali River Rapids',note:'Se mojan MUCHO — llevar bolsa Ziploc para el celular.',hot:false},
     ],
@@ -1255,152 +1283,168 @@ const PARKS = {
       {t:'8:30am',txt:"Na'vi River Journey en Pandora"},
       {t:'9:15am',txt:'Expedition Everest en Asia'},
       {t:'10:30am',txt:'Kilimanjaro Safaris'},
-      {t:'12:00pm',txt:"Satu'li Canteen (mobile order)"},
+      {t:'12:00pm',txt:"Satu'li Canteen — mobile order antes de llegar"},
       {t:'13:30pm',txt:'Festival of the Lion King — show'},
-      {t:'15:00pm',txt:'Kali River Rapids (calor de abril)'},
-      {t:'18:30pm',txt:'Pandora bioluminiscente de noche'},
+      {t:'15:00pm',txt:'Kali River Rapids (calor de abril) + Ziploc para celulares'},
+      {t:'18:00pm',txt:'Pandora bioluminiscente — el cierre perfecto del día'},
     ],
     food:[
-      {n:"Satu'li Canteen",d:'Bowls · arroz azul Pandora · el mejor del parque',must:true},
-      {n:'Harambe Market',d:'Brochetas · Ribs · ambiente africano',must:false},
-      {n:'Flame Tree BBQ',d:'Half chicken + ribs ahumados · vista al lago',must:false},
-      {n:'Tiffins Restaurant',d:'El mejor sit-down del parque — reservar',must:false},
+      {n:"Satu'li Canteen",d:'Bowls personalizables · arroz azul Pandora · opciones saludables y contundentes',must:true,plan:true},
+      {n:'Harambe Market',d:'Ribs de res · Chicken skewers · Plantains · ambiente africano inmersivo',must:false,plan:true},
+      {n:'Flame Tree BBQ',d:'Half chicken + ribs ahumados · vista al lago — muy contundente',must:false,plan:true},
+      {n:'Hummus + papas — Mr. Kamal\'s',d:'Asia · snack sabroso y más liviano del parque · muy recomendado',must:true,plan:true,snack:true},
+      {n:'Helado tropical — Anandapur Ice Cream Truck',d:'Dole Whip y helados temáticos · Asia',must:false,plan:true,snack:true},
     ]
   },
   mk: {
     name:'Magic Kingdom', acc:'#6B28C4',
-    date:'Martes 22 de Abril  ·  Early Entry 8:30am',
+    date:'Miércoles 22 de Abril  ·  Early Entry 8:30am',
     early:'8:30am', open:'9:00am', close:'9:00pm',
-    tip:'Big Thunder Mountain <b>cerrado hasta mayo 2026</b>. El castillo está en repintado pero shows y fuegos normales. Es Semana Santa — el parque más concurrido del año.',
+    tip:'<b>Tron NO está en early entry</b> — solo Fantasyland y Tomorrowland abren 30 min antes. Estrategia: Seven Dwarfs Mine Train con early entry → rush a Tron exactamente a las 9am. Big Thunder Mountain <b>cerrado hasta mayo 2026</b>. Buzz Lightyear reabrió el 8 de abril.',
     alerts:[
+      'Tron Lightcycle Run: NO participa del Early Entry. Ir directo al abrir el parque a las 9am.',
       'Big Thunder Mountain Railroad: CERRADO hasta mayo 2026 — no disponible el 22 de abril.',
-      'Cinderella Castle: en repintado con andamios visibles — shows y fuegos artificiales Happily Ever After con normalidad.',
     ],
     atts:[
-      {n:'Tron Lightcycle / Run',note:'Primera parada obligatoria con early entry 8:30am. La más nueva.',hot:true},
-      {n:'Seven Dwarfs Mine Train',note:'Segunda parada — siempre tiene la fila más larga del parque.',hot:true},
-      {n:'Space Mountain',note:'Coaster en la oscuridad total — mediodía cuando bajan un poco.',hot:true},
-      {n:'Haunted Mansion',note:'999 fantasmas — la fila avanza rápido cualquier momento.',hot:false},
-      {n:"Tiana's Bayou Adventure",note:'La ex-Splash Mountain renovada con Princess and the Frog.',hot:false},
-      {n:'Pirates of the Caribbean',note:'Clásico imprescindible — excelente para descansar del calor.',hot:false},
-      {n:'Jungle Cruise',note:'Chistes malos incluidos — para la tarde.',hot:false},
+      {n:'Seven Dwarfs Mine Train',note:'PRIMERA parada con early entry 8:30am — la fila más larga del parque sin early.',hot:true},
+      {n:'Tron Lightcycle / Run',note:'Al abrir el parque a las 9am — NO está en early entry. Correr apenas abra.',hot:true},
+      {n:'Space Mountain',note:'Tomorrowland — disponible en early entry o al mediodía con fila moderada.',hot:true},
+      {n:'Haunted Mansion',note:'999 fantasmas — Liberty Square · la fila avanza rápido a cualquier hora.',hot:false},
+      {n:"Tiana's Bayou Adventure",note:'La ex-Splash Mountain renovada — tarde, cuando bajan filas.',hot:false},
+      {n:'Pirates of the Caribbean',note:'Clásico imprescindible · excelente para descansar del calor de la tarde.',hot:false},
+      {n:'Jungle Cruise',note:'Chistes malos incluidos — para la tarde. Divertido en grupo.',hot:false},
+      {n:"Buzz Lightyear's Space Ranger Spin",note:'Reabrió el 8 de abril 2026 renovado — shooter interactivo en grupo.',hot:false},
     ],
     sched:[
-      {t:'8:30am',txt:'Llegan — Early Entry Magic Kingdom'},
-      {t:'8:35am',txt:'Tron Lightcycle Run directo'},
-      {t:'9:20am',txt:'Seven Dwarfs Mine Train'},
-      {t:'10:05am',txt:'Space Mountain'},
-      {t:'11:00am',txt:'Haunted Mansion'},
-      {t:'12:00pm',txt:'Almuerzo Columbia Harbour House'},
-      {t:'13:30pm',txt:"Tiana's Bayou + Pirates + Jungle"},
-      {t:'17:30pm',txt:'Fotos del castillo al atardecer'},
+      {t:'8:30am',txt:'Llegan — Early Entry Magic Kingdom (solo Fantasyland + Tomorrowland)'},
+      {t:'8:35am',txt:'Seven Dwarfs Mine Train directo (early entry)'},
+      {t:'9:00am',txt:'Correr a Tron Lightcycle Run al abrir el parque general'},
+      {t:'10:00am',txt:'Space Mountain — fila más corta que a mediodía'},
+      {t:'11:00am',txt:'Haunted Mansion + Liberty Square'},
+      {t:'12:30pm',txt:'Almuerzo Pecos Bill (barra de toppings ilimitada)'},
+      {t:'14:00pm',txt:"Tiana's Bayou Adventure + Pirates of the Caribbean"},
+      {t:'16:00pm',txt:'Jungle Cruise · Buzz Lightyear renovado'},
+      {t:'18:00pm',txt:'Fotos del castillo al atardecer'},
       {t:'20:00pm',txt:'Fuegos artificiales Happily Ever After'},
     ],
     food:[
-      {n:'Pecos Bill Tall Tale Inn',d:'Burger con barra de toppings ilimitados · Frontierland',must:true},
-      {n:'Columbia Harbour House',d:'Clam chowder en pan · piso de arriba casi siempre vacío',must:false},
-      {n:'Dole Whip (Aloha Isle)',d:'Helado de piña — el snack más icónico de todo Disney',must:true},
-      {n:'Be Our Guest Restaurant',d:'Castillo de la Bestia · reservar con 60 días de anticipación',must:false},
+      {n:'Pecos Bill Tall Tale Inn',d:'Burger clásica · barra de toppings ILIMITADOS · Frontierland — contundente',must:true,plan:true},
+      {n:'Columbia Harbour House',d:'Clam chowder en pan · salmón · Liberty Square · piso de arriba casi vacío',must:false,plan:true},
+      {n:"Cosmic Ray's Starlight Café",d:'Chicken · Burger · Tomorrowland — el más grande del parque',must:false,plan:true},
+      {n:'Dole Whip — Aloha Isle',d:'Helado de piña soft serve · el snack más icónico de todo Disney',must:true,plan:true,snack:true},
+      {n:'Starbucks — The Main Street Bakery',d:'Café · pastries temáticos Disney · crédito de snack · Main Street USA',must:false,plan:true,snack:true},
+      {n:'Churro de canela',d:'Puestos distribuidos por todo el parque · el snack clásico de parque',must:false,plan:true,snack:true},
     ]
   },
   epic: {
     name:'Epic Universe', acc:'#C41A1A',
-    date:'Jueves 24 de Abril  ·  Early Admission 9:00am',
+    date:'Viernes 24 de Abril  ·  Early Admission 9:00am',
     early:'9:00am', open:'10:00am', close:'9:00pm',
-    tip:'El parque más nuevo del mundo — <b>abierto desde mayo 2025</b>. Menos de un año de operación. Las filas son altas e impredecibles. Monitoreen la app de Universal en tiempo real.',
-    alerts:['Parque abierto desde mayo 2025 — menos de 1 año de operaciones. Esperen filas altas, especialmente en atracciones de Harry Potter.'],
+    tip:'El parque más nuevo del mundo — <b>abierto desde mayo 2025</b>. EPA cubre HP Ministry of Magic, Super Nintendo World y HTTYD. Las filas son altas e impredecibles — monitoreen la app en tiempo real.',
+    alerts:['Parque abierto desde mayo 2025 — menos de 1 año de operaciones. Filas altas especialmente en HP. Monitorear app de Universal.'],
     atts:[
-      {n:'HP: Battle at the Ministry',note:'La más demandada del parque — primera parada con early admission.',hot:true},
-      {n:'How to Train Your Dragon: Dragons Flight',note:'Segunda en popularidad — ir temprano antes que suba la fila.',hot:true},
-      {n:"Mario Kart: Bowser's Challenge",note:'Nintendo World — el Power-Up Band mejora la experiencia.',hot:true},
-      {n:'Monsters Unchained: Frankenstein',note:'Coaster indoor en el mundo de Monsters.',hot:false},
-      {n:"Yoshi's Adventure + Mine-Cart Madness",note:'Nintendo World — fila generalmente más corta.',hot:false},
-      {n:'Explorar los 5 mundos completos',note:'Los ambientes son increíbles — dedicarle tiempo.',hot:false},
+      {n:'HP: Battle at the Ministry',note:'La más demandada. EPA 9am: ir directo — es la ventaja clave del hotel.',hot:true},
+      {n:'How to Train Your Dragon: Dragons Flight',note:'Segunda en popularidad — temprano antes que suba la fila.',hot:true},
+      {n:"Mario Kart: Bowser's Challenge",note:'Nintendo World — disponible en EPA. El Power-Up Band mejora la exp.',hot:true},
+      {n:'Monsters Unchained: The Curse of Frankenstein',note:'Coaster indoor oscuro en el mundo de Darkmoor.',hot:false},
+      {n:"Yoshi's Adventure + DK Mine-Cart Madness",note:'Nintendo World — fila generalmente más corta.',hot:false},
+      {n:'Explorar los 5 mundos completos',note:'Los ambientes son increíbles — dedicarle tiempo con calma.',hot:false},
     ],
     sched:[
       {t:'9:00am',txt:'Llegan — Early Admission (hotel Universal)'},
       {t:'9:05am',txt:'HP: Battle at the Ministry directo'},
-      {t:'10:00am',txt:'How to Train Your Dragon'},
-      {t:'11:00am',txt:"Mario Kart: Bowser's Challenge"},
-      {t:'12:00pm',txt:'Monsters Unchained: Frankenstein'},
-      {t:'13:00pm',txt:'Three Broomsticks (almuerzo HP)'},
-      {t:'14:30pm',txt:"Yoshi's Adventure + Nintendo World"},
-      {t:'16:00pm',txt:'Repetir favorita o explorar mundos'},
-      {t:'19:00pm',txt:'Hub central iluminado de noche'},
+      {t:'9:45am',txt:'How to Train Your Dragon: Dragons Flight'},
+      {t:'10:30am',txt:"Mario Kart: Bowser's Challenge (Nintendo World)"},
+      {t:'11:30am',txt:'Monsters Unchained: Frankenstein'},
+      {t:'13:00pm',txt:'Three Broomsticks (almuerzo HP) — mobile order'},
+      {t:'14:30pm',txt:"Yoshi's Adventure + DK Mine-Cart Madness"},
+      {t:'16:00pm',txt:'Repetir favorita · explorar Darkmoor y Celestial Park'},
+      {t:'20:00pm',txt:'Hub central iluminado de noche — espectacular'},
     ],
     food:[
-      {n:'Three Broomsticks HP',d:'Great Feast · Butterbeer · Ambiente Harry Potter',must:true},
-      {n:'Dragon Fire Grill',d:'Platos nórdicos del mundo de Berk · HTTYD',must:false},
-      {n:'Nintendo Power-Up Eats',d:'Mushroom burgers · ambientado en Mario',must:false},
-      {n:'Butterbeer frozen (puestos HP)',d:'La versión frozen es la mejor — no salir sin tomarlo',must:true},
+      {n:'Three Broomsticks — HP Ministry of Magic',d:"Chicken pot pie · Yorkshire pudding · Great Feast HP · Butterbeer",must:true,plan:true},
+      {n:'The Burning Blade Tavern — Darkmoor',d:'La taberna se INCENDIA varias veces por hora · costillas · un espectáculo',must:true,plan:true},
+      {n:'Dragon Fire Grill — Berk',d:'Pollo estilo nórdico · bowl de verduras · del mundo HTTYD',must:false,plan:true},
+      {n:'Nintendo Power-Up Eats',d:'Mushroom burger · Mario themed bowl · Super Nintendo World',must:false,plan:true},
+      {n:'Das Stakehaus — Darkmoor',d:'Estofado medieval · chop de cerdo · vieja posada — muy contundente',must:false,plan:true},
+      {n:'Butterbeer frozen — puestos HP',d:'La versión frozen es la mejor del resort — no salir sin tomarlo',must:true,plan:true,snack:true},
+      {n:"Yoshi's Snack Island",d:'Gyoza · onigiri · snacks japoneses · Super Nintendo World',must:false,plan:true,snack:true},
+      {n:'Comet Dogs — Celestial Park',d:'Hot dogs temáticos del hub central — clásico de paseo',must:false,plan:true,snack:true},
     ]
   },
   usf: {
     name:'Universal Studios Florida', acc:'#0A7B72',
-    date:'Viernes 25 de Abril  ·  Early Admission 8:00am',
-    early:'8:00am', open:'9:00am', close:'9:00pm',
-    tip:'Día completo en USF. A las <b>17hs cruzan en Hogwarts Express a Hogsmeade</b> para Butterbeer y vuelven en tren. Las atracciones de IOA se guardan para el día siguiente.',
-    alerts:[],
+    date:'Sábado 25 de Abril  ·  Sin EPA (verificar en app)',
+    early:'—', open:'9:00am', close:'9:00pm',
+    tip:'<b>Actualmente sin Early Park Admission para USF</b> — verificar en la app de Universal unos días antes. Llegar 30 min antes de la apertura para entrar primero. A las <b>17hs cruzan en Hogwarts Express a Hogsmeade</b> para Butterbeer y vuelven.',
+    alerts:['Sin EPA confirmado para USF — verificar en la app de Universal antes del viaje. IOA y Epic Universe SÍ tienen EPA de 1 hora.'],
     atts:[
-      {n:'Rip Ride Rockit',note:'Eligen su propia canción. Primera parada con early admission 8am.',hot:true},
-      {n:'Diagon Alley + Harry Potter and the Escape from Gringotts',note:'El mundo de HP en USF. Temprano — la fila sube muy rápido.',hot:true},
+      {n:'Rip Ride Rockit',note:'Eligen su propia canción. Primera parada al abrir el parque a las 9am.',hot:true},
+      {n:'Diagon Alley + Harry Potter and the Escape from Gringotts',note:'El mundo de HP en USF. La fila sube muy rápido — segunda parada.',hot:true},
       {n:'Revenge of the Mummy',note:'Coaster indoor clásica. Media mañana.',hot:true},
-      {n:'Men in Black Alien Attack',note:'Shooter interactivo — muy divertido en grupo.',hot:false},
-      {n:'Fast & Furious Supercharged',note:'Experiencia de velocidad inmersiva.',hot:false},
-      {n:'The Simpsons Ride (Springfield)',note:'Para la tarde — Springfield es increíble para explorar.',hot:false},
-      {n:'Hogwarts Express (USF → IOA)',note:'A las 17hs: cruzar a Hogsmeade, Butterbeer y volver.',hot:false},
+      {n:'Men in Black Alien Attack',note:'Shooter interactivo — muy divertido compitiendo en grupo.',hot:false},
+      {n:'Fast & Furious Supercharged',note:'Experiencia de velocidad inmersiva — tarde.',hot:false},
+      {n:'The Simpsons Ride (Springfield)',note:'Springfield completo es increíble de explorar — tarde.',hot:false},
+      {n:'Hogwarts Express (USF → IOA)',note:'A las 17hs: cruzar a Hogsmeade, Butterbeer y volver en tren.',hot:false},
     ],
     sched:[
-      {t:'8:00am',txt:'Llegan — Early Admission (hotel Universal)'},
-      {t:'8:05am',txt:'Rip Ride Rockit directo'},
-      {t:'9:00am',txt:'Diagon Alley + Gringotts'},
-      {t:'11:00am',txt:'Revenge of the Mummy'},
-      {t:'12:00pm',txt:'Leaky Cauldron (almuerzo HP)'},
-      {t:'13:30pm',txt:'Men in Black + Fast & Furious'},
-      {t:'15:00pm',txt:'Springfield — The Simpsons Ride'},
+      {t:'8:30am',txt:'Llegar al parque — 30 min antes para posición en entrada'},
+      {t:'9:00am',txt:'Apertura — Rip Ride Rockit directo'},
+      {t:'9:30am',txt:'Diagon Alley + Harry Potter and the Escape from Gringotts'},
+      {t:'11:30am',txt:'Revenge of the Mummy'},
+      {t:'12:30pm',txt:'Leaky Cauldron (almuerzo HP) — mobile order'},
+      {t:'14:00pm',txt:'Men in Black Alien Attack + Fast & Furious'},
+      {t:'15:30pm',txt:'Springfield — The Simpsons Ride'},
       {t:'17:00pm',txt:'Hogwarts Express → Hogsmeade (IOA)'},
       {t:'17:45pm',txt:'Butterbeer + explorar Hogsmeade'},
-      {t:'18:30pm',txt:'Hogwarts Express vuelta a USF'},
+      {t:'18:30pm',txt:'Hogwarts Express de vuelta a USF'},
     ],
     food:[
-      {n:'Leaky Cauldron',d:'Great Feast · Butterbeer frozen · Diagon Alley HP',must:true},
-      {n:"Mel's Drive-In",d:'Burgers y milkshakes estilo retro años 50',must:false},
-      {n:'Krusty Burger (Springfield)',d:'Combo de Los Simpsons — experiencia temática',must:false},
-      {n:'Three Broomsticks (Hogsmeade)',d:'Solo si cruzan al final vía Hogwarts Express',must:false},
+      {n:'Leaky Cauldron — Diagon Alley',d:"Shepherd's Pie · Fish & Chips · Great Feast HP · Butterbeer frozen",must:true,plan:true},
+      {n:"Mel's Drive-In",d:'Burger clásica · milkshakes retro años 50 — contundente y muy sabroso',must:false,plan:true},
+      {n:'Krusty Burger — Springfield',d:'The Clogger burger · experience temática Los Simpsons',must:false,plan:true},
+      {n:'TODAY Cafe',d:'Sándwiches · Ensaladas · Wraps — la opción más liviana del parque',must:false,plan:true},
+      {n:'Butterbeer — Diagon Alley',d:'Frozen, caliente o Butterbeer ice cream — el mejor de los 3 parques',must:true,plan:true,snack:true},
+      {n:"Florean Fortescue's Ice Cream",d:'Helados mágicos de sabores únicos HP · Diagon Alley',must:true,plan:true,snack:true},
+      {n:'Churro o pretzel — puestos varios',d:'Snacks de paseo disponibles por todo el parque',must:false,plan:true,snack:true},
     ]
   },
   ioa: {
     name:'Islands of Adventure', acc:'#0A7B72',
-    date:'Sábado 26 de Abril  ·  Early Admission 8:00am',
+    date:'Domingo 26 de Abril  ·  Early Admission 8:00am',
     early:'8:00am', open:'9:00am', close:'9:00pm',
-    tip:"Día completo en IOA. VelociCoaster y Hagrid's primero. <b>Hogsmeade ya lo visitaron ayer</b> — tienen todo el día sin apuros. Al final, Hogwarts Express a USF como cierre del viaje.",
+    tip:"Día completo en IOA. VelociCoaster y Hagrid's primero. <b>Hogsmeade ya lo visitaron ayer</b> — tienen todo el día sin apuros. Cierre del viaje con Hogwarts Express a USF.",
     alerts:[],
     atts:[
       {n:'VelociCoaster',note:'La mejor montaña rusa de Florida. Primera parada con early 8am.',hot:true},
-      {n:"Hagrid's Magical Creatures Motorbike",note:'La favorita de casi todos. Segunda parada.',hot:true},
+      {n:"Hagrid's Magical Creatures Motorbike",note:'La favorita de casi todos — segunda parada.',hot:true},
       {n:'Harry Potter and the Forbidden Journey',note:'Dentro del castillo de Hogwarts — impresionante.',hot:true},
-      {n:'Jurassic Park River Adventure',note:'Se mojan MUCHO — perfecto para el calor de abril.',hot:false},
-      {n:'The Incredible Hulk Coaster',note:'Coaster clásica del parque — Marvel Super Hero Island.',hot:false},
+      {n:'Jurassic Park River Adventure',note:'Se mojan MUCHO — perfecto para el calor de abril. Ziploc para celulares.',hot:false},
+      {n:'The Incredible Hulk Coaster',note:'Coaster clásica lanzada — Marvel Super Hero Island.',hot:false},
+      {n:"Doctor Doom's Fearfall",note:'Torre de caída libre — rápida y adrenalínica.',hot:false},
       {n:'Toon Lagoon: Popeye & Bluto',note:'Otra atracción donde se mojan — divertida en grupo.',hot:false},
-      {n:'Hogwarts Express (IOA → USF)',note:'Final del día: cruzar a Diagon Alley como cierre del viaje ✈',hot:false},
+      {n:'Hogwarts Express (IOA → USF)',note:'Cierre del viaje: cruzar a Diagon Alley como última experiencia ✈',hot:false},
     ],
     sched:[
       {t:'8:00am',txt:'Llegan — Early Admission Islands of Adventure'},
       {t:'8:05am',txt:'VelociCoaster directo'},
       {t:'9:00am',txt:"Hagrid's Magical Creatures Motorbike"},
       {t:'10:30am',txt:'Harry Potter and the Forbidden Journey'},
-      {t:'12:00pm',txt:'Three Broomsticks (almuerzo Hogsmeade)'},
-      {t:'13:30pm',txt:'Jurassic Park River Adventure'},
+      {t:'12:00pm',txt:'Three Broomsticks (almuerzo Hogsmeade) — mobile order'},
+      {t:'13:30pm',txt:'Jurassic Park River Adventure — Ziplocs para celulares'},
       {t:'15:00pm',txt:"Hulk Coaster + Doctor Doom's Fearfall"},
       {t:'16:30pm',txt:'Toon Lagoon: Popeye & Bluto'},
       {t:'18:00pm',txt:'Segundo VelociCoaster si el grupo quiere'},
-      {t:'19:00pm',txt:'Hogwarts Express → USF — cierre del viaje ✈'},
+      {t:'19:30pm',txt:'Hogwarts Express → USF · Diagon Alley — cierre del viaje ✈'},
     ],
     food:[
-      {n:'Three Broomsticks',d:'Great Hall · Pumpkin Juice · Hogsmeade HP',must:true},
-      {n:'Mythos Restaurant',d:'El mejor restaurante de IOA — reservar',must:false},
-      {n:'Jurassic Park Discovery Center',d:'Comida casual cerca de Jurassic',must:false},
-      {n:"Blondie's (Toon Lagoon)",d:'Sandwiches gigantes — opción rápida',must:false},
+      {n:'Three Broomsticks — Hogsmeade',d:'Great Hall HP · Rotisserie chicken · Great Feast · Pumpkin Fizz',must:true,plan:true},
+      {n:'Thunder Falls Terrace',d:'Rotisserie chicken entero · ribs ahumadas · Jurassic Park — el mejor QS',must:true,plan:true},
+      {n:"Blondie's — Toon Lagoon",d:'Sándwiches gigantes personalizables · opción más liviana y rápida',must:false,plan:true},
+      {n:'Comic Strip Café — Toon Lagoon',d:'Burger · Pizza · Ramen · variedad para todo el grupo',must:false,plan:true},
+      {n:'Butterbeer frozen — puestos Hogsmeade',d:'El clásico HP · la versión frozen supera a la normal',must:true,plan:true,snack:true},
+      {n:'Pumpkin Juice — Hogsmeade',d:'Bebida HP de manzana y caramelo · único del mundo mágico',must:false,plan:true,snack:true},
+      {n:'Helados de Honeydukes',d:'Caramelos y helados del mundo mágico de HP · Hogsmeade',must:false,plan:true,snack:true},
     ]
   }
 };
@@ -1639,16 +1683,40 @@ function renderPark(id) {
 
   // Tab: Food
   html += `<div class="tab-content" id="t-food">`;
-  pk.food.forEach(item => {
-    html += `<div class="food-item">
-      <div class="food-dot" style="background:${acc};height:${item.must?40:30}px"></div>
-      <div class="food-main">
-        <div class="food-n">${item.n}</div>
-        <div class="food-d">${item.d}</div>
-      </div>
-      ${item.must ? `<div class="food-must-tag" style="background:${acc}">★ Must</div>` : ''}
-    </div>`;
-  });
+  const foodMain = pk.food.filter(f => !f.snack);
+  const foodSnacks = pk.food.filter(f => f.snack);
+  if (foodMain.length) {
+    html += `<div class="food-cat-label">Restaurantes · incluidos en tu plan</div>`;
+    foodMain.forEach(item => {
+      html += `<div class="food-item">
+        <div class="food-dot" style="background:${acc};height:${item.must?42:32}px"></div>
+        <div class="food-main">
+          <div class="food-n">${item.n}</div>
+          <div class="food-d">${item.d}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;flex-shrink:0;margin-left:8px">
+          ${item.must ? `<div class="food-must-tag" style="background:${acc}">★ Must</div>` : ''}
+          ${item.plan ? `<div class="food-plan-pill">Plan ✓</div>` : ''}
+        </div>
+      </div>`;
+    });
+  }
+  if (foodSnacks.length) {
+    html += `<div class="food-cat-label" style="color:#7C3AED">Snacks · crédito de snack incluido</div>`;
+    foodSnacks.forEach(item => {
+      html += `<div class="food-item">
+        <div class="food-dot" style="background:#7C3AED;height:${item.must?42:32}px"></div>
+        <div class="food-main">
+          <div class="food-n">${item.n}</div>
+          <div class="food-d">${item.d}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;flex-shrink:0;margin-left:8px">
+          ${item.must ? `<div class="food-must-tag" style="background:${acc}">★ Must</div>` : ''}
+          <div class="food-plan-pill" style="background:#7C3AED">Snack ✓</div>
+        </div>
+      </div>`;
+    });
+  }
   html += `</div>`;
 
   if (map) {
@@ -1690,7 +1758,7 @@ function renderShopping() {
   ${renderMediaBanner('shopping', 'Dia Libre', 'Compras en Orlando', 'Disney Springs, outlets y paradas clave para el grupo')}
   <div class="free-hero" style="background:var(--shop-lt)">
     <div class="park-eyebrow" style="color:var(--shop)">Día Libre</div>
-    <div class="free-title">Sábado 19 de Abril<br>Compras en Orlando</div>
+    <div class="free-title">Domingo 19 de Abril<br>Compras en Orlando</div>
     <div class="free-sub">Disney Springs · Premium Outlets I-Drive · Mall at Millenia</div>
   </div>
 
@@ -1755,7 +1823,7 @@ function renderBeach() {
   ${renderMediaBanner('beach', 'Dia Libre', 'Anna Maria Island', 'Playa, descanso y un cambio total de ritmo fuera de Orlando')}
   <div class="free-hero beach" style="background:var(--beach-lt)">
     <div class="park-eyebrow" style="color:var(--beach)">Día Libre</div>
-    <div class="free-title">Miércoles 23 de Abril<br>Anna Maria Island</div>
+    <div class="free-title">Jueves 23 de Abril<br>Anna Maria Island</div>
     <div class="free-sub">Golfo de México · ~2 horas desde Disney</div>
   </div>
 
@@ -1822,16 +1890,20 @@ function renderTips() {
   const TIPS = [
     {acc:'#0278B0',tag:'NOVEDAD 2026',title:'SIN Boarding Groups en 2026',text:'Guardians (EPCOT) y Rise of the Resistance (Hollywood Studios) ya NO usan virtual queue. Son fila normal o Lightning Lane Single Pass. No necesitan madrugar para conseguir un boarding group.'},
     {acc:'#D45200',tag:'ATENCIÓN',title:'Atracciones cerradas en abril',text:'Rock n Roller Coaster (Hollywood Studios) cerrado hasta verano 2026. Big Thunder Mountain (Magic Kingdom) cerrado hasta mayo. DINOSAUR (Animal Kingdom) cerrado para siempre desde febrero 2026.'},
+    {acc:'#6B28C4',tag:'CORRECCIÓN MK',title:'Tron NO está disponible en Early Entry',text:'Tron Lightcycle Run no participa del Early Entry en Magic Kingdom. Solo Fantasyland y Tomorrowland abren 30 min antes. Estrategia: Seven Dwarfs Mine Train al entrar con early → correr a Tron exactamente a las 9am cuando abre el parque general.'},
+    {acc:'#0A7B72',tag:'CORRECCIÓN USF',title:'Sin EPA para Universal Studios Florida',text:'Actualmente no hay Early Park Admission programado para USF. Solo Epic Universe e Islands of Adventure tienen EPA de 1 hora. Verificar en la app de Universal unos días antes del viaje por si cambia.'},
+    {acc:'#16A34A',tag:'PLAN DE COMIDAS',title:'Quick Service Disney — 2 comidas + 1 snack por noche',text:'Tienen 2 comidas QS + 1 snack por persona por noche en Disney. Úsenlo estratégicamente: almuerzo fuerte (Katsura Grill en EPCOT o Satu\'li en AK) + cena en otro restaurante. El snack para School Bread (EPCOT) o Dole Whip (MK). Todos los restaurantes marcados "Plan ✓" están incluidos.'},
+    {acc:'#0A7B72',tag:'PLAN UNIVERSAL',title:'Quick Service Universal — 1 comida por día',text:'El plan Universal incluye 1 comida QS por persona por día (entrée + bebida). Usarlo en Three Broomsticks o Leaky Cauldron para mayor valor. Butterbeer y snacks son aparte — llevar $10-15 extra por persona para snacks. Se puede usar en Epic Universe, USF e IOA.'},
     {acc:'#6B28C4',tag:'CRÍTICO',title:'Apps antes de volar',text:'Configuren My Disney Experience y la app de Universal con semanas de anticipación. Vinculen reservas, activen Magic Mobile. El día del parque cada minuto cuenta.'},
-    {acc:'#0278B0',tag:'ESTRATEGIA',title:'Los primeros 90 minutos son oro',text:'Con early entry tienen ~150 min con filas al 20-30%. Vayan de la atracción más popular a la menos, NUNCA recorriendo por zonas geográficas. Tron y Seven Dwarfs primero en Magic Kingdom.'},
+    {acc:'#0278B0',tag:'ESTRATEGIA',title:'Los primeros 90 minutos son oro',text:'Con early entry tienen ~90-120 min con filas al 20-30%. Vayan de la atracción más popular a la menos, NUNCA recorriendo por zonas geográficas. En MK: Seven Dwarfs con early entry → Tron a las 9am exactas.'},
     {acc:'#D45200',tag:'CONFORT',title:'El descanso del mediodía funciona',text:'Entre las 12:30 y las 14:30 el parque alcanza su pico y el calor llega a 30-34°C. Los grupos que van al hotel a almorzar y descansar 90 minutos hacen más atracciones en la tarde.'},
     {acc:'#1A7A32',tag:'SECRETO',title:'Las tormentas de tarde son aliadas',text:'Entre las 15 y las 17hs caen lluvias de 20-45 minutos que reducen las filas a la mitad. Con poncho es la mejor ventana del día. No huyan de la lluvia corta.'},
-    {acc:'#0278B0',tag:'AHORRO',title:'Agua gratis en todos los parques Disney',text:'En cualquier counter service pidan a cup of water sin cargo. Con 6 personas en el calor de abril esto ahorra mucho dinero a lo largo del día.'},
-    {acc:'#6B28C4',tag:'ESENCIAL',title:'Mobile Order es obligatorio',text:'Las apps de Disney y Universal permiten pedir comida y retirarla sin hacer fila. En Magic Kingdom esto ahorra 20-30 minutos por cada comida.'},
+    {acc:'#0278B0',tag:'AHORRO',title:'Agua gratis en todos los parques Disney',text:'En cualquier counter service pidan "a cup of water" sin cargo. Con 6 personas en el calor de abril esto ahorra mucho dinero. El agua embotellada en los parques cuesta $4-5 cada una.'},
+    {acc:'#6B28C4',tag:'ESENCIAL',title:'Mobile Order es obligatorio',text:'Las apps de Disney y Universal permiten pedir comida y retirarla sin hacer fila. En Magic Kingdom esto ahorra 20-30 minutos por cada comida. Hagan el pedido 30 min antes de tener hambre.'},
     {acc:'#C41A1A',tag:'SECRETO HP',title:'Varitas interactivas de Harry Potter',text:'Con una varita interactiva, los medallones en Hogsmeade y Diagon Alley activan el decorado. ~20 puntos por mundo, 45-60 minutos de diversión extra en cada área de HP.'},
     {acc:'#6B28C4',tag:'FUN',title:'Hidden Mickeys escondidos',text:'Por todo Disney hay siluetas de Mickey formadas con 3 círculos. Búsquenlas en el mural de Guardians, en el suelo de Spaceship Earth y en las rocas de Animal Kingdom.'},
     {acc:'#0A7B72',tag:'PRO TIP',title:'Cast Members saben todo',text:'Los empleados saben en tiempo real qué fila está corta ahora. Si es el primer viaje de alguien del grupo, comuníquenselo al check-in del hotel. A veces hay sorpresas muy buenas.'},
-    {acc:'#0A7B72',tag:'CRÍTICO',title:'Hotel Universal Premier incluye Express Pass',text:'Hard Rock, Portofino Bay y Royal Pacific incluyen Express Pass ilimitado para USF, IOA y Epic Universe. Si se hospedan en uno de ellos, úsenlo en todas las atracciones principales.'},
+    {acc:'#0A7B72',tag:'CRÍTICO',title:'Hotel Universal Premier incluye Express Pass',text:'Hard Rock, Portofino Bay y Royal Pacific incluyen Express Pass ilimitado para USF, IOA y Epic Universe. Si se hospedan en uno de ellos, úsenlo en todas las atracciones principales sin esperar.'},
   ];
 
   const el = document.getElementById('page-tips');

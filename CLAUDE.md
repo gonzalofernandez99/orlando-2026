@@ -29,6 +29,15 @@ No hay restricciones de copyright en imágenes — siempre usar imágenes reales
 - **No tenemos**: Lightning Lane / FastPass, VIP tours
 - **Sí tenemos**: Early Park Entry (hoteles oficiales Disney y Universal)
 - **Park-to-Park Universal**: días 25 y 26 abril
+- **Disney Quick Service Dining Plan**: 2 comidas QS + 1 snack por persona por noche (válido días Disney)
+- **Universal Quick Service Dining Plan**: 1 comida QS por persona por día (válido días Universal, $25.99/adulto)
+
+## Importante sobre Early Park Entry
+- **Disney**: 30 minutos antes de la apertura oficial en todos los parques
+- **Universal Epic Universe**: 1 hora antes (EPA incluye HP Ministry of Magic, Super Nintendo World, HTTYD)
+- **Universal Islands of Adventure**: 1 hora antes
+- **Universal Studios Florida**: actualmente SIN Early Park Admission — verificar en app días antes del viaje
+- **Magic Kingdom Early Entry**: solo Fantasyland y Tomorrowland. **Tron Lightcycle Run NO participa del early entry** — ir a Seven Dwarfs Mine Train primero, luego correr a Tron al abrir el parque a las 9am
 
 ## Prioridades de planificación
 - Listar atracciones en orden de prioridad para cada parque (qué ir primero al abrir)
