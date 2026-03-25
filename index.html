@@ -1241,8 +1241,8 @@ const PARKS = {
     name:'EPCOT', acc:'#0278B0',
     date:'Sábado 18 de Abril  ·  Early Entry 8:30am',
     early:'8:30am', open:'9:00am', close:'9:00pm',
-    tip:'Guardians ya <b>NO tiene boarding group</b> — fila normal, ir directo con early entry a las 8:30am. Test Track <b>3.0 reimaginado</b> (abrió julio 2025) — presentado por GM, nueva experiencia de movilidad del futuro.',
-    alerts:['Guardians: SIN virtual queue — fila standby o Lightning Lane Single Pass. Con early entry van directo 8:30am sin boarding group.'],
+    tip:'Guardians ya <b>NO tiene boarding group</b> — fila normal, ir directo con early entry a las 8:30am. Test Track <b>3.0 reimaginado</b> (abrió julio 2025) — presentado por GM, nueva experiencia de movilidad del futuro. <b>Truco:</b> entrar por el International Gateway (back entrance, entre Francia y UK en el WS) para evitar la entrada principal.',
+    alerts:['Guardians: SIN virtual queue — fila standby o Lightning Lane Single Pass. Con early entry van directo 8:30am sin boarding group.', 'Fechas post-Easter (18-26 abril): multitudes 5-6/10 — mucho más liviano que Semana Santa. Aprovechen las primeras horas para las grandes.'],
     info:{
       stats:[
         {label:'Área total', val:'305 acres'},
@@ -1256,6 +1256,7 @@ const PARKS = {
         {icon:'🏛️', title:'EPCOT es una sigla', desc:'EPCOT = Experimental Prototype Community of Tomorrow. Era la visión de Walt Disney para una ciudad utópica habitada por gente real, nunca realizada como la imaginó.'},
         {icon:'🍺', title:'El parque más adult-friendly de Disney', desc:'Con 11 países sirviendo alcohol, los festivales de comida (en abril es el Festival de Flores y Jardín) y el ambiente relajado del World Showcase, EPCOT es el preferido de adultos.'},
         {icon:'⚡', title:'Test Track 3.0 — completamente nuevo', desc:'La atracción cerró en junio 2024 y reabrió en julio 2025 reimaginada. GM volvió como sponsor. Recorren diferentes escenarios de movilidad del futuro antes del test de velocidad final.'},
+        {icon:'🚪', title:'International Gateway — la entrada secreta de EPCOT', desc:'Hay una segunda entrada al parque entre los pabellones de Francia y UK en el World Showcase. Es perfecta para llegar directo a Cosmic Rewind si se hospedan en los hoteles del área de EPCOT.'},
       ]
     },
     atts:[
@@ -1321,7 +1322,7 @@ const PARKS = {
       {n:'Rise of the Resistance',note:'La mejor atracción de Disney. Fila normal — early entry 8:30am es la ventaja clave.',hot:true,thrill:'adrenalina',wait:'alta'},
       {n:'Millennium Falcon: Smugglers Run',note:'Nueva misión con Grogu y Mandalorian — segunda parada con early entry.',hot:true,thrill:'moderada',wait:'media'},
       {n:'Tower of Terror',note:'Caídas aleatorias a 60 km/h. Media mañana con filas bajas.',hot:true,thrill:'extrema',wait:'media'},
-      {n:'Slinky Dog Dash',note:'Toy Story Land — coaster familiar pero divertido en grupo.',hot:false,thrill:'moderada',wait:'media'},
+      {n:'Slinky Dog Dash',note:'Toy Story Land — con Rock n\' Roller Coaster cerrado, ahora tiene la fila más larga del área. Ir temprano.',hot:false,thrill:'moderada',wait:'alta'},
       {n:'Toy Story Mania',note:'Shooter interactivo — muy competitivo en grupo de 6.',hot:false,thrill:'suave',wait:'baja'},
       {n:'Alien Swirling Saucers',note:'Relajada — tarde para descansar entre las grandes.',hot:false,thrill:'suave',wait:'baja'},
     ],
@@ -1363,6 +1364,7 @@ const PARKS = {
         {icon:'🐉', title:'Flight of Passage costó ~$500 millones', desc:'Tardó 4 años en construirse. La tecnología de los "banshees" (los cuerpos que montan) es única — cada asiento se mueve de forma individual para simular el vuelo.'},
         {icon:'🏔️', title:'El Yeti de Everest está "roto" hace 20 años', desc:'El Abominable Yeti de Expedition Everest mide 7 metros. Desde 2008 está en "Modo B" — iluminado estroboscópicamente sin moverse. Repararlo requeriría demoler partes de la atracción.'},
         {icon:'🌙', title:'Pandora de noche es un parque diferente', desc:'Las plantas, senderos y hongos de Pandora se iluminan bioluminiscentemente al anochecer. El paisaje es completamente diferente de día y de noche — vale la pena volver al final del día.'},
+        {icon:'🦊', title:'Zootopia reemplazó a It\'s Tough to Be a Bug en 2025', desc:'El nuevo show interactivo Zootopia: Better Zoogether! abrió en noviembre 2025 en el Teatro del Árbol de la Vida. Judy Hopps y Nick Wilde protagonizan la experiencia — la primera gran renovación del Árbol de la Vida en décadas.'},
       ]
     },
     atts:[
@@ -1371,6 +1373,7 @@ const PARKS = {
       {n:'Expedition Everest',note:'Coaster con yeti y tramo inesperado en reversa. Clásico.',hot:true,thrill:'extrema',wait:'media'},
       {n:'Kilimanjaro Safaris',note:'Safari real con animales africanos — mejor temprano por la mañana.',hot:false,thrill:'suave',wait:'baja'},
       {n:'Festival of the Lion King',note:'Show en vivo espectacular con 30 actores — recomendado a las 13:30hs.',hot:false,thrill:'suave',wait:'baja'},
+      {n:'Zootopia: Better Zoogether!',note:'Reemplazó a "It\'s Tough to Be a Bug!" en noviembre 2025 — show interactivo nuevo en el Árbol de la Vida.',hot:false,thrill:'suave',wait:'baja'},
       {n:'Kali River Rapids',note:'Se mojan MUCHO — llevar bolsa Ziploc para el celular. Perfecto con el calor.',hot:false,thrill:'moderada',wait:'baja'},
     ],
     sched:[
@@ -1453,8 +1456,8 @@ const PARKS = {
     name:'Epic Universe', acc:'#C41A1A',
     date:'Viernes 24 de Abril  ·  Early Admission 9:00am',
     early:'9:00am', open:'10:00am', close:'9:00pm',
-    tip:'El parque más nuevo del mundo — <b>abierto desde mayo 2025</b>. EPA cubre HP Ministry of Magic, Super Nintendo World y HTTYD. Las filas son altas e impredecibles — monitoreen la app en tiempo real.',
-    alerts:['Parque abierto desde mayo 2025 — menos de 1 año de operaciones. Filas altas especialmente en HP. Monitorear app de Universal.'],
+    tip:'El parque más nuevo del mundo — <b>abierto desde mayo 2025</b>. <b>Estrategia EPA:</b> ir a Dark Universe (Monsters Unchained) o Isle of Berk (HTTYD) PRIMERO — toda la multitud corre a HP Ministry of Magic y Nintendo World. Dejen HP y Nintendo para la tarde cuando las otras áreas ya tienen fila. Las multitudes son 5-6/10 post-Easter. Virtual Lines posibles para Nintendo/HP en días pico — monitorear la app de Universal.',
+    alerts:['Parque abierto desde mayo 2025 — menos de 1 año de operaciones. Filas altas especialmente en HP y Nintendo. Monitorear app de Universal.', 'Estrategia EPA: la multitud corre a HP y Nintendo — ir a Dark Universe o Isle of Berk primero para aprovechar la entrada temprana.', 'Virtual Lines posibles en Super Nintendo World y Ministry of Magic en días de alta asistencia — abrir la app al llegar para ver si están activas.'],
     info:{
       stats:[
         {label:'Área total', val:'750 acres'},
@@ -1468,34 +1471,40 @@ const PARKS = {
         {icon:'🎮', title:'Power-Up Band — vale la pena para Nintendo World', desc:'La pulsera Power-Up Band (~$35-40) permite coleccionar estampillas en Super Nintendo World y participar en el juego interactivo del mundo. Sin ella la experiencia es menos de la mitad.'},
         {icon:'🔥', title:'The Burning Blade Tavern — taberna que se incendia', desc:'Varias veces por hora, el techo de la taberna del mundo de Darkmoor se llena de llamas reales en un espectáculo incluido con la visita. Hay que pararse cerca para sentir el calor.'},
         {icon:'🌟', title:'Las atracciones de Epic podrían ser las mejores de Orlando', desc:'Con menos de 1 año abierto, ya varios rankings las ubican sobre VelociCoaster y Flight of Passage. HP: Battle at the Ministry usa tecnología de proyección y movimiento nunca vista antes.'},
+        {icon:'🌠', title:'Stardust Racers — el coaster flagship de Celestial Park', desc:'Stardust Racers son dos coasters gemelas que se lanzan simultáneamente y se "persiguen" con near-misses calculados al centímetro. Es la atracción del hub central de Epic Universe y una de las más técnicamente avanzadas del parque.'},
       ]
     },
     atts:[
-      {n:'HP: Battle at the Ministry',note:'La más demandada. EPA 9am: ir directo — es la ventaja clave del hotel.',hot:true,thrill:'adrenalina',wait:'alta'},
-      {n:'How to Train Your Dragon: Dragons Flight',note:'Coaster de lanzamiento — segunda en popularidad, ir temprano.',hot:true,thrill:'extrema',wait:'alta'},
-      {n:"Mario Kart: Bowser's Challenge",note:'Disponible en EPA. El Power-Up Band (~$35) mejora la experiencia.',hot:true,thrill:'moderada',wait:'media'},
-      {n:'Monsters Unchained: The Curse of Frankenstein',note:'Coaster indoor oscuro e intenso — mundo de Darkmoor.',hot:false,thrill:'extrema',wait:'media'},
+      {n:'Monsters Unchained: The Curse of Frankenstein',note:'IR PRIMERO con EPA — la multitud corre a HP/Nintendo, esto queda vacío. Coaster indoor intenso en Darkmoor.',hot:true,thrill:'extrema',wait:'media'},
+      {n:"How to Train Your Dragon: Dragons Flight",note:'Segunda parada EPA — Isle of Berk. Coaster de lanzamiento espectacular.',hot:true,thrill:'extrema',wait:'alta'},
+      {n:'Stardust Racers',note:'Las dos coasters gemelas del Celestial Park — near-misses sincronizados. Hacer cuando HP/Nintendo estén llenos.',hot:true,thrill:'adrenalina',wait:'media'},
+      {n:'HP: Battle at the Ministry',note:'La más demandada. Ir a media mañana cuando Dark Universe/Berk ya tienen fila corta.',hot:true,thrill:'adrenalina',wait:'alta'},
+      {n:"Mario Kart: Bowser's Challenge",note:'Verificar Virtual Line en la app al llegar. El Power-Up Band (~$35) mejora la experiencia.',hot:true,thrill:'moderada',wait:'media'},
       {n:"Yoshi's Adventure + DK Mine-Cart Madness",note:'Nintendo World — fila generalmente más corta que Mario Kart.',hot:false,thrill:'moderada',wait:'baja'},
       {n:'Explorar los 5 mundos completos',note:'Los ambientes son increíbles — el Celestial Park de noche es espectacular.',hot:false,thrill:'suave',wait:'baja'},
     ],
     sched:[
-      {t:'9:00am',txt:'Llegan — Early Admission (hotel Universal)'},
-      {t:'9:05am',txt:'HP: Battle at the Ministry directo'},
-      {t:'9:45am',txt:'How to Train Your Dragon: Dragons Flight'},
-      {t:'10:30am',txt:"Mario Kart: Bowser's Challenge (Nintendo World)"},
-      {t:'11:30am',txt:'Monsters Unchained: Frankenstein'},
+      {t:'9:00am',txt:'Llegan — Early Admission (hotel Universal) · revisar app por Virtual Lines'},
+      {t:'9:05am',txt:'Monsters Unchained: Frankenstein (Dark Universe) — EPA, multitud en HP'},
+      {t:'9:40am',txt:'How to Train Your Dragon: Dragons Flight (Isle of Berk) — EPA'},
+      {t:'10:30am',txt:'Stardust Racers — Celestial Park central'},
+      {t:'11:15am',txt:'HP: Battle at the Ministry (ya con fila moderada)'},
       {t:'13:00pm',txt:'Three Broomsticks (almuerzo HP) — mobile order'},
-      {t:'14:30pm',txt:"Yoshi's Adventure + DK Mine-Cart Madness"},
-      {t:'16:00pm',txt:'Repetir favorita · explorar Darkmoor y Celestial Park'},
+      {t:'14:30pm',txt:"Mario Kart: Bowser's Challenge — Nintendo World"},
+      {t:'15:30pm',txt:"Yoshi's Adventure + DK Mine-Cart Madness"},
+      {t:'17:00pm',txt:'Repetir favorita · explorar Darkmoor y Celestial Park'},
       {t:'20:00pm',txt:'Hub central iluminado de noche — espectacular'},
     ],
     food:[
       {n:'Three Broomsticks — HP Ministry of Magic',d:"Chicken pot pie · Yorkshire pudding · Great Feast HP · Butterbeer",must:true,plan:true},
       {n:'The Burning Blade Tavern — Darkmoor',d:'La taberna se INCENDIA varias veces por hora · costillas · un espectáculo',must:true,plan:true},
-      {n:'Dragon Fire Grill — Berk',d:'Pollo estilo nórdico · bowl de verduras · del mundo HTTYD',must:false,plan:true},
+      {n:'Spit Fyre Grill — Isle of Berk',d:'Pollo asado estilo vikingo · bowl de verduras nórdicas · del mundo HTTYD',must:false,plan:true},
+      {n:"Hooligan's Grog & Gruel — Isle of Berk",d:'Mac & Cheese Cones · estofado nórdico · bebidas vikingo — único del mundo',must:true,plan:true},
+      {n:'Café L\'air De La Sirène — Ministry of Magic',d:'Crêpe de Butterbeer (exclusivo del mundo) · pasteles del París mágico de los 1920',must:true,plan:true},
       {n:'Nintendo Power-Up Eats',d:'Mushroom burger · Mario themed bowl · Super Nintendo World',must:false,plan:true},
       {n:'Das Stakehaus — Darkmoor',d:'Estofado medieval · chop de cerdo · vieja posada — muy contundente',must:false,plan:true},
       {n:'Butterbeer frozen — puestos HP',d:'La versión frozen es la mejor del resort — no salir sin tomarlo',must:true,plan:true,snack:true},
+      {n:'Butterbeer Crêpe — Café L\'air De La Sirène',d:'Crêpe con relleno de Butterbeer — exclusivo de Epic Universe Ministry of Magic',must:true,plan:true,snack:true},
       {n:"Yoshi's Snack Island",d:'Gyoza · onigiri · snacks japoneses · Super Nintendo World',must:false,plan:true,snack:true},
       {n:'Comet Dogs — Celestial Park',d:'Hot dogs temáticos del hub central — clásico de paseo',must:false,plan:true,snack:true},
     ]
@@ -1504,26 +1513,25 @@ const PARKS = {
     name:'Universal Studios Florida', acc:'#0A7B72',
     date:'Sábado 25 de Abril  ·  Sin EPA (verificar en app)',
     early:'—', open:'9:00am', close:'9:00pm',
-    tip:'<b>Actualmente sin Early Park Admission para USF</b> — verificar en la app de Universal unos días antes. Llegar 30 min antes de la apertura para entrar primero. A las <b>17hs cruzan en Hogwarts Express a Hogsmeade</b> para Butterbeer y vuelven.',
-    alerts:['Sin EPA confirmado para USF — verificar en la app de Universal antes del viaje. IOA y Epic Universe SÍ tienen EPA de 1 hora.'],
+    tip:'<b>Actualmente sin Early Park Admission para USF</b> — verificar en la app de Universal unos días antes. Llegar 30 min antes de la apertura para entrar primero. A las <b>17hs cruzan en Hogwarts Express a Hogsmeade</b> para Butterbeer y vuelven. <b>Rip Ride Rockit cerrado</b> desde agosto 2025.',
     info:{
       stats:[
         {label:'Área total', val:'110 acres'},
         {label:'Inauguración', val:'1990'},
-        {label:'Rip Ride vel.', val:'104 km/h'},
+        {label:'Escape from Gringotts', val:'~4.5 min'},
         {label:'Dragón Gringotts', val:'cada ~10 min'},
       ],
       facts:[
-        {icon:'🎸', title:'Rip Ride Rockit tiene canciones secretas', desc:'Además de las opciones visibles en pantalla, hay un código oculto para canciones no listadas. En la pantalla de selección, mantener presionado el número "9" para acceder a la lista extendida.'},
         {icon:'🏦', title:'El dragón de Gringotts escupe fuego real', desc:'El dragón sobre el Bank of Gringotts mide 19 metros y escupe fuego real cada 10 minutos aproximadamente. Los que pasan por debajo sienten el calor — es parte de la inmersión.'},
+        {icon:'📞', title:'Easter eggs de Diagon Alley — cabina de teléfono secreta', desc:'Hay una cabina de teléfono roja en Diagon Alley. Si marcan el código correcto se conectan con el Ministerio de Magia. Los goblins en Gringotts responden preguntas en personaje. En Knockturn Alley hay efectos de sombras y luz que cambian.'},
         {icon:'🍺', title:'Moe\'s Tavern sirve el Flaming Moe real', desc:'La versión real del bar de Los Simpsons sirve el Flaming Moe (con humo de color naranja) y varios platos del menú de la serie. Springfield tiene también el Kwik-E-Mart y Krusty Burger.'},
         {icon:'🚂', title:'Hogwarts Express es diferente en cada sentido', desc:'El viaje USF→IOA y el viaje IOA→USF son experiencias completamente diferentes. Lo que ocurre dentro del tren cambia — tienen que hacerlo en ambas direcciones para ver todo.'},
         {icon:'🎬', title:'Universal Studios filmó películas reales acá', desc:'El parque abrió como estudio de producción real en 1990. Todavía funcionan estudios de grabación en el back lot. La arquitectura de muchas áreas es de sets cinematográficos reales adaptados.'},
       ]
     },
+    alerts:['Sin EPA confirmado para USF — verificar en la app de Universal antes del viaje. IOA y Epic Universe SÍ tienen EPA de 1 hora.', 'Rip Ride Rockit: CERRADA permanentemente desde agosto 2025 — el área está siendo demolida para una nueva atracción.'],
     atts:[
-      {n:'Rip Ride Rockit',note:'Eligen su propia canción. Primera parada al abrir el parque a las 9am.',hot:true,thrill:'extrema',wait:'media'},
-      {n:'Diagon Alley + Harry Potter and the Escape from Gringotts',note:'El mundo de HP en USF. La fila sube muy rápido — segunda parada.',hot:true,thrill:'adrenalina',wait:'alta'},
+      {n:'Diagon Alley + Harry Potter and the Escape from Gringotts',note:'El mundo de HP en USF. La fila sube muy rápido — PRIMERA parada al abrir.',hot:true,thrill:'adrenalina',wait:'alta'},
       {n:'Revenge of the Mummy',note:'Coaster indoor con jump scare final — clásica. Media mañana.',hot:true,thrill:'extrema',wait:'media'},
       {n:'Men in Black Alien Attack',note:'Shooter interactivo — muy competitivo en grupo de 6.',hot:false,thrill:'moderada',wait:'baja'},
       {n:'Fast & Furious Supercharged',note:'Experiencia de velocidad inmersiva — tarde del día.',hot:false,thrill:'moderada',wait:'baja'},
@@ -1532,8 +1540,7 @@ const PARKS = {
     ],
     sched:[
       {t:'8:30am',txt:'Llegar al parque — 30 min antes para posición en entrada'},
-      {t:'9:00am',txt:'Apertura — Rip Ride Rockit directo'},
-      {t:'9:30am',txt:'Diagon Alley + Harry Potter and the Escape from Gringotts'},
+      {t:'9:00am',txt:'Apertura — Diagon Alley directo · Escape from Gringotts'},
       {t:'11:30am',txt:'Revenge of the Mummy'},
       {t:'12:30pm',txt:'Leaky Cauldron (almuerzo HP) — mobile order'},
       {t:'14:00pm',txt:'Men in Black Alien Attack + Fast & Furious'},
@@ -1556,8 +1563,8 @@ const PARKS = {
     name:'Islands of Adventure', acc:'#0A7B72',
     date:'Domingo 26 de Abril  ·  Early Admission 8:00am',
     early:'8:00am', open:'9:00am', close:'9:00pm',
-    tip:"Día completo en IOA. VelociCoaster y Hagrid's primero. <b>Hogsmeade ya lo visitaron ayer</b> — tienen todo el día sin apuros. Cierre del viaje con Hogwarts Express a USF.",
-    alerts:[],
+    tip:"Día completo en IOA. VelociCoaster y Hagrid's primero. <b>Hogsmeade ya lo visitaron ayer</b> — tienen todo el día sin apuros. <b>Hagrid's tips:</b> elegir MOTO (no sidecar) para vivir los 7 lanzamientos completos. Hay un <b>botón morado en la motocicleta</b> — apretarlo en el tramo final activa un Easter egg de luz. Después de Hagrid's, <b>VelociCoaster tiene ~20 min de fila</b> — aprovechen para ir de nuevo.",
+    alerts:['Fila de Hagrid\'s puede ser 2-3 horas en horas pico — prioritizarla con early entry a las 8am.'],
     info:{
       stats:[
         {label:'VelociCoaster vel.', val:'155 km/h'},
@@ -1567,7 +1574,7 @@ const PARKS = {
       ],
       facts:[
         {icon:'🏎️', title:'VelociCoaster es la más rápida de Florida', desc:'Con 155 km/h y 4 inversiones, VelociCoaster supera a todas las montañas rusas de Florida. El diseño simula una cacería de raptores — los 4 lanzamientos del coaster son de velocidad creciente.'},
-        {icon:'🏍️', title:"Hagrid's fue la atracción más cara de Universal", desc:'Con un costo de ~$300 millones fue la inversión individual más grande de Universal al momento de abrirse. Usa motocicletas reales modificadas y tiene un descenso vertical sorpresa de 17 metros.'},
+        {icon:'🏍️', title:"Hagrid's tiene 7 lanzamientos y es la más larga de Florida", desc:'Con 1.6 km de vías, Hagrid\'s Magical Creatures Motorbike es la atracción más larga de Florida. Tiene 7 lanzamientos distintos (más que cualquier otro coaster del estado) y un descenso vertical sorpresa de 17 metros. Elegir el asiento de moto (no el sidecar) para vivir todos los lanzamientos. Hay un botón morado secreto en la moto — apretarlo en el tramo final.'},
         {icon:'⚡', title:'Hulk lanza a 65 km/h en 2 segundos', desc:'El Incredible Hulk Coaster usa un sistema de lanzamiento electromagnético similar al de catapultas de portaaviones. El rugido del Hulk al arrancar sale de altavoces dentro del tubo de lanzamiento.'},
         {icon:'🏰', title:'El castillo de Hogwarts fue construido con diseños de la película', desc:'El castillo donde está la atracción Forbidden Journey fue construido basándose en los diseños de producción originales de las películas. El interior tiene escenas con los actores reales.'},
         {icon:'🚂', title:'Hogwarts Express — la dirección IOA→USF es diferente', desc:'El viaje de regreso (IOA→USF) tiene contenido completamente diferente al de ida. Son dos experiencias distintas — no lo omitan como "ya lo hicieron". Es el cierre perfecto del viaje.'},
@@ -1586,8 +1593,9 @@ const PARKS = {
     sched:[
       {t:'8:00am',txt:'Llegan — Early Admission Islands of Adventure'},
       {t:'8:05am',txt:'VelociCoaster directo'},
-      {t:'9:00am',txt:"Hagrid's Magical Creatures Motorbike"},
-      {t:'10:30am',txt:'Harry Potter and the Forbidden Journey'},
+      {t:'8:50am',txt:"Hagrid's Magical Creatures Motorbike (elegir MOTO, no sidecar — botón morado)"},
+      {t:'10:15am',txt:'VelociCoaster de nuevo — fila ~20 min después de Hagrid\'s'},
+      {t:'11:00am',txt:'Harry Potter and the Forbidden Journey'},
       {t:'12:00pm',txt:'Three Broomsticks (almuerzo Hogsmeade) — mobile order'},
       {t:'13:30pm',txt:'Jurassic Park River Adventure — Ziplocs para celulares'},
       {t:'15:00pm',txt:"Hulk Coaster + Doctor Doom's Fearfall"},
