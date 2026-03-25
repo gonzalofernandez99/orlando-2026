@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Orlando 2026">
+<meta name="theme-color" content="#0D0D18">
+<title>Orlando 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ───────────────────────────────────────────────────────────
+   TOKENS
+─────────────────────────────────────────────────────────── */
+:root {
+  --bg:       #F8F7F3;
+  --bg2:      #EEECEA;
+  --ink:      #1A1825;
+  --ink2:     #4A4860;
+  --muted:    #8A88A0;
+  --rule:     #E0DDDA;
+  --white:    #FFFFFF;
+  --gold:     #C8860A;
+  --gold-lt:  #FDF3DC;
+
+  /* Park colors */
+  --epcot:  #0278B0; --epcot-lt:  #E0F2FE;
+  --hs:     #D45200; --hs-lt:     #FFF2E8;
+  --ak:     #1A7A32; --ak-lt:     #E8F7ED;
+  --mk:     #6B28C4; --mk-lt:     #F3EEFF;
+  --epic:   #C41A1A; --epic-lt:   #FEEDED;
+  --uni:    #0A7B72; --uni-lt:    #E3F7F5;
+  --shop:   #A66000; --shop-lt:   #FFF7E6;
+  --beach:  #0278B0; --beach-lt:  #E0F2FE;
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+  --mono:  'DM Mono', monospace;
+
+  /* Layout */
+  --tab-h:    54px;
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+/* ───────────────────────────────────────────────────────────
+   RESET
+─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--safe-top);
+}
+
+/* ───────────────────────────────────────────────────────────
+   TOP BAR
+─────────────────────────────────────────────────────────── */
+.top-bar {
+  background: var(--ink);
+  padding: 12px 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  border-bottom: 2px solid var(--gold);
+  position: relative;
+  z-index: 50;
+}
+.top-bar-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -.01em;
+}
+.top-bar-title span { color: var(--gold); }
+.top-bar-date {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,.45);
+  letter-spacing: .02em;
+}
+
+/* ───────────────────────────────────────────────────────────
+   SCROLL AREA
+─────────────────────────────────────────────────────────── */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* ───────────────────────────────────────────────────────────
+   BOTTOM NAV
+─────────────────────────────────────────────────────────── */
+.bottom-nav {
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,.1);
+  display: flex;
+  flex-shrink: 0;
+  padding-bottom: var(--safe-bot);
+  position: relative;
+  z-index: 50;
+}
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 4px;
+  min-height: var(--tab-h);
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: rgba(255,255,255,.35);
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: color .2s, background .2s;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.nav-btn.active {
+  color: var(--gold);
+  background: rgba(255,255,255,.04);
+}
+.nav-btn.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 0 0 2px 2px;
+}
+.nav-btn svg { width: 20px; height: 20px; }
+
+/* ───────────────────────────────────────────────────────────
+   SECTIONS
+─────────────────────────────────────────────────────────── */
+.page { display: none; }
+.page.active { display: block; animation: slideIn .22s ease; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ───────────────────────────────────────────────────────────
+   PARK SELECTOR (home)
+─────────────────────────────────────────────────────────── */
+.home-cover {
+  background: var(--ink);
+  padding: 24px 20px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.home-cover-bg {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.7) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,.4) 1px, transparent 1px);
+  background-size: 160px 160px, 80px 80px;
+  background-position: 0 0, 40px 40px;
+  opacity: .18;
+}
+.home-big-title {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 900;
+  color: #fff;
+  line-height: .95;
+  letter-spacing: -.02em;
+  position: relative;
+}
+.home-big-title span { color: var(--gold); }
+.home-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(255,255,255,.5);
+  margin-top: 8px;
+  position: relative;
+}
+
+.home-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.meta-chip {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.meta-chip-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.meta-chip-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.days-header {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 16px 20px 8px;
+}
+.day-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  transition: background .15s;
+  -webkit-tap-highlight-color: transparent;
+  background: var(--white);
+}
+.day-card:active { background: var(--bg2); }
+.day-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.day-info { flex: 1; }
+.day-name { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.day-date { font-size: 12px; color: var(--muted); }
+.day-hours {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.day-arrow { color: var(--muted); font-size: 18px; }
+
+/* ───────────────────────────────────────────────────────────
+   PARK DETAIL PAGE
+─────────────────────────────────────────────────────────── */
+.park-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink2);
+  -webkit-tap-highlight-color: transparent;
+}
+.park-back:active { background: var(--rule); }
+
+.park-hero {
+  padding: 20px 20px 16px;
+  border-bottom: 3px solid;
+}
+.park-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.park-title {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -.01em;
+  margin-bottom: 4px;
+}
+.park-date {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.hours-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+}
+.h-cell {
+  padding: 12px 14px;
+  border-right: 1px solid var(--rule);
+  position: relative;
+}
+.h-cell:last-child { border-right: none; }
+.h-cell:first-child::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+}
+.h-label {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.h-val {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.alert-bar {
+  background: #FEF2F2;
+  border-left: 3px solid #DC2626;
+  padding: 10px 16px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #7F1D1D;
+  border-bottom: 1px solid #FECACA;
+}
+
+.tip-strip {
+  background: var(--bg2);
+  padding: 12px 20px;
+  font-size: 13px;
+  color: var(--ink2);
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.5;
+}
+.tip-strip b { color: var(--ink); }
+
+/* Park tab nav */
+.park-tabs {
+  display: flex;
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.ptab {
+  flex: 1;
+  padding: 11px 8px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.ptab.active {
+  color: var(--ink);
+  border-color: var(--park-acc, var(--ink));
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Attraction list */
+.att-item {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+  transition: background .1s;
+}
+.att-item:nth-child(even) { background: var(--bg); }
+.att-item:active { background: var(--bg2); }
+.att-num-col {
+  width: 36px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 13px;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.att-body { padding: 11px 16px 11px 0; flex: 1; }
+.att-n { font-size: 14px; font-weight: 600; margin-bottom: 2px; line-height: 1.3; }
+.att-n.dim { font-weight: 400; color: var(--ink2); }
+.att-note { font-size: 12px; color: var(--muted); font-style: italic; line-height: 1.4; }
+
+/* Schedule list */
+.sched-item {
+  display: flex;
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+}
+.sched-item:nth-child(even) { background: var(--bg); }
+.sched-time-col {
+  width: 60px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px;
+}
+.sched-time-pill {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #fff;
+  padding: 4px 6px;
+  border-radius: 6px;
+  text-align: center;
+  line-height: 1.3;
+}
+.sched-txt {
+  padding: 11px 16px 11px 8px;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* Food list */
+.food-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+}
+.food-item:nth-child(even) { background: var(--bg); }
+.food-dot { width: 3px; flex-shrink: 0; border-radius: 2px; margin-top: 5px; }
+.food-main { flex: 1; }
+.food-n { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.food-d { font-size: 12px; color: var(--muted); }
+.food-must-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 100px;
+  color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+/* ───────────────────────────────────────────────────────────
+   FREE DAYS (shopping / beach)
+─────────────────────────────────────────────────────────── */
+.free-hero {
+  padding: 22px 20px 18px;
+  border-bottom: 3px solid var(--shop);
+}
+.free-hero.beach { border-color: var(--beach); }
+.free-title {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.free-sub { font-size: 13px; color: var(--muted); }
+
+.transport-strip {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--rule);
+  padding: 11px 20px;
+  font-size: 13px;
+  color: var(--ink2);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.transport-strip b { color: var(--beach); flex-shrink: 0; }
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 14px 20px 6px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--rule);
+}
+
+.dest-item {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 16px 20px;
+}
+.dest-name-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.dest-nm {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.dest-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 100px;
+  color: #fff;
+  align-self: center;
+  flex-shrink: 0;
+}
+.dest-desc { font-size: 13.5px; color: var(--ink2); margin-bottom: 10px; line-height: 1.5; }
+.dest-hi { font-size: 13px; color: var(--ink2); margin-bottom: 5px; display: flex; gap: 8px; }
+.dest-hi::before { content: '→'; color: var(--muted); font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+.dest-hi b { color: var(--ink); }
+
+.tip-item {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 20px;
+}
+.tip-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.tip-body { font-size: 13px; color: var(--ink2); line-height: 1.5; }
+
+.beach-item {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 20px;
+}
+.beach-nm { font-family: var(--serif); font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.beach-tag-inline {
+  display: inline-block;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+  padding: 2px 9px; border-radius: 100px;
+  margin-bottom: 6px; color: #fff;
+}
+.beach-desc-txt { font-size: 13.5px; color: var(--ink2); margin-bottom: 8px; line-height: 1.5; }
+.beach-tip-item { font-size: 13px; color: var(--muted); margin-bottom: 3px; display: flex; gap: 7px; align-items: baseline; }
+.beach-tip-item::before { content: '•'; color: var(--beach); flex-shrink: 0; }
+
+.rest-item {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 20px;
+}
+.rest-nm { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.rest-tag-inline {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+  margin-bottom: 5px; display: inline-block;
+}
+.rest-desc-txt { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+.act-item {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 13px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.act-icon { font-size: 20px; flex-shrink: 0; line-height: 1; }
+.act-body {}
+.act-nm { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.act-desc { font-size: 12.5px; color: var(--muted); }
+
+/* ───────────────────────────────────────────────────────────
+   TIPS CARDS
+─────────────────────────────────────────────────────────── */
+.tips-grid {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.tips-card {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,.06);
+}
+.tips-card-top {
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tips-card-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+.tips-card-body { padding: 12px 16px 16px; }
+.tips-card-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.tips-card-text {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink2);
+}
+
+/* ───────────────────────────────────────────────────────────
+   INSTALL BANNER
+─────────────────────────────────────────────────────────── */
+.install-banner {
+  background: linear-gradient(135deg, #1A1825, #2A2840);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.install-text { flex: 1; }
+.install-text strong { display: block; color: #fff; font-size: 14px; margin-bottom: 2px; }
+.install-text span { color: rgba(255,255,255,.5); font-size: 12px; line-height: 1.4; }
+.install-btn {
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.install-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.3);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title">Orlando <span>2026</span></div>
+  </div>
+  <div class="top-bar-date" id="top-context">18–26 Abril 2026</div>
+</div>
+
+<!-- INSTALL BANNER -->
+<div class="install-banner" id="install-banner" style="display:none">
+  <div class="install-text">
+    <strong>Instalar en tu celular</strong>
+    <span>Toquen "Compartir" → "Agregar a inicio" para tenerla como app</span>
+  </div>
+  <button class="install-close" onclick="document.getElementById('install-banner').style.display='none'">×</button>
+</div>
+
+<!-- SCROLL AREA -->
+<div class="scroll-area" id="scroll-area">
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="home-cover">
+      <div class="home-cover-bg"></div>
+      <div class="home-big-title">ORLANDO<br><span>2026</span></div>
+      <div class="home-sub">Disney World · Universal · Epic Universe</div>
+    </div>
+    <div class="home-meta">
+      <div class="meta-chip">
+        <div class="meta-chip-label">Viajeros</div>
+        <div class="meta-chip-val">6 personas · 3 parejas</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-chip-label">Hotel</div>
+        <div class="meta-chip-val">Disney + Universal</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-chip-label">Dining</div>
+        <div class="meta-chip-val">Quick Service Pack</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-chip-label">Beneficio</div>
+        <div class="meta-chip-val">Early Entry incluido</div>
+      </div>
+    </div>
+    <div class="days-header">El viaje día por día</div>
+    <div id="day-cards"></div>
+  </div>
+
+  <!-- PARK DETAIL -->
+  <div class="page" id="page-park">
+    <div class="park-back" onclick="goHome()">← Todos los días</div>
+    <div id="park-content"></div>
+  </div>
+
+  <!-- FREE: SHOPPING -->
+  <div class="page" id="page-shopping">
+    <div class="park-back" onclick="goHome()">← Todos los días</div>
+    <div id="shopping-content"></div>
+  </div>
+
+  <!-- FREE: BEACH -->
+  <div class="page" id="page-beach">
+    <div class="park-back" onclick="goHome()">← Todos los días</div>
+    <div id="beach-content"></div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="page" id="page-tips"></div>
+
+</div><!-- /scroll-area -->
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" id="nav-home" onclick="showTab('home')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M3 12L12 3l9 9"/><path d="M5 10v9a1 1 0 001 1h4v-4h4v4h4a1 1 0 001-1v-9"/>
+    </svg>
+    Inicio
+  </button>
+  <button class="nav-btn" id="nav-parks" onclick="showTab('parks')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><line x1="2" y1="12" x2="22" y2="12"/>
+    </svg>
+    Parques
+  </button>
+  <button class="nav-btn" id="nav-libre" onclick="showTab('libre')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/>
+    </svg>
+    Días Libres
+  </button>
+  <button class="nav-btn" id="nav-tips" onclick="showTab('tips')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    Tips 2026
+  </button>
+</nav>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════
+const DAYS = [
+  { type:'park', id:'epcot',   label:'EPCOT',                  date:'Viernes 18 de Abril',     hours:'Early 8:30am · 9am–9pm',    acc:'#0278B0' },
+  { type:'free', id:'shopping', label:'Día Libre — Compras',   date:'Sábado 19 de Abril',       hours:'Disney Springs · Outlets',  acc:'#A66000' },
+  { type:'park', id:'hs',      label:'Hollywood Studios',       date:'Domingo 20 de Abril',     hours:'Early 8:30am · 9am–9:30pm', acc:'#D45200' },
+  { type:'park', id:'ak',      label:'Animal Kingdom',          date:'Lunes 21 de Abril',        hours:'Early 7:30am · 8am–7pm',   acc:'#1A7A32' },
+  { type:'park', id:'mk',      label:'Magic Kingdom',           date:'Martes 22 de Abril',       hours:'Early 8:30am · 9am–9pm',   acc:'#6B28C4' },
+  { type:'free', id:'beach',   label:'Día Libre — Anna Maria', date:'Miércoles 23 de Abril',    hours:'Golfo de México · ~2hs',    acc:'#0278B0' },
+  { type:'park', id:'epic',    label:'Epic Universe',           date:'Jueves 24 de Abril',       hours:'Early 9am · 10am–9pm',     acc:'#C41A1A' },
+  { type:'park', id:'usf',     label:'Universal Studios Florida',date:'Viernes 25 de Abril',    hours:'Early 8am · 9am–9pm',      acc:'#0A7B72' },
+  { type:'park', id:'ioa',     label:'Islands of Adventure',   date:'Sábado 26 de Abril',        hours:'Early 8am · 9am–9pm',      acc:'#0A7B72' },
+];
+
+const PARKS = {
+  epcot: {
+    name:'EPCOT', acc:'#0278B0',
+    date:'Viernes 18 de Abril  ·  Early Entry 8:30am',
+    early:'8:30am', open:'9:00am', close:'9:00pm',
+    tip:'Guardians ya <b>NO tiene boarding group</b> — fila normal o Lightning Lane Single Pass ($16-19). Con early entry van directo a las 8:30am, 30 minutos antes del público general.',
+    alerts:['Guardians: SIN virtual queue desde enero 2025 — Lightning Lane Single Pass ($16-19) o early entry directo. Sin boarding group obligatorio.'],
+    atts:[
+      {n:'Guardians of the Galaxy: Cosmic Rewind', note:'Sin boarding group. Primera parada obligatoria 8:30am.', hot:true},
+      {n:'Test Track', note:'Segunda parada antes de que abra al público general.', hot:true},
+      {n:'Frozen Ever After', note:'Mundo Noruega — mejor a las 11am con fila moderada.', hot:true},
+      {n:"Remy's Ratatouille Adventure", note:'Francia — fila sube rápido, ir antes del mediodía.', hot:false},
+      {n:"Soarin' Around the World", note:'Mejor entre las 16 y 17hs cuando bajan las filas.', hot:false},
+      {n:'Mission: SPACE (Orange)', note:'Simulador centrífugo — para el final del día.', hot:false},
+      {n:'Living with the Land', note:'Relajada — entre las atracciones grandes.', hot:false},
+    ],
+    sched:[
+      {t:'8:30am',txt:'Llegan — Early Entry (hotel Disney)'},
+      {t:'8:35am',txt:'Guardians of the Galaxy directo'},
+      {t:'9:00am',txt:'Test Track antes de la apertura general'},
+      {t:'10:00am',txt:"Remy's Ratatouille + explorar Francia"},
+      {t:'12:00pm',txt:'Almuerzo Katsura Grill (Japón WS)'},
+      {t:'13:30pm',txt:'Frozen Ever After + Mundo Noruega'},
+      {t:'15:30pm',txt:"Soarin' + Mission: SPACE Orange"},
+      {t:'17:30pm',txt:'Recorrer World Showcase al atardecer'},
+      {t:'20:00pm',txt:'Show Harmonious sobre el lago'},
+    ],
+    food:[
+      {n:'Katsura Grill',d:'Donburi bowl · Udon · Japón WS',must:true},
+      {n:'Tangierine Cafe',d:'Falafel · Hummus · Shawarma · Marruecos WS',must:false},
+      {n:'Les Halles Boulangerie',d:'Croissants · Quiche · Francia WS',must:true},
+      {n:'Sunshine Seasons',d:'Wraps · Ensaladas · The Land Pavilion',must:false},
+      {n:'School Bread (Noruega)',d:'Pan de cardamomo — snack único de EPCOT',must:false},
+    ]
+  },
+  hs: {
+    name:'Hollywood Studios', acc:'#D45200',
+    date:'Domingo 20 de Abril  ·  Early Entry 8:30am',
+    early:'8:30am', open:'9:00am', close:'9:30pm',
+    tip:'Rise of the Resistance ya es <b>fila standby normal</b>. Rock n Roller Coaster <b>cerrado hasta verano 2026</b> (reabre como The Muppets). El parque más intenso de Disney.',
+    alerts:[
+      "Rock n Roller Coaster: CERRADO desde 2 de marzo 2026 — reabre como 'The Muppets' en verano. No disponible el 20 de abril.",
+      'Rise of the Resistance: SIN boarding group — fila standby normal o Lightning Lane Single Pass.',
+    ],
+    atts:[
+      {n:'Rise of the Resistance',note:'La mejor atracción de Disney. Fila normal — early entry 8:30am es la ventaja.',hot:true},
+      {n:'Millennium Falcon: Smugglers Run',note:'Nueva misión con Grogu y Mandalorian desde mayo 2026.',hot:true},
+      {n:'Tower of Terror',note:'Clásico. Media mañana mientras las filas están bajas.',hot:true},
+      {n:'Slinky Dog Dash',note:'Toy Story Land — fila moderada al mediodía.',hot:false},
+      {n:'Toy Story Mania',note:'Shooter interactivo — muy divertido compitiendo en grupo.',hot:false},
+      {n:'Alien Swirling Saucers',note:'Relajada — tarde para descansar un rato.',hot:false},
+    ],
+    sched:[
+      {t:'8:30am',txt:'Llegan — Early Entry Hollywood Studios'},
+      {t:'8:35am',txt:'Rise of the Resistance directo'},
+      {t:'9:00am',txt:'Tower of Terror con fila baja'},
+      {t:'10:00am',txt:'Millennium Falcon: Smugglers Run'},
+      {t:'12:00pm',txt:"Woody's Lunch Box + Toy Story Land"},
+      {t:'13:30pm',txt:'Slinky Dog Dash + Alien Saucers'},
+      {t:'15:00pm',txt:"Oga's Cantina Star Wars (reserva previa)"},
+      {t:'17:00pm',txt:'Fantasmic! — show nocturno imprescindible'},
+    ],
+    food:[
+      {n:"Woody's Lunch Box",d:'Totchos · BBQ Brisket · Toy Story Land',must:true},
+      {n:'Docking Bay 7',d:"Pollo Tip-Yip · Star Wars Galaxy's Edge",must:true},
+      {n:'ABC Commissary',d:'Burgers · Wraps · opción rápida y cómoda',must:false},
+      {n:"Oga's Cantina",d:'Bar Star Wars temático · requiere reserva',must:false},
+    ]
+  },
+  ak: {
+    name:'Animal Kingdom', acc:'#1A7A32',
+    date:'Lunes 21 de Abril  ·  Early Entry 7:30am',
+    early:'7:30am', open:'8:00am', close:'7:00pm',
+    tip:'DINOSAUR y DinoLand USA <b>cerraron permanentemente en febrero 2026</b>. Flight of Passage con early entry a las 7:30am tiene 15-20 min de fila versus 2-3 horas después. Corran a Pandora.',
+    alerts:['DINOSAUR y DinoLand USA: CERRADOS permanentemente desde febrero 2026 — área se convierte en Tropical Americas (~2027).'],
+    atts:[
+      {n:'Avatar: Flight of Passage',note:'La más inmersiva de Orlando. Early entry 7:30am: solo 15-20 min.',hot:true},
+      {n:"Na'vi River Journey",note:'En Pandora mientras el área sigue tranquila.',hot:true},
+      {n:'Expedition Everest',note:'Coaster con yeti y tramo en reversa. Clásico del parque.',hot:true},
+      {n:'Kilimanjaro Safaris',note:'Safari real con animales africanos auténticos — mejor de mañana.',hot:false},
+      {n:'Festival of the Lion King',note:'Show en vivo espectacular — recomendado a las 13:30hs.',hot:false},
+      {n:'Kali River Rapids',note:'Se mojan MUCHO — llevar bolsa Ziploc para el celular.',hot:false},
+    ],
+    sched:[
+      {t:'7:30am',txt:'Llegan — Early Entry Animal Kingdom'},
+      {t:'7:35am',txt:'Avatar: Flight of Passage directo'},
+      {t:'8:30am',txt:"Na'vi River Journey en Pandora"},
+      {t:'9:15am',txt:'Expedition Everest en Asia'},
+      {t:'10:30am',txt:'Kilimanjaro Safaris'},
+      {t:'12:00pm',txt:"Satu'li Canteen (mobile order)"},
+      {t:'13:30pm',txt:'Festival of the Lion King — show'},
+      {t:'15:00pm',txt:'Kali River Rapids (calor de abril)'},
+      {t:'18:30pm',txt:'Pandora bioluminiscente de noche'},
+    ],
+    food:[
+      {n:"Satu'li Canteen",d:'Bowls · arroz azul Pandora · el mejor del parque',must:true},
+      {n:'Harambe Market',d:'Brochetas · Ribs · ambiente africano',must:false},
+      {n:'Flame Tree BBQ',d:'Half chicken + ribs ahumados · vista al lago',must:false},
+      {n:'Tiffins Restaurant',d:'El mejor sit-down del parque — reservar',must:false},
+    ]
+  },
+  mk: {
+    name:'Magic Kingdom', acc:'#6B28C4',
+    date:'Martes 22 de Abril  ·  Early Entry 8:30am',
+    early:'8:30am', open:'9:00am', close:'9:00pm',
+    tip:'Big Thunder Mountain <b>cerrado hasta mayo 2026</b>. El castillo está en repintado pero shows y fuegos normales. Es Semana Santa — el parque más concurrido del año.',
+    alerts:[
+      'Big Thunder Mountain Railroad: CERRADO hasta mayo 2026 — no disponible el 22 de abril.',
+      'Cinderella Castle: en repintado con andamios visibles — shows y fuegos artificiales Happily Ever After con normalidad.',
+    ],
+    atts:[
+      {n:'Tron Lightcycle / Run',note:'Primera parada obligatoria con early entry 8:30am. La más nueva.',hot:true},
+      {n:'Seven Dwarfs Mine Train',note:'Segunda parada — siempre tiene la fila más larga del parque.',hot:true},
+      {n:'Space Mountain',note:'Coaster en la oscuridad total — mediodía cuando bajan un poco.',hot:true},
+      {n:'Haunted Mansion',note:'999 fantasmas — la fila avanza rápido cualquier momento.',hot:false},
+      {n:"Tiana's Bayou Adventure",note:'La ex-Splash Mountain renovada con Princess and the Frog.',hot:false},
+      {n:'Pirates of the Caribbean',note:'Clásico imprescindible — excelente para descansar del calor.',hot:false},
+      {n:'Jungle Cruise',note:'Chistes malos incluidos — para la tarde.',hot:false},
+    ],
+    sched:[
+      {t:'8:30am',txt:'Llegan — Early Entry Magic Kingdom'},
+      {t:'8:35am',txt:'Tron Lightcycle Run directo'},
+      {t:'9:20am',txt:'Seven Dwarfs Mine Train'},
+      {t:'10:05am',txt:'Space Mountain'},
+      {t:'11:00am',txt:'Haunted Mansion'},
+      {t:'12:00pm',txt:'Almuerzo Columbia Harbour House'},
+      {t:'13:30pm',txt:"Tiana's Bayou + Pirates + Jungle"},
+      {t:'17:30pm',txt:'Fotos del castillo al atardecer'},
+      {t:'20:00pm',txt:'Fuegos artificiales Happily Ever After'},
+    ],
+    food:[
+      {n:'Pecos Bill Tall Tale Inn',d:'Burger con barra de toppings ilimitados · Frontierland',must:true},
+      {n:'Columbia Harbour House',d:'Clam chowder en pan · piso de arriba casi siempre vacío',must:false},
+      {n:'Dole Whip (Aloha Isle)',d:'Helado de piña — el snack más icónico de todo Disney',must:true},
+      {n:'Be Our Guest Restaurant',d:'Castillo de la Bestia · reservar con 60 días de anticipación',must:false},
+    ]
+  },
+  epic: {
+    name:'Epic Universe', acc:'#C41A1A',
+    date:'Jueves 24 de Abril  ·  Early Admission 9:00am',
+    early:'9:00am', open:'10:00am', close:'9:00pm',
+    tip:'El parque más nuevo del mundo — <b>abierto desde mayo 2025</b>. Menos de un año de operación. Las filas son altas e impredecibles. Monitoreen la app de Universal en tiempo real.',
+    alerts:['Parque abierto desde mayo 2025 — menos de 1 año de operaciones. Esperen filas altas, especialmente en atracciones de Harry Potter.'],
+    atts:[
+      {n:'HP: Battle at the Ministry',note:'La más demandada del parque — primera parada con early admission.',hot:true},
+      {n:'How to Train Your Dragon: Dragons Flight',note:'Segunda en popularidad — ir temprano antes que suba la fila.',hot:true},
+      {n:"Mario Kart: Bowser's Challenge",note:'Nintendo World — el Power-Up Band mejora la experiencia.',hot:true},
+      {n:'Monsters Unchained: Frankenstein',note:'Coaster indoor en el mundo de Monsters.',hot:false},
+      {n:"Yoshi's Adventure + Mine-Cart Madness",note:'Nintendo World — fila generalmente más corta.',hot:false},
+      {n:'Explorar los 5 mundos completos',note:'Los ambientes son increíbles — dedicarle tiempo.',hot:false},
+    ],
+    sched:[
+      {t:'9:00am',txt:'Llegan — Early Admission (hotel Universal)'},
+      {t:'9:05am',txt:'HP: Battle at the Ministry directo'},
+      {t:'10:00am',txt:'How to Train Your Dragon'},
+      {t:'11:00am',txt:"Mario Kart: Bowser's Challenge"},
+      {t:'12:00pm',txt:'Monsters Unchained: Frankenstein'},
+      {t:'13:00pm',txt:'Three Broomsticks (almuerzo HP)'},
+      {t:'14:30pm',txt:"Yoshi's Adventure + Nintendo World"},
+      {t:'16:00pm',txt:'Repetir favorita o explorar mundos'},
+      {t:'19:00pm',txt:'Hub central iluminado de noche'},
+    ],
+    food:[
+      {n:'Three Broomsticks HP',d:'Great Feast · Butterbeer · Ambiente Harry Potter',must:true},
+      {n:'Dragon Fire Grill',d:'Platos nórdicos del mundo de Berk · HTTYD',must:false},
+      {n:'Nintendo Power-Up Eats',d:'Mushroom burgers · ambientado en Mario',must:false},
+      {n:'Butterbeer frozen (puestos HP)',d:'La versión frozen es la mejor — no salir sin tomarlo',must:true},
+    ]
+  },
+  usf: {
+    name:'Universal Studios Florida', acc:'#0A7B72',
+    date:'Viernes 25 de Abril  ·  Early Admission 8:00am',
+    early:'8:00am', open:'9:00am', close:'9:00pm',
+    tip:'Día completo en USF. A las <b>17hs cruzan en Hogwarts Express a Hogsmeade</b> para Butterbeer y vuelven en tren. Las atracciones de IOA se guardan para el día siguiente.',
+    alerts:[],
+    atts:[
+      {n:'Rip Ride Rockit',note:'Eligen su propia canción. Primera parada con early admission 8am.',hot:true},
+      {n:'Diagon Alley + Harry Potter and the Escape from Gringotts',note:'El mundo de HP en USF. Temprano — la fila sube muy rápido.',hot:true},
+      {n:'Revenge of the Mummy',note:'Coaster indoor clásica. Media mañana.',hot:true},
+      {n:'Men in Black Alien Attack',note:'Shooter interactivo — muy divertido en grupo.',hot:false},
+      {n:'Fast & Furious Supercharged',note:'Experiencia de velocidad inmersiva.',hot:false},
+      {n:'The Simpsons Ride (Springfield)',note:'Para la tarde — Springfield es increíble para explorar.',hot:false},
+      {n:'Hogwarts Express (USF → IOA)',note:'A las 17hs: cruzar a Hogsmeade, Butterbeer y volver.',hot:false},
+    ],
+    sched:[
+      {t:'8:00am',txt:'Llegan — Early Admission (hotel Universal)'},
+      {t:'8:05am',txt:'Rip Ride Rockit directo'},
+      {t:'9:00am',txt:'Diagon Alley + Gringotts'},
+      {t:'11:00am',txt:'Revenge of the Mummy'},
+      {t:'12:00pm',txt:'Leaky Cauldron (almuerzo HP)'},
+      {t:'13:30pm',txt:'Men in Black + Fast & Furious'},
+      {t:'15:00pm',txt:'Springfield — The Simpsons Ride'},
+      {t:'17:00pm',txt:'Hogwarts Express → Hogsmeade (IOA)'},
+      {t:'17:45pm',txt:'Butterbeer + explorar Hogsmeade'},
+      {t:'18:30pm',txt:'Hogwarts Express vuelta a USF'},
+    ],
+    food:[
+      {n:'Leaky Cauldron',d:'Great Feast · Butterbeer frozen · Diagon Alley HP',must:true},
+      {n:"Mel's Drive-In",d:'Burgers y milkshakes estilo retro años 50',must:false},
+      {n:'Krusty Burger (Springfield)',d:'Combo de Los Simpsons — experiencia temática',must:false},
+      {n:'Three Broomsticks (Hogsmeade)',d:'Solo si cruzan al final vía Hogwarts Express',must:false},
+    ]
+  },
+  ioa: {
+    name:'Islands of Adventure', acc:'#0A7B72',
+    date:'Sábado 26 de Abril  ·  Early Admission 8:00am',
+    early:'8:00am', open:'9:00am', close:'9:00pm',
+    tip:"Día completo en IOA. VelociCoaster y Hagrid's primero. <b>Hogsmeade ya lo visitaron ayer</b> — tienen todo el día sin apuros. Al final, Hogwarts Express a USF como cierre del viaje.",
+    alerts:[],
+    atts:[
+      {n:'VelociCoaster',note:'La mejor montaña rusa de Florida. Primera parada con early 8am.',hot:true},
+      {n:"Hagrid's Magical Creatures Motorbike",note:'La favorita de casi todos. Segunda parada.',hot:true},
+      {n:'Harry Potter and the Forbidden Journey',note:'Dentro del castillo de Hogwarts — impresionante.',hot:true},
+      {n:'Jurassic Park River Adventure',note:'Se mojan MUCHO — perfecto para el calor de abril.',hot:false},
+      {n:'The Incredible Hulk Coaster',note:'Coaster clásica del parque — Marvel Super Hero Island.',hot:false},
+      {n:'Toon Lagoon: Popeye & Bluto',note:'Otra atracción donde se mojan — divertida en grupo.',hot:false},
+      {n:'Hogwarts Express (IOA → USF)',note:'Final del día: cruzar a Diagon Alley como cierre del viaje ✈',hot:false},
+    ],
+    sched:[
+      {t:'8:00am',txt:'Llegan — Early Admission Islands of Adventure'},
+      {t:'8:05am',txt:'VelociCoaster directo'},
+      {t:'9:00am',txt:"Hagrid's Magical Creatures Motorbike"},
+      {t:'10:30am',txt:'Harry Potter and the Forbidden Journey'},
+      {t:'12:00pm',txt:'Three Broomsticks (almuerzo Hogsmeade)'},
+      {t:'13:30pm',txt:'Jurassic Park River Adventure'},
+      {t:'15:00pm',txt:"Hulk Coaster + Doctor Doom's Fearfall"},
+      {t:'16:30pm',txt:'Toon Lagoon: Popeye & Bluto'},
+      {t:'18:00pm',txt:'Segundo VelociCoaster si el grupo quiere'},
+      {t:'19:00pm',txt:'Hogwarts Express → USF — cierre del viaje ✈'},
+    ],
+    food:[
+      {n:'Three Broomsticks',d:'Great Hall · Pumpkin Juice · Hogsmeade HP',must:true},
+      {n:'Mythos Restaurant',d:'El mejor restaurante de IOA — reservar',must:false},
+      {n:'Jurassic Park Discovery Center',d:'Comida casual cerca de Jurassic',must:false},
+      {n:"Blondie's (Toon Lagoon)",d:'Sandwiches gigantes — opción rápida',must:false},
+    ]
+  }
+};
+
+// ═══════════════════════════════════════════════════════════
+// RENDER HOME
+// ═══════════════════════════════════════════════════════════
+function renderHome() {
+  const el = document.getElementById('day-cards');
+  el.innerHTML = DAYS.map((d, i) => `
+    <div class="day-card" onclick="openDay('${d.id}','${d.type}')">
+      <div class="day-dot" style="background:${d.acc}"></div>
+      <div class="day-info">
+        <div class="day-name">${d.label}</div>
+        <div class="day-date">${d.date}</div>
+      </div>
+      <div class="day-hours">${d.hours}</div>
+      <div class="day-arrow" style="color:${d.acc}">›</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER PARK
+// ═══════════════════════════════════════════════════════════
+function renderPark(id) {
+  const pk = PARKS[id];
+  const acc = pk.acc;
+
+  let html = '';
+
+  // Hero
+  html += `<div class="park-hero" style="border-color:${acc};background:${acc}0D">
+    <div class="park-eyebrow" style="color:${acc}">Guía del Parque</div>
+    <div class="park-title">${pk.name}</div>
+    <div class="park-date">${pk.date}</div>
+  </div>`;
+
+  // Hours
+  html += `<div class="hours-row">
+    <div class="h-cell">
+      <div class="h-label">Early Entry</div>
+      <div class="h-val" style="color:var(--gold)">${pk.early}</div>
+    </div>
+    <div class="h-cell">
+      <div class="h-label">Apertura</div>
+      <div class="h-val">${pk.open}</div>
+    </div>
+    <div class="h-cell">
+      <div class="h-label">Cierre</div>
+      <div class="h-val" style="color:var(--muted)">${pk.close}</div>
+    </div>
+  </div>`;
+
+  // Alerts
+  pk.alerts.forEach(al => {
+    html += `<div class="alert-bar">⚠&nbsp; ${al}</div>`;
+  });
+
+  // Tip
+  html += `<div class="tip-strip" style="border-left:3px solid ${acc}">
+    <b>Consejo:</b> ${pk.tip}
+  </div>`;
+
+  // Park tabs
+  html += `<div class="park-tabs" style="--park-acc:${acc}">
+    <div class="ptab active" onclick="switchPTab(this,'t-atts')">Atracciones</div>
+    <div class="ptab" onclick="switchPTab(this,'t-sched')">Horario</div>
+    <div class="ptab" onclick="switchPTab(this,'t-food')">Dónde comer</div>
+  </div>`;
+
+  // Tab: Attractions
+  html += `<div class="tab-content active" id="t-atts">`;
+  pk.atts.forEach((att, i) => {
+    html += `<div class="att-item">
+      <div class="att-num-col" style="background:${att.hot ? acc+'18':'var(--bg2)'};color:${att.hot ? acc:'var(--muted)'}">
+        ${i+1}
+      </div>
+      <div class="att-body">
+        <div class="att-n${att.hot ? '' : ' dim'}">${att.n}</div>
+        <div class="att-note">${att.note}</div>
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Tab: Schedule
+  html += `<div class="tab-content" id="t-sched">`;
+  pk.sched.forEach((s, i) => {
+    html += `<div class="sched-item">
+      <div class="sched-time-col">
+        <div class="sched-time-pill" style="background:${acc}">${s.t.replace('am','\nam').replace('pm','\npm')}</div>
+      </div>
+      <div class="sched-txt">${s.txt}</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Tab: Food
+  html += `<div class="tab-content" id="t-food">`;
+  pk.food.forEach(item => {
+    html += `<div class="food-item">
+      <div class="food-dot" style="background:${acc};height:${item.must?40:30}px"></div>
+      <div class="food-main">
+        <div class="food-n">${item.n}</div>
+        <div class="food-d">${item.d}</div>
+      </div>
+      ${item.must ? `<div class="food-must-tag" style="background:${acc}">★ Must</div>` : ''}
+    </div>`;
+  });
+  html += `</div>`;
+
+  return html;
+}
+
+function switchPTab(btn, contentId) {
+  btn.closest('.park-tabs').querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const park = document.getElementById('park-content');
+  park.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  const target = park.querySelector('#' + contentId);
+  if (target) target.classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER SHOPPING
+// ═══════════════════════════════════════════════════════════
+function renderShopping() {
+  const el = document.getElementById('shopping-content');
+  el.innerHTML = `
+  <div class="free-hero" style="background:var(--shop-lt)">
+    <div class="park-eyebrow" style="color:var(--shop)">Día Libre</div>
+    <div class="free-title">Sábado 19 de Abril<br>Compras en Orlando</div>
+    <div class="free-sub">Disney Springs · Premium Outlets I-Drive · Mall at Millenia</div>
+  </div>
+
+  <div class="section-label">Destinos</div>
+
+  <div class="dest-item">
+    <div class="dest-name-row">
+      <div class="dest-nm">Disney Springs</div>
+      <div class="dest-badge" style="background:var(--shop)">Gratis</div>
+    </div>
+    <p class="dest-desc">El shopping oficial de Disney. Abierto hasta las 11pm. Bus gratuito desde todos los hoteles Disney.</p>
+    <div class="dest-hi"><b>World of Disney</b> — La tienda Disney más grande del mundo</div>
+    <div class="dest-hi"><b>UNIQLO</b> — Colecciones Disney exclusivas a buen precio</div>
+    <div class="dest-hi"><b>Lego Store</b> — Sets exclusivos Disney y Star Wars</div>
+    <div class="dest-hi"><b>The Art of Disney</b> — Arte original y coleccionables</div>
+    <div class="dest-hi"><b>Marketplace Co-Op</b> — Merchandise de diseño independiente</div>
+  </div>
+
+  <div class="dest-item">
+    <div class="dest-name-row">
+      <div class="dest-nm">Premium Outlets (I-Drive)</div>
+      <div class="dest-badge" style="background:var(--ak)">30–70% off</div>
+    </div>
+    <p class="dest-desc">El outlet más grande de la zona. Nike, Adidas, Coach, Under Armour, 180+ marcas. Uber desde Disney ~15 min.</p>
+    <div class="dest-hi"><b>Nike Factory Store</b> — Zapatillas y ropa hasta 50% off</div>
+    <div class="dest-hi"><b>Coach / Kate Spade</b> — Carteras con descuentos reales</div>
+    <div class="dest-hi"><b>Under Armour</b> — Ropa técnica ideal para los parques</div>
+    <div class="dest-hi"><b>Adidas</b> — Colecciones anteriores a buen precio</div>
+  </div>
+
+  <div class="dest-item">
+    <div class="dest-name-row">
+      <div class="dest-nm">Mall at Millenia</div>
+      <div class="dest-badge" style="background:var(--mk)">Premium</div>
+    </div>
+    <p class="dest-desc">El mall más lujoso de Orlando. Apple, Sephora, Zara, H&M, Anthropologie. Uber ~20 min desde Disney.</p>
+    <div class="dest-hi"><b>Apple Store</b> — Accesorios y cargadores para el viaje</div>
+    <div class="dest-hi"><b>Sephora</b> — Perfumes y cosméticos mejor precio que en Argentina</div>
+    <div class="dest-hi"><b>Zara / H&M</b> — Ropa de temporada a precio USA</div>
+    <div class="dest-hi"><b>Cheesecake Factory</b> — Almuerzo con porciones enormes</div>
+  </div>
+
+  <div class="section-label">Tips para las compras</div>
+
+  <div class="tip-item"><div class="tip-title">💰 Presupuesto</div><p class="tip-body">Visa y Mastercard funcionan perfectamente en toda USA. Llevar algo de efectivo para propinas y lugares pequeños.</p></div>
+  <div class="tip-item"><div class="tip-title">📦 Maleta extra</div><p class="tip-body">Traigan una bolsa grande plegable o compren una valija barata en Ross Dress for Less (desde $30).</p></div>
+  <div class="tip-item"><div class="tip-title">🏷 Sales Tax en Florida</div><p class="tip-body">El impuesto es 6-7% y NO está incluido en el precio de etiqueta. El precio final aparece en caja. Ropa de niños está exenta.</p></div>
+  <div class="tip-item"><div class="tip-title">🎁 Souvenirs Disney</div><p class="tip-body">Disney Springs tiene exactamente los mismos productos que dentro de los parques pero sin pagar entrada.</p></div>
+  <div class="tip-item"><div class="tip-title">⏰ Mejor horario</div><p class="tip-body">Abren a las 10am. Ir temprano para evitar el pico de 12 a 14hs. Disney Springs cierra a las 11pm.</p></div>
+  <div class="tip-item"><div class="tip-title">🚘 Cómo llegar</div><p class="tip-body">Disney Springs: bus gratuito desde el hotel. Premium Outlets: Uber $15-20. Mall at Millenia: Uber $20-25.</p></div>
+  <div class="tip-item"><div class="tip-title">📱 ShopSavvy app</div><p class="tip-body">Permite escanear barcodes y comparar precios con Amazon USA en tiempo real antes de comprar.</p></div>
+  <div class="tip-item"><div class="tip-title">🍽 Almuerzo en Disney Springs</div><p class="tip-body">BOATHOUSE para mariscos (reservar), Blaze Pizza para algo rápido, Wine Bar George para tabla de quesos.</p></div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER BEACH
+// ═══════════════════════════════════════════════════════════
+function renderBeach() {
+  const el = document.getElementById('beach-content');
+  el.innerHTML = `
+  <div class="free-hero beach" style="background:var(--beach-lt)">
+    <div class="park-eyebrow" style="color:var(--beach)">Día Libre</div>
+    <div class="free-title">Miércoles 23 de Abril<br>Anna Maria Island</div>
+    <div class="free-sub">Golfo de México · ~2 horas desde Disney</div>
+  </div>
+
+  <div class="transport-strip">
+    <b>Cómo llegar:</b>
+    Auto alquilado ~$40-60/día (Hertz/Enterprise) · I-4 Oeste → I-75 Sur → Exit 220 Rt 64 → Manatee Ave → AMI · ~2hs · Salir 7:30am
+  </div>
+
+  <div class="section-label">Las playas</div>
+
+  <div class="beach-item">
+    <div class="beach-nm">Bean Point Beach</div>
+    <span class="beach-tag-inline" style="background:var(--beach)">La más linda — imperdible</span>
+    <p class="beach-desc-txt">Extremo norte donde el Golfo se une con la Bahía de Tampa. La más fotografiada de AMI. Arena fina, agua turquesa, casi sin gente.</p>
+    <div class="beach-tip-item">Llegar temprano — parking muy limitado</div>
+    <div class="beach-tip-item">Perfecta para fotos al atardecer</div>
+    <div class="beach-tip-item">Delfines visibles desde la orilla en abril</div>
+  </div>
+
+  <div class="beach-item">
+    <div class="beach-nm">Holmes Beach</div>
+    <span class="beach-tag-inline" style="background:#0369A1">Recomendada — práctica</span>
+    <p class="beach-desc-txt">La mejor opción para el día completo. Arena blanca, agua calma sin olas, restaurantes a pasos. Estacionamiento disponible.</p>
+    <div class="beach-tip-item">Parking en la calle disponible</div>
+    <div class="beach-tip-item">A 5 min caminando del Sandbar Restaurant</div>
+    <div class="beach-tip-item">Agua muy tranquila, ideal para bañarse</div>
+  </div>
+
+  <div class="beach-item">
+    <div class="beach-nm">Coquina Beach</div>
+    <span class="beach-tag-inline" style="background:var(--ak)">Más fácil de llegar</span>
+    <p class="beach-desc-txt">Extremo sur. Estacionamiento amplio y gratuito, duchas y baños. Mejor opción si van en auto sin conocer la isla.</p>
+    <div class="beach-tip-item">Estacionamiento grande GRATUITO</div>
+    <div class="beach-tip-item">Duchas y baños disponibles</div>
+    <div class="beach-tip-item">Parada del trolley gratuito</div>
+  </div>
+
+  <div class="section-label">Restaurantes</div>
+
+  <div class="rest-item"><div class="rest-nm">The Sandbar</div><span class="rest-tag-inline" style="color:var(--beach)">RESERVAR</span><p class="rest-desc-txt">Sobre la playa, pies en arena. El más clásico de AMI. Vista al Golfo de México.</p></div>
+  <div class="rest-item"><div class="rest-nm">Ginny's & Jane E's</div><span class="rest-tag-inline" style="color:var(--shop)">DESAYUNO</span><p class="rest-desc-txt">El desayuno más famoso de la isla. Cinnamon rolls gigantes recién horneados. Llegar temprano.</p></div>
+  <div class="rest-item"><div class="rest-nm">Rod and Reel Pier</div><span class="rest-tag-inline" style="color:var(--ak)">TÍPICO</span><p class="rest-desc-txt">Muelle de pesca con restaurante. El grouper sandwich es legendario. Vista panorámica de la bahía.</p></div>
+  <div class="rest-item"><div class="rest-nm">Star Fish Company</div><span class="rest-tag-inline" style="color:var(--mk)">SECRETO · cash only</span><p class="rest-desc-txt">Mercado de mariscos en Cortez. Grouper a 1/3 del precio de los restaurantes. Vale la pena el viaje.</p></div>
+  <div class="rest-item"><div class="rest-nm">Skinny's Place</div><span class="rest-tag-inline" style="color:var(--hs)">LOCAL</span><p class="rest-desc-txt">La mejor hamburguesa según los locales. Bar de playa informal, sin pretensiones.</p></div>
+  <div class="rest-item"><div class="rest-nm">The Doctor's Office</div><span class="rest-tag-inline" style="color:var(--epic)">COCKTAILS · reserva</span><p class="rest-desc-txt">Bar artesanal en clínica tematizada. Solo con reserva telefónica. Para la noche.</p></div>
+
+  <div class="section-label">Actividades y tips</div>
+
+  <div class="act-item"><div class="act-icon">🚲</div><div class="act-body"><div class="act-nm">Bicis — Beach Bums AMI</div><p class="act-desc">$14/día — la mejor manera de recorrer la isla de 7 millas completa.</p></div></div>
+  <div class="act-item"><div class="act-icon">🐬</div><div class="act-body"><div class="act-nm">Dolphin Tour — AMI Escapes</div><p class="act-desc">Delfines casi garantizados en abril en el Golfo de México.</p></div></div>
+  <div class="act-item"><div class="act-icon">🏄</div><div class="act-body"><div class="act-nm">Paddleboard — Yak Shack</div><p class="act-desc">Alquiler desde la playa, muy fácil para principiantes de cualquier edad.</p></div></div>
+  <div class="act-item"><div class="act-icon">🚌</div><div class="act-body"><div class="act-nm">Trolley gratuito</div><p class="act-desc">Recorre toda la isla con paradas en las 3 ciudades y playas principales.</p></div></div>
+  <div class="act-item"><div class="act-icon">☀️</div><div class="act-body"><div class="act-nm">Clima en abril</div><p class="act-desc">28-32°C, agua ~24°C. Perfecto para bañarse todo el día.</p></div></div>
+  <div class="act-item"><div class="act-icon">🧴</div><div class="act-body"><div class="act-nm">Llevar</div><p class="act-desc">SPF 50+, toalla, cooler con agua y snacks, efectivo para Star Fish Company.</p></div></div>
+  <div class="act-item"><div class="act-icon">⏰</div><div class="act-body"><div class="act-nm">Timing ideal</div><p class="act-desc">Salir 7:30am, llegar 9-10am, volver antes de las 17hs para evitar tráfico.</p></div></div>
+  <div class="act-item"><div class="act-icon">📸</div><div class="act-body"><div class="act-nm">La foto del día</div><p class="act-desc">Bean Point al amanecer o Pier 60 al atardecer. Busquen los colores del Golfo.</p></div></div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER TIPS
+// ═══════════════════════════════════════════════════════════
+function renderTips() {
+  const TIPS = [
+    {acc:'#0278B0',tag:'NOVEDAD 2026',title:'SIN Boarding Groups en 2026',text:'Guardians (EPCOT) y Rise of the Resistance (Hollywood Studios) ya NO usan virtual queue. Son fila normal o Lightning Lane Single Pass. No necesitan madrugar para conseguir un boarding group.'},
+    {acc:'#D45200',tag:'ATENCIÓN',title:'Atracciones cerradas en abril',text:'Rock n Roller Coaster (Hollywood Studios) cerrado hasta verano 2026. Big Thunder Mountain (Magic Kingdom) cerrado hasta mayo. DINOSAUR (Animal Kingdom) cerrado para siempre desde febrero 2026.'},
+    {acc:'#6B28C4',tag:'CRÍTICO',title:'Apps antes de volar',text:'Configuren My Disney Experience y la app de Universal con semanas de anticipación. Vinculen reservas, activen Magic Mobile. El día del parque cada minuto cuenta.'},
+    {acc:'#0278B0',tag:'ESTRATEGIA',title:'Los primeros 90 minutos son oro',text:'Con early entry tienen ~150 min con filas al 20-30%. Vayan de la atracción más popular a la menos, NUNCA recorriendo por zonas geográficas. Tron y Seven Dwarfs primero en Magic Kingdom.'},
+    {acc:'#D45200',tag:'CONFORT',title:'El descanso del mediodía funciona',text:'Entre las 12:30 y las 14:30 el parque alcanza su pico y el calor llega a 30-34°C. Los grupos que van al hotel a almorzar y descansar 90 minutos hacen más atracciones en la tarde.'},
+    {acc:'#1A7A32',tag:'SECRETO',title:'Las tormentas de tarde son aliadas',text:'Entre las 15 y las 17hs caen lluvias de 20-45 minutos que reducen las filas a la mitad. Con poncho es la mejor ventana del día. No huyan de la lluvia corta.'},
+    {acc:'#0278B0',tag:'AHORRO',title:'Agua gratis en todos los parques Disney',text:'En cualquier counter service pidan a cup of water sin cargo. Con 6 personas en el calor de abril esto ahorra mucho dinero a lo largo del día.'},
+    {acc:'#6B28C4',tag:'ESENCIAL',title:'Mobile Order es obligatorio',text:'Las apps de Disney y Universal permiten pedir comida y retirarla sin hacer fila. En Magic Kingdom esto ahorra 20-30 minutos por cada comida.'},
+    {acc:'#C41A1A',tag:'SECRETO HP',title:'Varitas interactivas de Harry Potter',text:'Con una varita interactiva, los medallones en Hogsmeade y Diagon Alley activan el decorado. ~20 puntos por mundo, 45-60 minutos de diversión extra en cada área de HP.'},
+    {acc:'#6B28C4',tag:'FUN',title:'Hidden Mickeys escondidos',text:'Por todo Disney hay siluetas de Mickey formadas con 3 círculos. Búsquenlas en el mural de Guardians, en el suelo de Spaceship Earth y en las rocas de Animal Kingdom.'},
+    {acc:'#0A7B72',tag:'PRO TIP',title:'Cast Members saben todo',text:'Los empleados saben en tiempo real qué fila está corta ahora. Si es el primer viaje de alguien del grupo, comuníquenselo al check-in del hotel. A veces hay sorpresas muy buenas.'},
+    {acc:'#0A7B72',tag:'CRÍTICO',title:'Hotel Universal Premier incluye Express Pass',text:'Hard Rock, Portofino Bay y Royal Pacific incluyen Express Pass ilimitado para USF, IOA y Epic Universe. Si se hospedan en uno de ellos, úsenlo en todas las atracciones principales.'},
+  ];
+
+  const el = document.getElementById('page-tips');
+  el.innerHTML = `
+  <div class="free-hero" style="background:var(--gold-lt);border-color:var(--gold)">
+    <div class="park-eyebrow" style="color:var(--gold)">Lo que nadie te cuenta</div>
+    <div class="free-title">Tips, Secretos y<br>Novedades 2026</div>
+    <div class="free-sub">Actualizado · Para maximizar cada día del viaje</div>
+  </div>
+  <div class="tips-grid">
+  ${TIPS.map(t => `
+    <div class="tips-card" style="border-top:3px solid ${t.acc}">
+      <div class="tips-card-top" style="background:${t.acc}12">
+        <span class="tips-card-tag" style="background:${t.acc}">${t.tag}</span>
+      </div>
+      <div class="tips-card-body">
+        <div class="tips-card-title" style="color:${t.acc}">${t.title}</div>
+        <p class="tips-card-text">${t.text}</p>
+      </div>
+    </div>
+  `).join('')}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════
+let currentTab = 'home';
+
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('nav-' + (tab === 'parks' || tab === 'libre' ? tab : tab)).classList.add('active');
+
+  if (tab === 'home') {
+    showPage('home');
+    document.getElementById('top-context').textContent = '18–26 Abril 2026';
+  } else if (tab === 'parks') {
+    showPage('home'); // Show park list in home
+    document.getElementById('top-context').textContent = 'Seleccioná un parque';
+  } else if (tab === 'libre') {
+    // Show a simple selection between shopping and beach
+    const scroll = document.getElementById('scroll-area');
+    scroll.scrollTop = 0;
+    showPage('home');
+    document.getElementById('top-context').textContent = 'Días libres';
+  } else if (tab === 'tips') {
+    showPage('tips');
+    document.getElementById('top-context').textContent = 'Tips 2026';
+  }
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('scroll-area').scrollTop = 0;
+}
+
+function openDay(id, type) {
+  if (type === 'park') {
+    document.getElementById('park-content').innerHTML = renderPark(id);
+    showPage('park');
+    const pk = PARKS[id];
+    document.getElementById('top-context').textContent = pk.name;
+  } else if (id === 'shopping') {
+    renderShopping();
+    showPage('shopping');
+    document.getElementById('top-context').textContent = 'Día Libre — Compras';
+  } else if (id === 'beach') {
+    renderBeach();
+    showPage('beach');
+    document.getElementById('top-context').textContent = 'Anna Maria Island';
+  }
+  document.getElementById('scroll-area').scrollTop = 0;
+}
+
+function goHome() {
+  showPage('home');
+  document.getElementById('top-context').textContent = '18–26 Abril 2026';
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('nav-home').classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+renderHome();
+renderTips();
+
+// Show install banner after 2s on mobile
+setTimeout(() => {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isAndroid = /android/i.test(navigator.userAgent);
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if ((isIOS || isAndroid) && !isStandalone) {
+    document.getElementById('install-banner').style.display = 'flex';
+  }
+}, 2000);
+</script>
+</body>
+</html>
