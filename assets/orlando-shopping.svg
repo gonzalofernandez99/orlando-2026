@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Compras en Orlando</title>
+  <desc id="desc">Poster ilustrado con bolsas de compras y una ciudad estilizada</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff5df"/>
+      <stop offset="52%" stop-color="#ffd697"/>
+      <stop offset="100%" stop-color="#ffb15a"/>
+    </linearGradient>
+    <linearGradient id="bag1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c8860a"/>
+      <stop offset="100%" stop-color="#8d4f00"/>
+    </linearGradient>
+    <linearGradient id="bag2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5a3c93"/>
+      <stop offset="100%" stop-color="#28124d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <g opacity=".18" fill="#ffffff">
+    <circle cx="102" cy="110" r="4"/>
+    <circle cx="290" cy="86" r="3"/>
+    <circle cx="1064" cy="128" r="5"/>
+    <circle cx="960" cy="70" r="3"/>
+  </g>
+  <g fill="#ffffff" opacity=".34">
+    <rect x="74" y="500" width="94" height="130" rx="12"/>
+    <rect x="182" y="456" width="80" height="174" rx="12"/>
+    <rect x="276" y="520" width="96" height="110" rx="12"/>
+    <rect x="842" y="474" width="84" height="156" rx="12"/>
+    <rect x="940" y="422" width="110" height="208" rx="12"/>
+    <rect x="1064" y="500" width="70" height="130" rx="12"/>
+  </g>
+  <g transform="translate(320 182)">
+    <path d="M70 160h180c21 0 38 17 38 38v236c0 21-17 38-38 38H70c-21 0-38-17-38-38V198c0-21 17-38 38-38z" fill="url(#bag1)"/>
+    <path d="M94 164c0-62 29-96 66-96 37 0 66 34 66 96" fill="none" stroke="#ffddb1" stroke-width="18" stroke-linecap="round"/>
+    <circle cx="160" cy="292" r="36" fill="#ffddb1" opacity=".22"/>
+  </g>
+  <g transform="translate(584 136)">
+    <path d="M84 188h214c23 0 42 19 42 42v266c0 23-19 42-42 42H84c-23 0-42-19-42-42V230c0-23 19-42 42-42z" fill="url(#bag2)"/>
+    <path d="M120 192c0-78 33-118 72-118 41 0 74 40 74 118" fill="none" stroke="#f6d38e" stroke-width="20" stroke-linecap="round"/>
+    <rect x="147" y="304" width="92" height="16" rx="8" fill="#f6d38e" opacity=".72"/>
+  </g>
+  <text x="88" y="644" fill="#4c2a00" font-family="Georgia, serif" font-size="104" font-weight="700">Shopping</text>
+  <text x="92" y="722" fill="#8d4f00" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="8">ORLANDO OUTLETS</text>
+</svg>

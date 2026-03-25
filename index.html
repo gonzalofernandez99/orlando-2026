@@ -221,6 +221,96 @@ body {
   color: var(--ink);
 }
 
+.home-worlds {
+  padding: 16px 20px;
+  display: grid;
+  gap: 12px;
+  border-bottom: 1px solid var(--rule);
+  background: linear-gradient(180deg, rgba(13,13,24,.03), transparent);
+}
+.visual-grid {
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+.visual-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  min-height: 176px;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(26,24,37,.14);
+  appearance: none;
+  -webkit-appearance: none;
+}
+.visual-card:focus-visible {
+  outline: 3px solid rgba(200,134,10,.75);
+  outline-offset: 2px;
+}
+.visual-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.visual-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,12,24,.18) 0%, rgba(10,12,24,.42) 42%, rgba(10,12,24,.88) 100%);
+}
+.visual-card-body {
+  position: relative;
+  z-index: 1;
+  min-height: 176px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 16px;
+}
+.visual-card-tag {
+  width: fit-content;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.18);
+  backdrop-filter: blur(8px);
+}
+.visual-card-title {
+  font-family: var(--serif);
+  font-size: 29px;
+  font-weight: 900;
+  line-height: .95;
+  letter-spacing: -.02em;
+}
+.visual-card-sub {
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(255,255,255,.82);
+  max-width: 26ch;
+}
+.visual-card-cta {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
 .days-header {
   font-size: 10px;
   font-weight: 700;
@@ -230,9 +320,12 @@ body {
   padding: 16px 20px 8px;
 }
 .day-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  row-gap: 4px;
   align-items: center;
-  gap: 14px;
   padding: 14px 20px;
   border-bottom: 1px solid var(--rule);
   cursor: pointer;
@@ -244,18 +337,119 @@ body {
 .day-dot {
   width: 10px; height: 10px;
   border-radius: 50%;
-  flex-shrink: 0;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+  margin-top: 6px;
 }
-.day-info { flex: 1; }
+.day-info {
+  grid-column: 2;
+  min-width: 0;
+}
 .day-name { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
 .day-date { font-size: 12px; color: var(--muted); }
 .day-hours {
+  grid-column: 2;
+  grid-row: 2;
   font-family: var(--mono);
   font-size: 11px;
   color: var(--muted);
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.4;
 }
-.day-arrow { color: var(--muted); font-size: 18px; }
+.day-arrow {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: center;
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.page-hero {
+  padding: 22px 20px 18px;
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+}
+.page-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.page-title {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  margin-bottom: 5px;
+}
+.page-sub {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+
+.page-media {
+  position: relative;
+  min-height: 210px;
+  margin: 16px 16px 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: 0 14px 28px rgba(26,24,37,.18);
+}
+.page-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.page-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8,10,20,.08) 0%, rgba(8,10,20,.35) 38%, rgba(8,10,20,.9) 100%);
+}
+.page-media-body {
+  position: relative;
+  z-index: 1;
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 18px;
+  color: #fff;
+}
+.page-media-kicker {
+  width: fit-content;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255,255,255,.16);
+  backdrop-filter: blur(8px);
+}
+.page-media-title {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 900;
+  line-height: .96;
+  letter-spacing: -.02em;
+}
+.page-media-sub {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255,255,255,.8);
+  max-width: 28ch;
+}
 
 /* ───────────────────────────────────────────────────────────
    PARK DETAIL PAGE
@@ -675,6 +869,66 @@ body {
   padding: 0 4px;
   line-height: 1;
 }
+
+@media (max-width: 420px) {
+  .top-bar,
+  .home-cover,
+  .home-meta,
+  .days-header,
+  .page-hero,
+  .free-hero,
+  .tip-strip,
+  .section-label,
+  .park-back,
+  .transport-strip,
+  .food-item,
+  .dest-item,
+  .tip-item,
+  .beach-item,
+  .rest-item,
+  .act-item {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .home-worlds,
+  .visual-grid,
+  .tips-grid {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .home-big-title {
+    font-size: 42px;
+  }
+
+  .meta-chip-val,
+  .day-name,
+  .dest-desc,
+  .beach-desc-txt,
+  .tips-card-text {
+    font-size: 13px;
+  }
+
+  .page-media {
+    min-height: 196px;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .page-media-body,
+  .visual-card-body {
+    min-height: inherit;
+  }
+
+  .page-media-title {
+    font-size: 28px;
+  }
+
+  .visual-card-title {
+    font-size: 26px;
+  }
+}
 </style>
 </head>
 <body>
@@ -724,25 +978,36 @@ body {
         <div class="meta-chip-val">Early Entry incluido</div>
       </div>
     </div>
+    <div class="home-worlds" id="home-worlds"></div>
     <div class="days-header">El viaje día por día</div>
     <div id="day-cards"></div>
   </div>
 
+  <!-- PARKS -->
+  <div class="page" id="page-parks">
+    <div id="parks-content"></div>
+  </div>
+
+  <!-- FREE DAYS -->
+  <div class="page" id="page-libre">
+    <div id="free-content"></div>
+  </div>
+
   <!-- PARK DETAIL -->
   <div class="page" id="page-park">
-    <div class="park-back" onclick="goHome()">← Todos los días</div>
+    <div class="park-back" onclick="goHome()">← Volver</div>
     <div id="park-content"></div>
   </div>
 
   <!-- FREE: SHOPPING -->
   <div class="page" id="page-shopping">
-    <div class="park-back" onclick="goHome()">← Todos los días</div>
+    <div class="park-back" onclick="goHome()">← Volver</div>
     <div id="shopping-content"></div>
   </div>
 
   <!-- FREE: BEACH -->
   <div class="page" id="page-beach">
-    <div class="park-back" onclick="goHome()">← Todos los días</div>
+    <div class="park-back" onclick="goHome()">← Volver</div>
     <div id="beach-content"></div>
   </div>
 
@@ -784,16 +1049,45 @@ body {
 // DATA
 // ═══════════════════════════════════════════════════════════
 const DAYS = [
-  { type:'park', id:'epcot',   label:'EPCOT',                  date:'Viernes 18 de Abril',     hours:'Early 8:30am · 9am–9pm',    acc:'#0278B0' },
-  { type:'free', id:'shopping', label:'Día Libre — Compras',   date:'Sábado 19 de Abril',       hours:'Disney Springs · Outlets',  acc:'#A66000' },
-  { type:'park', id:'hs',      label:'Hollywood Studios',       date:'Domingo 20 de Abril',     hours:'Early 8:30am · 9am–9:30pm', acc:'#D45200' },
-  { type:'park', id:'ak',      label:'Animal Kingdom',          date:'Lunes 21 de Abril',        hours:'Early 7:30am · 8am–7pm',   acc:'#1A7A32' },
-  { type:'park', id:'mk',      label:'Magic Kingdom',           date:'Martes 22 de Abril',       hours:'Early 8:30am · 9am–9pm',   acc:'#6B28C4' },
-  { type:'free', id:'beach',   label:'Día Libre — Anna Maria', date:'Miércoles 23 de Abril',    hours:'Golfo de México · ~2hs',    acc:'#0278B0' },
-  { type:'park', id:'epic',    label:'Epic Universe',           date:'Jueves 24 de Abril',       hours:'Early 9am · 10am–9pm',     acc:'#C41A1A' },
-  { type:'park', id:'usf',     label:'Universal Studios Florida',date:'Viernes 25 de Abril',    hours:'Early 8am · 9am–9pm',      acc:'#0A7B72' },
-  { type:'park', id:'ioa',     label:'Islands of Adventure',   date:'Sábado 26 de Abril',        hours:'Early 8am · 9am–9pm',      acc:'#0A7B72' },
+  { type:'park', group:'disney',    id:'epcot',    label:'EPCOT',                       date:'Viernes 18 de Abril',   hours:'Early 8:30am · 9am–9pm',    acc:'#0278B0' },
+  { type:'free', group:'shopping',  id:'shopping', label:'Día Libre — Compras',         date:'Sábado 19 de Abril',    hours:'Disney Springs · Outlets',  acc:'#A66000' },
+  { type:'park', group:'disney',    id:'hs',       label:'Hollywood Studios',           date:'Domingo 20 de Abril',   hours:'Early 8:30am · 9am–9:30pm', acc:'#D45200' },
+  { type:'park', group:'disney',    id:'ak',       label:'Animal Kingdom',              date:'Lunes 21 de Abril',     hours:'Early 7:30am · 8am–7pm',    acc:'#1A7A32' },
+  { type:'park', group:'disney',    id:'mk',       label:'Magic Kingdom',               date:'Martes 22 de Abril',    hours:'Early 8:30am · 9am–9pm',    acc:'#6B28C4' },
+  { type:'free', group:'beach',     id:'beach',    label:'Día Libre — Anna Maria',      date:'Miércoles 23 de Abril', hours:'Golfo de México · ~2hs',     acc:'#0278B0' },
+  { type:'park', group:'universal', id:'epic',     label:'Epic Universe',               date:'Jueves 24 de Abril',    hours:'Early 9am · 10am–9pm',      acc:'#C41A1A' },
+  { type:'park', group:'universal', id:'usf',      label:'Universal Studios Florida',   date:'Viernes 25 de Abril',   hours:'Early 8am · 9am–9pm',       acc:'#0A7B72' },
+  { type:'park', group:'universal', id:'ioa',      label:'Islands of Adventure',        date:'Sábado 26 de Abril',    hours:'Early 8am · 9am–9pm',       acc:'#0A7B72' },
 ];
+
+const VISUALS = {
+  disney: {
+    image: 'assets/disney-world.svg',
+    alt: 'Ilustracion de Disney World con castillo y fuegos artificiales',
+  },
+  universal: {
+    image: 'assets/universal-orlando.svg',
+    alt: 'Ilustracion de Universal Orlando con globo y montanas rusas',
+  },
+  shopping: {
+    image: 'assets/orlando-shopping.svg',
+    alt: 'Ilustracion de un dia de compras en Orlando',
+  },
+  beach: {
+    image: 'assets/anna-maria-island.svg',
+    alt: 'Ilustracion de Anna Maria Island con playa y palmeras',
+  }
+};
+
+const PARK_GROUP_BY_ID = {
+  epcot: 'disney',
+  hs: 'disney',
+  ak: 'disney',
+  mk: 'disney',
+  epic: 'universal',
+  usf: 'universal',
+  ioa: 'universal',
+};
 
 const PARKS = {
   epcot: {
@@ -1037,9 +1331,8 @@ const PARKS = {
 // ═══════════════════════════════════════════════════════════
 // RENDER HOME
 // ═══════════════════════════════════════════════════════════
-function renderHome() {
-  const el = document.getElementById('day-cards');
-  el.innerHTML = DAYS.map((d, i) => `
+function renderDayCards(days) {
+  return days.map(d => `
     <div class="day-card" onclick="openDay('${d.id}','${d.type}')">
       <div class="day-dot" style="background:${d.acc}"></div>
       <div class="day-info">
@@ -1052,14 +1345,151 @@ function renderHome() {
   `).join('');
 }
 
+function renderVisualCard(key, config) {
+  const visual = VISUALS[key];
+  return `
+    <button class="visual-card" onclick="${config.onclick}" aria-label="${config.aria}">
+      <img src="${visual.image}" alt="${visual.alt}" loading="lazy" decoding="async">
+      <div class="visual-card-body">
+        <div class="visual-card-tag">${config.tag}</div>
+        <div class="visual-card-title">${config.title}</div>
+        <div class="visual-card-sub">${config.sub}</div>
+        <div class="visual-card-cta">${config.cta}</div>
+      </div>
+    </button>
+  `;
+}
+
+function renderMediaBanner(key, kicker, title, sub) {
+  const visual = VISUALS[key];
+  return `
+    <div class="page-media">
+      <img src="${visual.image}" alt="${visual.alt}" loading="lazy" decoding="async">
+      <div class="page-media-body">
+        <div class="page-media-kicker">${kicker}</div>
+        <div class="page-media-title">${title}</div>
+        <div class="page-media-sub">${sub}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderHome() {
+  document.getElementById('home-worlds').innerHTML = [
+    renderVisualCard('disney', {
+      onclick: "openParkWorld('disney')",
+      aria: 'Ver el bloque de parques Disney',
+      tag: 'Disney World',
+      title: 'Disney',
+      sub: 'EPCOT, Hollywood Studios, Animal Kingdom y Magic Kingdom.',
+      cta: 'Ver parques Disney'
+    }),
+    renderVisualCard('universal', {
+      onclick: "openParkWorld('universal')",
+      aria: 'Ver el bloque de parques Universal',
+      tag: 'Universal Orlando',
+      title: 'Universal',
+      sub: 'Epic Universe, Universal Studios Florida e Islands of Adventure.',
+      cta: 'Ver parques Universal'
+    })
+  ].join('');
+
+  document.getElementById('day-cards').innerHTML = renderDayCards(DAYS);
+}
+
+function renderParksLanding() {
+  const disneyDays = DAYS.filter(d => d.type === 'park' && d.group === 'disney');
+  const universalDays = DAYS.filter(d => d.type === 'park' && d.group === 'universal');
+  const el = document.getElementById('parks-content');
+  el.innerHTML = `
+    <div class="page-hero" style="background:var(--gold-lt);border-bottom:3px solid var(--gold)">
+      <div class="page-eyebrow">Parques</div>
+      <div class="page-title">Disney y Universal,<br>separados como corresponde</div>
+      <div class="page-sub">Ahora el acceso inferior lleva a una vista dedicada. Tocás una portada y bajás directo a ese bloque.</div>
+    </div>
+    <div class="visual-grid">
+      ${renderVisualCard('disney', {
+        onclick: "openParkWorld('disney')",
+        aria: 'Ir al bloque Disney World',
+        tag: '4 dias',
+        title: 'Disney World',
+        sub: 'La parte Disney del viaje, ordenada y lista para abrir cada dia.',
+        cta: 'Ir a Disney'
+      })}
+      ${renderVisualCard('universal', {
+        onclick: "openParkWorld('universal')",
+        aria: 'Ir al bloque Universal Orlando',
+        tag: '3 dias',
+        title: 'Universal',
+        sub: 'Epic, Studios e Islands con su propia entrada y mejor lectura en iPhone.',
+        cta: 'Ir a Universal'
+      })}
+    </div>
+    <div id="parks-disney">
+      <div class="section-label">Disney World</div>
+      ${renderDayCards(disneyDays)}
+    </div>
+    <div id="parks-universal">
+      <div class="section-label">Universal Orlando</div>
+      ${renderDayCards(universalDays)}
+    </div>
+  `;
+}
+
+function renderFreeLanding() {
+  const freeDays = DAYS.filter(d => d.type === 'free');
+  const el = document.getElementById('free-content');
+  el.innerHTML = `
+    <div class="page-hero" style="background:var(--bg2);border-bottom:3px solid var(--shop)">
+      <div class="page-eyebrow">Dias Libres</div>
+      <div class="page-title">Compras y playa<br>en una sola vista</div>
+      <div class="page-sub">Esta seccion ahora abre un hub real para los dias sin parque, con tarjetas visuales y acceso directo.</div>
+    </div>
+    <div class="visual-grid">
+      ${renderVisualCard('shopping', {
+        onclick: "openDay('shopping','free')",
+        aria: 'Abrir el dia libre de compras',
+        tag: 'Sabado 19',
+        title: 'Shopping',
+        sub: 'Disney Springs, Premium Outlets y Mall at Millenia.',
+        cta: 'Abrir plan de compras'
+      })}
+      ${renderVisualCard('beach', {
+        onclick: "openDay('beach','free')",
+        aria: 'Abrir el dia libre de playa',
+        tag: 'Miercoles 23',
+        title: 'Anna Maria',
+        sub: 'Un respiro en el Golfo de Mexico con playas y restaurantes.',
+        cta: 'Abrir plan de playa'
+      })}
+    </div>
+    <div class="section-label">Dias libres del viaje</div>
+    ${renderDayCards(freeDays)}
+  `;
+}
+
+function openParkWorld(group) {
+  showTab('parks');
+  requestAnimationFrame(() => {
+    const target = document.getElementById(`parks-${group}`);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+}
+
 // ═══════════════════════════════════════════════════════════
 // RENDER PARK
 // ═══════════════════════════════════════════════════════════
 function renderPark(id) {
   const pk = PARKS[id];
   const acc = pk.acc;
+  const group = PARK_GROUP_BY_ID[id];
+  const destination = group === 'disney' ? 'Disney World' : 'Universal Orlando';
 
   let html = '';
+
+  html += renderMediaBanner(group, 'Ruta del viaje', destination, pk.name);
 
   // Hero
   html += `<div class="park-hero" style="border-color:${acc};background:${acc}0D">
@@ -1160,6 +1590,7 @@ function switchPTab(btn, contentId) {
 function renderShopping() {
   const el = document.getElementById('shopping-content');
   el.innerHTML = `
+  ${renderMediaBanner('shopping', 'Dia Libre', 'Compras en Orlando', 'Disney Springs, outlets y paradas clave para el grupo')}
   <div class="free-hero" style="background:var(--shop-lt)">
     <div class="park-eyebrow" style="color:var(--shop)">Día Libre</div>
     <div class="free-title">Sábado 19 de Abril<br>Compras en Orlando</div>
@@ -1224,6 +1655,7 @@ function renderShopping() {
 function renderBeach() {
   const el = document.getElementById('beach-content');
   el.innerHTML = `
+  ${renderMediaBanner('beach', 'Dia Libre', 'Anna Maria Island', 'Playa, descanso y un cambio total de ritmo fuera de Orlando')}
   <div class="free-hero beach" style="background:var(--beach-lt)">
     <div class="park-eyebrow" style="color:var(--beach)">Día Libre</div>
     <div class="free-title">Miércoles 23 de Abril<br>Anna Maria Island</div>
@@ -1335,19 +1767,16 @@ let currentTab = 'home';
 function showTab(tab) {
   currentTab = tab;
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('nav-' + (tab === 'parks' || tab === 'libre' ? tab : tab)).classList.add('active');
+  document.getElementById('nav-' + tab).classList.add('active');
 
   if (tab === 'home') {
     showPage('home');
     document.getElementById('top-context').textContent = '18–26 Abril 2026';
   } else if (tab === 'parks') {
-    showPage('home'); // Show park list in home
-    document.getElementById('top-context').textContent = 'Seleccioná un parque';
+    showPage('parks');
+    document.getElementById('top-context').textContent = 'Parques del viaje';
   } else if (tab === 'libre') {
-    // Show a simple selection between shopping and beach
-    const scroll = document.getElementById('scroll-area');
-    scroll.scrollTop = 0;
-    showPage('home');
+    showPage('libre');
     document.getElementById('top-context').textContent = 'Días libres';
   } else if (tab === 'tips') {
     showPage('tips');
@@ -1380,16 +1809,16 @@ function openDay(id, type) {
 }
 
 function goHome() {
-  showPage('home');
-  document.getElementById('top-context').textContent = '18–26 Abril 2026';
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('nav-home').classList.add('active');
+  const tab = ['home', 'parks', 'libre'].includes(currentTab) ? currentTab : 'home';
+  showTab(tab);
 }
 
 // ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 renderHome();
+renderParksLanding();
+renderFreeLanding();
 renderTips();
 
 // Show install banner after 2s on mobile

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Universal Orlando</title>
+  <desc id="desc">Poster ilustrado con globo, anillos y silueta de montanas rusas</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06181d"/>
+      <stop offset="50%" stop-color="#0a4c58"/>
+      <stop offset="100%" stop-color="#15a39c"/>
+    </linearGradient>
+    <linearGradient id="globe" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d8f3ff"/>
+      <stop offset="100%" stop-color="#4bb2ff"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffd776"/>
+      <stop offset="100%" stop-color="#ff8d29"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <g opacity=".16" fill="#ffffff">
+    <circle cx="132" cy="116" r="3"/>
+    <circle cx="260" cy="84" r="2"/>
+    <circle cx="346" cy="144" r="2"/>
+    <circle cx="814" cy="94" r="2"/>
+    <circle cx="1044" cy="126" r="3"/>
+    <circle cx="1112" cy="206" r="2"/>
+  </g>
+  <path d="M74 520c85-66 150-98 228-98 79 0 138 35 203 70 45 25 89 37 138 37 70 0 131-24 188-70 69-55 125-82 205-82 74 0 143 25 164 38" fill="none" stroke="#8ae6de" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+  <path d="M144 474c68-90 139-136 212-136 56 0 92 24 150 70 41 33 81 49 124 49 66 0 118-34 169-84 55-54 112-82 182-82 51 0 106 12 157 36" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity=".28"/>
+  <circle cx="818" cy="260" r="170" fill="url(#globe)"/>
+  <g stroke="#0c4c80" stroke-width="7" opacity=".42" fill="none">
+    <ellipse cx="818" cy="260" rx="122" ry="170"/>
+    <ellipse cx="818" cy="260" rx="58" ry="170"/>
+    <ellipse cx="818" cy="260" rx="170" ry="56"/>
+    <ellipse cx="818" cy="260" rx="170" ry="116"/>
+  </g>
+  <ellipse cx="818" cy="308" rx="244" ry="46" fill="none" stroke="url(#ring)" stroke-width="22"/>
+  <ellipse cx="818" cy="308" rx="244" ry="46" fill="none" stroke="#fff3d0" stroke-width="4" opacity=".62"/>
+  <path d="M0 640c154-29 286-42 399-42 140 0 291 19 465 44 128 19 240 26 336 22v178H0z" fill="#06242a"/>
+  <text x="88" y="642" fill="#ecfbff" font-family="Georgia, serif" font-size="104" font-weight="700" letter-spacing="1">Universal</text>
+  <text x="92" y="722" fill="#ffd36e" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="8">ORLANDO DAYS</text>
+</svg>

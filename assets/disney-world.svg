@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Disney World</title>
+  <desc id="desc">Poster ilustrado con castillo, cielo nocturno y fuegos artificiales</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1738"/>
+      <stop offset="55%" stop-color="#1b2e6f"/>
+      <stop offset="100%" stop-color="#63a4ff"/>
+    </linearGradient>
+    <linearGradient id="castle" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f7d26a"/>
+      <stop offset="100%" stop-color="#d48a00"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#68b6ff" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#163878" stop-opacity=".95"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="940" cy="140" r="86" fill="#fff2bf" opacity=".22"/>
+  <g fill="#ffffff" opacity=".92">
+    <circle cx="140" cy="92" r="2"/>
+    <circle cx="220" cy="160" r="3"/>
+    <circle cx="318" cy="112" r="2"/>
+    <circle cx="842" cy="92" r="2"/>
+    <circle cx="1015" cy="220" r="3"/>
+    <circle cx="1070" cy="168" r="2"/>
+  </g>
+  <g fill="none" stroke-linecap="round">
+    <path d="M238 182c18-72 38-108 62-108 20 0 39 28 58 83" stroke="#ffdca0" stroke-width="7" opacity=".95"/>
+    <path d="M808 148c16-64 35-96 56-96 20 0 40 27 60 80" stroke="#ffdca0" stroke-width="7" opacity=".92"/>
+    <path d="M942 250c12-48 26-72 42-72 15 0 30 21 44 61" stroke="#ffdca0" stroke-width="6" opacity=".88"/>
+  </g>
+  <g fill="#ffdca0">
+    <circle cx="238" cy="182" r="14"/>
+    <circle cx="300" cy="88" r="11"/>
+    <circle cx="358" cy="157" r="12"/>
+    <circle cx="808" cy="148" r="12"/>
+    <circle cx="864" cy="64" r="10"/>
+    <circle cx="924" cy="132" r="13"/>
+  </g>
+  <path d="M0 554c114 38 232 57 354 57 143 0 253-23 375-54 95-25 207-42 471-25v268H0z" fill="url(#water)"/>
+  <g fill="url(#castle)">
+    <path d="M422 558V383h38v-52l34 22 34-22v52h44v-126l42 25 41-25v126h48v-68l36 20 36-20v68h37v175z"/>
+    <rect x="555" y="275" width="48" height="283" rx="9"/>
+    <rect x="464" y="364" width="26" height="194" rx="7"/>
+    <rect x="716" y="364" width="26" height="194" rx="7"/>
+    <path d="M561 275l18-92 18 92z"/>
+    <path d="M470 364l13-58 13 58z"/>
+    <path d="M722 364l13-58 13 58z"/>
+    <path d="M418 383l22-96 20 96z"/>
+    <path d="M788 383l22-96 20 96z"/>
+  </g>
+  <g fill="#fff5d6" opacity=".7">
+    <rect x="572" y="340" width="12" height="42" rx="4"/>
+    <rect x="590" y="340" width="12" height="42" rx="4"/>
+    <rect x="482" y="401" width="10" height="26" rx="3"/>
+    <rect x="726" y="401" width="10" height="26" rx="3"/>
+  </g>
+  <text x="92" y="650" fill="#fff7dd" font-family="Georgia, serif" font-size="108" font-weight="700" letter-spacing="2">Disney</text>
+  <text x="92" y="732" fill="#ffd26e" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="8">WORLD DAYS</text>
+</svg>
