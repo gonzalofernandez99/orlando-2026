@@ -613,9 +613,9 @@ body {
 }
 .park-map-img {
   display: block;
-  width: auto;
-  min-width: 100%;
-  max-width: none;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   height: auto;
 }
 .park-map-actions {
@@ -644,6 +644,13 @@ body {
   border: 1px solid var(--rule);
   color: var(--ink);
   background: var(--white);
+}
+
+@media (max-width: 820px) {
+  .park-map-img {
+    width: 1400px;
+    max-width: none;
+  }
 }
 
 /* Attraction list */
@@ -1232,7 +1239,7 @@ const PARK_MAPS = {
     src: 'assets/mapaKingdom.png',
     original: 'assets/mapaKingdom.png',
     alt: 'Mapa de Magic Kingdom con numeracion y referencia lateral',
-    note: 'En iPhone arrastralo en horizontal para recorrerlo. Los numeros ya marcados en la captura coinciden con la referencia de la derecha.',
+    note: 'En computadora se ajusta al ancho del panel. En iPhone queda ampliado para que puedas arrastrarlo en horizontal y leer mejor la referencia de la derecha.',
   }
 };
 
