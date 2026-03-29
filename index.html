@@ -996,6 +996,45 @@ body {
 }
 .transport-strip b { color: var(--beach); flex-shrink: 0; }
 
+/* ── Shopping person filter ── */
+.shop-filter {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  align-items: center;
+}
+.shop-filter-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-right: 2px;
+}
+.sfbtn {
+  flex: 1;
+  padding: 7px 6px;
+  border-radius: 20px;
+  border: 1.5px solid var(--rule);
+  background: var(--bg2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: center;
+  transition: background .15s, color .15s, border-color .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.sfbtn.active-todos  { background: var(--shop);   color: #fff; border-color: var(--shop); }
+.sfbtn.active-gonza  { background: var(--mk);     color: #fff; border-color: var(--mk);   }
+.sfbtn.active-cami   { background: #DB2777;        color: #fff; border-color: #DB2777;     }
+[data-who].shop-hidden { display: none !important; }
+
 .section-label {
   font-size: 10px;
   font-weight: 700;
@@ -2250,6 +2289,26 @@ function switchShopTab(btn, contentId) {
   if (target) target.classList.add('active');
 }
 
+function filterShopping(who, btn) {
+  const shop = document.getElementById('shopping-content');
+  // Update button states
+  shop.querySelectorAll('.sfbtn').forEach(b => {
+    b.classList.remove('active-todos','active-gonza','active-cami');
+  });
+  btn.classList.add('active-' + who);
+  // Show/hide elements with data-who attribute
+  shop.querySelectorAll('[data-who]').forEach(el => {
+    const w = el.getAttribute('data-who');
+    if (who === 'todos') {
+      el.classList.remove('shop-hidden');
+    } else if (who === 'gonza') {
+      el.classList.toggle('shop-hidden', w === 'cami');
+    } else if (who === 'cami') {
+      el.classList.toggle('shop-hidden', w === 'gonza');
+    }
+  });
+}
+
 // ═══════════════════════════════════════════════════════════
 // RENDER SHOPPING
 // ═══════════════════════════════════════════════════════════
@@ -2289,49 +2348,56 @@ function renderShopping() {
     <div class="ptab" onclick="switchShopTab(this,'st-tips')">Tips</div>
   </div>
 
+  <div class="shop-filter">
+    <div class="shop-filter-label">Ver:</div>
+    <div class="sfbtn active-todos" onclick="filterShopping('todos',this)">Todos</div>
+    <div class="sfbtn" onclick="filterShopping('gonza',this)">Gonza</div>
+    <div class="sfbtn" onclick="filterShopping('cami',this)">Cami</div>
+  </div>
+
   <!-- ── TAB: PLAN DEL DÍA ── -->
   <div class="tab-content active" id="st-plan">
-    <div class="sched-item">
+    <div class="sched-item" data-who="todos">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">11:00</div></div>
       <div class="sched-txt"><b>Outlet Marketplace</b> — 5269 International Dr · Primera parada</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="todos">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">11:00</div></div>
       <div class="sched-txt">Bloque deportivo — Nike · Adidas · PUMA · New Balance (juntos) + Under Armour (Gonza paralelo)</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="todos">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">11:40</div></div>
       <div class="sched-txt">Bloque ropa — Calvin Klein · Levi's · Tommy Hilfiger · American Eagle · GUESS (juntos) + U.S. Polo Assn. (Gonza paralelo)</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="gonza">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">12:15</div></div>
       <div class="sched-txt">Accesorios — Discount Luggage + Watch Depot (Gonza solo · Cami descansa)</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="todos">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">12:30</div></div>
       <div class="sched-txt"><b>Salida caminando →</b> International Premium Outlets · 4951 International Dr</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="todos">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">12:30</div></div>
       <div class="sched-txt">Zona deportiva (entrada norte) — Nike · Adidas · Under Armour · PUMA · New Balance · North Face · Columbia · JD Sports · Foot Locker (juntos) + ASICS · HUK · Oakley (Gonza)</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="todos">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">1:45</div></div>
       <div class="sched-txt">Galería ropa — H&M · Gap · CK x2 · Tommy · Levi's · Lacoste · AE · Banana Republic · Polo RL · Diesel · DKNY · Hollister · GUESS x2 (juntos) + Nautica (Cami) + BOSS · HUGO (Gonza)</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="todos">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">2:45</div></div>
       <div class="sched-txt"><b>Almuerzo food court</b> — Five Guys · Dave's Hot Chicken · Asian Chao · Sarku Japan</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="todos">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">3:30</div></div>
       <div class="sched-txt">Lujo y accesorios — Armani Outlet · Sunglass Hut (juntos) + Armani Exchange x2 (Gonza) + Coach · Michael Kors · Marc Jacobs (Cami)</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="todos">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">4:30</div></div>
       <div class="sched-txt">Belleza y tech — Victoria's Secret · Cosmetics Co. (Cami) + L'Occitane · Fragrance Outlet · PRO TECH Garmin (Gonza)</div>
     </div>
-    <div class="sched-item">
+    <div class="sched-item" data-who="cami">
       <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">5:15</div></div>
       <div class="sched-txt">Disney's Character Warehouse (Cami) + últimas compras libres · Cierre 7pm</div>
     </div>
@@ -2349,27 +2415,27 @@ function renderShopping() {
 
     <div class="food-cat-label">11:00 – 11:40am · Bloque deportivo</div>
 
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Nike Clearance</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Adidas Clearance</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">PUMA Outlet</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">New Balance Factory Store</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">Under Armour</div><div class="food-d">En paralelo con el bloque deportivo</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
@@ -2377,45 +2443,45 @@ function renderShopping() {
 
     <div class="food-cat-label">11:40am – 12:15pm · Ropa</div>
 
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Calvin Klein Clearance</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Levi's Outlet</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Tommy Hilfiger</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">American Eagle</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">GUESS Factory</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">U.S. Polo Assn.</div><div class="food-d">En paralelo con el bloque de ropa</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
 
-    <div class="food-cat-label">12:15 – 12:30pm · Accesorios (Gonza solo · Cami descansa)</div>
+    <div class="food-cat-label" data-who="gonza">12:15 – 12:30pm · Accesorios (Gonza solo · Cami descansa)</div>
 
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">Discount Luggage Outlet</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">Watch Depot</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
@@ -2439,62 +2505,62 @@ function renderShopping() {
 
     <div class="food-cat-label">12:30 – 1:45pm · Zona deportiva (entrada norte)</div>
 
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">NIKE Factory Store</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">adidas Outlet Store</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Under Armour Factory House</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">PUMA Outlet</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">New Balance Factory Store</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">The North Face Outlets</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Columbia Clearance Store</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">JD Sports</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Foot Locker</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">ASICS</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">HUK</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">Oakley</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
@@ -2502,92 +2568,92 @@ function renderShopping() {
 
     <div class="food-cat-label">1:45 – 2:45pm · Galería ropa</div>
 
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">H&M</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Gap Factory</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Calvin Klein</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Calvin Klein Underwear</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Tommy Hilfiger</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Levi's Outlet Store</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">LACOSTE Outlet</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">American Eagle</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Banana Republic Factory Store</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Polo Ralph Lauren Factory Store</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Diesel</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">DKNY</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Hollister Co.</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">GUESS Factory</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">GUESS Accessories</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="cami">
       <div class="food-dot" style="background:#DB2777"></div>
       <div class="food-main"><div class="food-n">Nautica Factory Store</div></div>
       <span class="food-must-tag" style="background:#DB2777">CAMI</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">BOSS Outlet</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">HUGO Outlet</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
@@ -2600,37 +2666,37 @@ function renderShopping() {
 
     <div class="food-cat-label">3:30 – 4:30pm · Lujo y accesorios</div>
 
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Armani Outlet</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="juntos">
       <div class="food-dot" style="background:var(--shop)"></div>
       <div class="food-main"><div class="food-n">Sunglass Hut</div></div>
       <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">A|X Armani Exchange</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">Armani Exchange Outlet</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="cami">
       <div class="food-dot" style="background:#DB2777"></div>
       <div class="food-main"><div class="food-n">Coach Outlet</div></div>
       <span class="food-must-tag" style="background:#DB2777">CAMI</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="cami">
       <div class="food-dot" style="background:#DB2777"></div>
       <div class="food-main"><div class="food-n">Michael Kors Outlet</div></div>
       <span class="food-must-tag" style="background:#DB2777">CAMI</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="cami">
       <div class="food-dot" style="background:#DB2777"></div>
       <div class="food-main"><div class="food-n">Marc Jacobs</div></div>
       <span class="food-must-tag" style="background:#DB2777">CAMI</span>
@@ -2638,35 +2704,35 @@ function renderShopping() {
 
     <div class="food-cat-label">4:30 – 5:15pm · Belleza y tech</div>
 
-    <div class="food-item">
+    <div class="food-item" data-who="cami">
       <div class="food-dot" style="background:#DB2777"></div>
       <div class="food-main"><div class="food-n">Victoria's Secret Outlet</div></div>
       <span class="food-must-tag" style="background:#DB2777">CAMI</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="cami">
       <div class="food-dot" style="background:#DB2777"></div>
       <div class="food-main"><div class="food-n">The Cosmetics Company Store</div></div>
       <span class="food-must-tag" style="background:#DB2777">CAMI</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">L'Occitane</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">Fragrance Outlet</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="gonza">
       <div class="food-dot" style="background:var(--mk)"></div>
       <div class="food-main"><div class="food-n">PRO TECH — GARMIN</div></div>
       <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
     </div>
 
-    <div class="food-cat-label">5:15 – 6:15pm · Disney's Character Warehouse + últimas compras</div>
+    <div class="food-cat-label" data-who="cami">5:15 – 6:15pm · Disney's Character Warehouse + últimas compras</div>
 
-    <div class="food-item">
+    <div class="food-item" data-who="cami">
       <div class="food-dot" style="background:#DB2777"></div>
       <div class="food-main">
         <div class="food-n">Disney's Character Warehouse</div>
@@ -2674,7 +2740,7 @@ function renderShopping() {
       </div>
       <span class="food-must-tag" style="background:#DB2777">CAMI</span>
     </div>
-    <div class="food-item">
+    <div class="food-item" data-who="cami">
       <div class="food-dot" style="background:#DB2777"></div>
       <div class="food-main">
         <div class="food-n">Pandora</div>
