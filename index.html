@@ -2241,68 +2241,492 @@ function switchPTab(btn, contentId) {
   if (target) target.classList.add('active');
 }
 
+function switchShopTab(btn, contentId) {
+  btn.closest('.park-tabs').querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const shop = document.getElementById('shopping-content');
+  shop.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  const target = shop.querySelector('#' + contentId);
+  if (target) target.classList.add('active');
+}
+
 // ═══════════════════════════════════════════════════════════
 // RENDER SHOPPING
 // ═══════════════════════════════════════════════════════════
 function renderShopping() {
   const el = document.getElementById('shopping-content');
   el.innerHTML = `
-  ${renderMediaBanner('shopping', 'Dia Libre', 'Compras en Orlando', 'Disney Springs, outlets y paradas clave para el grupo')}
+  ${renderMediaBanner('shopping', 'Dia Libre', 'Compras en Orlando', 'Outlet Marketplace · International Premium Outlets · I-Drive')}
   <div class="free-hero" style="background:var(--shop-lt)">
-    <div class="park-eyebrow" style="color:var(--shop)">Día Libre</div>
-    <div class="free-title">Domingo 19 de Abril<br>Compras en Orlando</div>
-    <div class="free-sub">Disney Springs · Premium Outlets I-Drive · Mall at Millenia</div>
+    <div class="park-eyebrow" style="color:var(--shop)">Domingo 19 de Abril</div>
+    <div class="free-title">Día de compras<br>en Orlando</div>
+    <div class="free-sub">Outlet Marketplace · International Premium Outlets</div>
   </div>
 
-  <div class="section-label">Destinos</div>
-
-  <div class="dest-item">
-    <div class="dest-name-row">
-      <div class="dest-nm">Disney Springs</div>
-      <div class="dest-badge" style="background:var(--shop)">Gratis</div>
+  <div class="hours-row" style="background:var(--white)">
+    <div class="h-cell">
+      <div class="h-label">1ª parada</div>
+      <div class="h-val" style="color:var(--shop)">11am</div>
     </div>
-    <p class="dest-desc">El shopping oficial de Disney. Abierto hasta las 11pm. Bus gratuito desde todos los hoteles Disney.</p>
-    <div class="dest-hi"><b>World of Disney</b> — La tienda Disney más grande del mundo</div>
-    <div class="dest-hi"><b>UNIQLO</b> — Colecciones Disney exclusivas a buen precio</div>
-    <div class="dest-hi"><b>Lego Store</b> — Sets exclusivos Disney y Star Wars</div>
-    <div class="dest-hi"><b>The Art of Disney</b> — Arte original y coleccionables</div>
-    <div class="dest-hi"><b>Marketplace Co-Op</b> — Merchandise de diseño independiente</div>
-  </div>
-
-  <div class="dest-item">
-    <div class="dest-name-row">
-      <div class="dest-nm">Premium Outlets (I-Drive)</div>
-      <div class="dest-badge" style="background:var(--ak)">30–70% off</div>
+    <div class="h-cell">
+      <div class="h-label">2ª parada</div>
+      <div class="h-val" style="color:var(--shop)">12:30pm</div>
     </div>
-    <p class="dest-desc">El outlet más grande de la zona. Nike, Adidas, Coach, Under Armour, 180+ marcas. Uber desde Disney ~15 min.</p>
-    <div class="dest-hi"><b>Nike Factory Store</b> — Zapatillas y ropa hasta 50% off</div>
-    <div class="dest-hi"><b>Coach / Kate Spade</b> — Carteras con descuentos reales</div>
-    <div class="dest-hi"><b>Under Armour</b> — Ropa técnica ideal para los parques</div>
-    <div class="dest-hi"><b>Adidas</b> — Colecciones anteriores a buen precio</div>
-  </div>
-
-  <div class="dest-item">
-    <div class="dest-name-row">
-      <div class="dest-nm">Mall at Millenia</div>
-      <div class="dest-badge" style="background:var(--mk)">Premium</div>
+    <div class="h-cell">
+      <div class="h-label">Cierre</div>
+      <div class="h-val" style="color:var(--shop)">7pm</div>
     </div>
-    <p class="dest-desc">El mall más lujoso de Orlando. Apple, Sephora, Zara, H&M, Anthropologie. Uber ~20 min desde Disney.</p>
-    <div class="dest-hi"><b>Apple Store</b> — Accesorios y cargadores para el viaje</div>
-    <div class="dest-hi"><b>Sephora</b> — Perfumes y cosméticos mejor precio que en Argentina</div>
-    <div class="dest-hi"><b>Zara / H&M</b> — Ropa de temporada a precio USA</div>
-    <div class="dest-hi"><b>Cheesecake Factory</b> — Almuerzo con porciones enormes</div>
   </div>
 
-  <div class="section-label">Tips para las compras</div>
+  <div class="transport-strip">
+    <b style="color:var(--shop)">Transporte:</b> Uber o Lyft — estacionamiento muy complicado los domingos. Ambos outlets están a 5 min caminando por I-Drive.
+  </div>
 
-  <div class="tip-item"><div class="tip-title">💰 Presupuesto</div><p class="tip-body">Visa y Mastercard funcionan perfectamente en toda USA. Llevar algo de efectivo para propinas y lugares pequeños.</p></div>
-  <div class="tip-item"><div class="tip-title">📦 Maleta extra</div><p class="tip-body">Traigan una bolsa grande plegable o compren una valija barata en Ross Dress for Less (desde $30).</p></div>
-  <div class="tip-item"><div class="tip-title">🏷 Sales Tax en Florida</div><p class="tip-body">El impuesto es 6-7% y NO está incluido en el precio de etiqueta. El precio final aparece en caja. Ropa de niños está exenta.</p></div>
-  <div class="tip-item"><div class="tip-title">🎁 Souvenirs Disney</div><p class="tip-body">Disney Springs tiene exactamente los mismos productos que dentro de los parques pero sin pagar entrada.</p></div>
-  <div class="tip-item"><div class="tip-title">⏰ Mejor horario</div><p class="tip-body">Abren a las 10am. Ir temprano para evitar el pico de 12 a 14hs. Disney Springs cierra a las 11pm.</p></div>
-  <div class="tip-item"><div class="tip-title">🚘 Cómo llegar</div><p class="tip-body">Disney Springs: bus gratuito desde el hotel. Premium Outlets: Uber $15-20. Mall at Millenia: Uber $20-25.</p></div>
-  <div class="tip-item"><div class="tip-title">📱 ShopSavvy app</div><p class="tip-body">Permite escanear barcodes y comparar precios con Amazon USA en tiempo real antes de comprar.</p></div>
-  <div class="tip-item"><div class="tip-title">🍽 Almuerzo en Disney Springs</div><p class="tip-body">BOATHOUSE para mariscos (reservar), Blaze Pizza para algo rápido, Wine Bar George para tabla de quesos.</p></div>
+  <div class="park-tabs" style="--park-acc:var(--shop)">
+    <div class="ptab active" onclick="switchShopTab(this,'st-plan')">Plan del día</div>
+    <div class="ptab" onclick="switchShopTab(this,'st-market')">Marketplace</div>
+    <div class="ptab" onclick="switchShopTab(this,'st-intl')">Int'l Premium</div>
+    <div class="ptab" onclick="switchShopTab(this,'st-tips')">Tips</div>
+  </div>
+
+  <!-- ── TAB: PLAN DEL DÍA ── -->
+  <div class="tab-content active" id="st-plan">
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">11:00</div></div>
+      <div class="sched-txt"><b>Outlet Marketplace</b> — 5269 International Dr · Primera parada</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">11:00</div></div>
+      <div class="sched-txt">Bloque deportivo — Nike · Adidas · PUMA · New Balance (juntos) + Under Armour (Gonza paralelo)</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">11:40</div></div>
+      <div class="sched-txt">Bloque ropa — Calvin Klein · Levi's · Tommy Hilfiger · American Eagle · GUESS (juntos) + U.S. Polo Assn. (Gonza paralelo)</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">12:15</div></div>
+      <div class="sched-txt">Accesorios — Discount Luggage + Watch Depot (Gonza solo · Cami descansa)</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">12:30</div></div>
+      <div class="sched-txt"><b>Salida caminando →</b> International Premium Outlets · 4951 International Dr</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">12:30</div></div>
+      <div class="sched-txt">Zona deportiva (entrada norte) — Nike · Adidas · Under Armour · PUMA · New Balance · North Face · Columbia · JD Sports · Foot Locker (juntos) + ASICS · HUK · Oakley (Gonza)</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">1:45</div></div>
+      <div class="sched-txt">Galería ropa — H&M · Gap · CK x2 · Tommy · Levi's · Lacoste · AE · Banana Republic · Polo RL · Diesel · DKNY · Hollister · GUESS x2 (juntos) + Nautica (Cami) + BOSS · HUGO (Gonza)</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">2:45</div></div>
+      <div class="sched-txt"><b>Almuerzo food court</b> — Five Guys · Dave's Hot Chicken · Asian Chao · Sarku Japan</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">3:30</div></div>
+      <div class="sched-txt">Lujo y accesorios — Armani Outlet · Sunglass Hut (juntos) + Armani Exchange x2 (Gonza) + Coach · Michael Kors · Marc Jacobs (Cami)</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">4:30</div></div>
+      <div class="sched-txt">Belleza y tech — Victoria's Secret · Cosmetics Co. (Cami) + L'Occitane · Fragrance Outlet · PRO TECH Garmin (Gonza)</div>
+    </div>
+    <div class="sched-item">
+      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">5:15</div></div>
+      <div class="sched-txt">Disney's Character Warehouse (Cami) + últimas compras libres · Cierre 7pm</div>
+    </div>
+  </div>
+
+  <!-- ── TAB: OUTLET MARKETPLACE ── -->
+  <div class="tab-content" id="st-market">
+    <div class="dest-item">
+      <div class="dest-name-row">
+        <div class="dest-nm">Outlet Marketplace</div>
+        <div class="dest-badge" style="background:var(--shop)">11am – 7pm</div>
+      </div>
+      <p class="dest-desc">5269 International Dr · Primera parada del día · 13 tiendas seleccionadas</p>
+    </div>
+
+    <div class="food-cat-label">11:00 – 11:40am · Bloque deportivo</div>
+
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Nike Clearance</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Adidas Clearance</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">PUMA Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">New Balance Factory Store</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">Under Armour</div><div class="food-d">En paralelo con el bloque deportivo</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+
+    <div class="food-cat-label">11:40am – 12:15pm · Ropa</div>
+
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Calvin Klein Clearance</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Levi's Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Tommy Hilfiger</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">American Eagle</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">GUESS Factory</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">U.S. Polo Assn.</div><div class="food-d">En paralelo con el bloque de ropa</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+
+    <div class="food-cat-label">12:15 – 12:30pm · Accesorios (Gonza solo · Cami descansa)</div>
+
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">Discount Luggage Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">Watch Depot</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+
+    <div class="food-cat-label">12:30pm · Salida al International Premium</div>
+    <div class="tip-item">
+      <div class="tip-body">Caminar por I-Drive hacia el International Premium Outlets — a 5 minutos a pie en la misma avenida.</div>
+    </div>
+  </div>
+
+  <!-- ── TAB: INTERNATIONAL PREMIUM OUTLETS ── -->
+  <div class="tab-content" id="st-intl">
+    <div class="dest-item">
+      <div class="dest-name-row">
+        <div class="dest-nm">Int'l Premium Outlets</div>
+        <div class="dest-badge" style="background:var(--shop)">11am – 7pm</div>
+      </div>
+      <p class="dest-desc">4951 International Dr · 45 tiendas seleccionadas · Pedir mapa en Guest Services al entrar</p>
+    </div>
+
+    <div class="food-cat-label">12:30 – 1:45pm · Zona deportiva (entrada norte)</div>
+
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">NIKE Factory Store</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">adidas Outlet Store</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Under Armour Factory House</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">PUMA Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">New Balance Factory Store</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">The North Face Outlets</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Columbia Clearance Store</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">JD Sports</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Foot Locker</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">ASICS</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">HUK</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">Oakley</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+
+    <div class="food-cat-label">1:45 – 2:45pm · Galería ropa</div>
+
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">H&M</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Gap Factory</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Calvin Klein</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Calvin Klein Underwear</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Tommy Hilfiger</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Levi's Outlet Store</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">LACOSTE Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">American Eagle</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Banana Republic Factory Store</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Polo Ralph Lauren Factory Store</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Diesel</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">DKNY</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Hollister Co.</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">GUESS Factory</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">GUESS Accessories</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:#DB2777"></div>
+      <div class="food-main"><div class="food-n">Nautica Factory Store</div></div>
+      <span class="food-must-tag" style="background:#DB2777">CAMI</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">BOSS Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">HUGO Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+
+    <div class="food-cat-label">2:45 – 3:30pm · Almuerzo food court</div>
+    <div class="tip-item">
+      <div class="tip-body">Five Guys · Dave's Hot Chicken · Asian Chao · Sarku Japan y más opciones en el food court del mall.</div>
+    </div>
+
+    <div class="food-cat-label">3:30 – 4:30pm · Lujo y accesorios</div>
+
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Armani Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--shop)"></div>
+      <div class="food-main"><div class="food-n">Sunglass Hut</div></div>
+      <span class="food-must-tag" style="background:var(--shop)">JUNTOS</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">A|X Armani Exchange</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">Armani Exchange Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:#DB2777"></div>
+      <div class="food-main"><div class="food-n">Coach Outlet</div></div>
+      <span class="food-must-tag" style="background:#DB2777">CAMI</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:#DB2777"></div>
+      <div class="food-main"><div class="food-n">Michael Kors Outlet</div></div>
+      <span class="food-must-tag" style="background:#DB2777">CAMI</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:#DB2777"></div>
+      <div class="food-main"><div class="food-n">Marc Jacobs</div></div>
+      <span class="food-must-tag" style="background:#DB2777">CAMI</span>
+    </div>
+
+    <div class="food-cat-label">4:30 – 5:15pm · Belleza y tech</div>
+
+    <div class="food-item">
+      <div class="food-dot" style="background:#DB2777"></div>
+      <div class="food-main"><div class="food-n">Victoria's Secret Outlet</div></div>
+      <span class="food-must-tag" style="background:#DB2777">CAMI</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:#DB2777"></div>
+      <div class="food-main"><div class="food-n">The Cosmetics Company Store</div></div>
+      <span class="food-must-tag" style="background:#DB2777">CAMI</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">L'Occitane</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">Fragrance Outlet</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:var(--mk)"></div>
+      <div class="food-main"><div class="food-n">PRO TECH — GARMIN</div></div>
+      <span class="food-must-tag" style="background:var(--mk)">GONZA</span>
+    </div>
+
+    <div class="food-cat-label">5:15 – 6:15pm · Disney's Character Warehouse + últimas compras</div>
+
+    <div class="food-item">
+      <div class="food-dot" style="background:#DB2777"></div>
+      <div class="food-main">
+        <div class="food-n">Disney's Character Warehouse</div>
+        <div class="food-d">Merch Disney a precio outlet — única oportunidad del viaje fuera de los parques</div>
+      </div>
+      <span class="food-must-tag" style="background:#DB2777">CAMI</span>
+    </div>
+    <div class="food-item">
+      <div class="food-dot" style="background:#DB2777"></div>
+      <div class="food-main">
+        <div class="food-n">Pandora</div>
+        <div class="food-d">Figura como "próximamente" — confirmar disponibilidad antes del viaje</div>
+      </div>
+      <span class="food-must-tag" style="background:#DB2777">CAMI</span>
+    </div>
+  </div>
+
+  <!-- ── TAB: TIPS ── -->
+  <div class="tab-content" id="st-tips">
+    <div class="tip-item">
+      <div class="tip-title">⏰ Horario ambos outlets</div>
+      <p class="tip-body">Outlet Marketplace y International Premium Outlets abren a las <b>11am y cierran a las 7pm</b> los domingos. No perder el cierre.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🏷 Sales Tax Florida: 6.5%</div>
+      <p class="tip-body">El impuesto <b>NO está incluido</b> en los precios de etiqueta. Se suma al momento de pagar en caja. Considerarlo al calcular presupuesto.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">📱 App Simon+</div>
+      <p class="tip-body">Registrarse en la app <b>Simon+</b> antes del viaje para acceder a cupones adicionales y descuentos exclusivos en ambos outlets de I-Drive.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🗺 Mapa de tiendas</div>
+      <p class="tip-body">Al entrar al International Premium Outlets, pedir el <b>mapa de tiendas en Guest Services</b>. Ahorra mucho tiempo para encontrar las tiendas del recorrido.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🚗 Uber o Lyft obligatorio</div>
+      <p class="tip-body">El estacionamiento en I-Drive es <b>muy complicado los domingos</b>. Uber/Lyft es la opción más práctica y económica para llegar y volver.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🍕 Almuerzo en el food court</div>
+      <p class="tip-body">El food court del International Premium tiene <b>Five Guys, Dave's Hot Chicken, Asian Chao y Sarku Japan</b>. Almorzar entre las 2:45 y 3:30pm para evitar el pico.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🔴 Pandora — confirmar antes</div>
+      <p class="tip-body">La tienda Pandora en el International figura actualmente como <b>"próximamente"</b>. Verificar disponibilidad en la app Simon+ o en el sitio del mall días antes del viaje.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🚧 Lindt Chocolate — cerrado</div>
+      <p class="tip-body">La tienda Lindt Chocolate en el International Premium está <b>cerrada por obras</b>. No incluida en el recorrido.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">🧳 Vineland Premium Outlets (opcional)</div>
+      <p class="tip-body">Si sobra tiempo: Uber ~$12, 10 min desde el International Premium. Tiene tiendas de lujo adicionales como Gucci, Versace, Burberry.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-title">💳 Presupuesto y pagos</div>
+      <p class="tip-body">Visa y Mastercard funcionan perfectamente. Llevar efectivo solo para propinas. Considerar traer una maleta plegable o comprar una nueva en el propio outlet.</p>
+    </div>
+  </div>
   `;
 }
 
