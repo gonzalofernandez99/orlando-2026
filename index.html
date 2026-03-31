@@ -128,9 +128,9 @@ body {
   background: none;
   color: rgba(255,255,255,.35);
   font-family: var(--sans);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
-  letter-spacing: .04em;
+  letter-spacing: .03em;
   text-transform: uppercase;
   transition: color .2s, background .2s;
   -webkit-tap-highlight-color: transparent;
@@ -1360,6 +1360,9 @@ body {
   <!-- CRUCERO -->
   <div class="page" id="page-cruise"></div>
 
+  <!-- HOTEL -->
+  <div class="page" id="page-hotel"></div>
+
 </div><!-- /scroll-area -->
 
 <!-- BOTTOM NAV -->
@@ -1397,6 +1400,12 @@ body {
     </svg>
     Crucero
   </button>
+  <button class="nav-btn" id="nav-hotel" onclick="showTab('hotel')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 22V8a2 2 0 012-2h14a2 2 0 012 2v14"/><path d="M2 22h20"/><path d="M6 10h4v4H6z"/><path d="M14 10h4v4h-4z"/><path d="M10 22V16a2 2 0 012-2h0a2 2 0 012 2v6"/>
+    </svg>
+    Hotel
+  </button>
 </nav>
 
 <script>
@@ -1410,9 +1419,9 @@ const DAYS = [
   { type:'park', group:'disney',    id:'ak',       label:'Animal Kingdom',              date:'Martes 21 de Abril',    hours:'Early 7:30am · 8am–7pm',    acc:'#1A7A32' },
   { type:'park', group:'disney',    id:'mk',       label:'Magic Kingdom',               date:'Miércoles 22 de Abril', hours:'Early 8:30am · 9am–9pm',    acc:'#6B28C4' },
   { type:'free', group:'beach',     id:'beach',    label:'Día Libre — Anna Maria',      date:'Jueves 23 de Abril',    hours:'Golfo de México · ~2hs',     acc:'#0278B0' },
-  { type:'park', group:'universal', id:'epic',     label:'Epic Universe',               date:'Viernes 24 de Abril',   hours:'Early 9am · 10am–9pm',      acc:'#C41A1A' },
-  { type:'park', group:'universal', id:'usf',      label:'Universal Studios Florida',   date:'Sábado 25 de Abril',    hours:'Sin EPA · 9am–9pm · P2P',   acc:'#0A7B72' },
-  { type:'park', group:'universal', id:'ioa',      label:'Islands of Adventure',        date:'Domingo 26 de Abril',   hours:'Early 8am · 9am–9pm · P2P', acc:'#0A7B72' },
+  { type:'park', group:'universal', id:'epic',     label:'Epic Universe',               date:'Viernes 24 de Abril',   hours:'Early 9am · 10am–9pm · P2P',acc:'#C41A1A' },
+  { type:'park', group:'universal', id:'usf',      label:'Universal Studios Florida',   date:'Sábado 25 de Abril',    hours:'Sin EPA · 10am–9pm · P2P',  acc:'#0A7B72' },
+  { type:'park', group:'universal', id:'ioa',      label:'Islands of Adventure',        date:'Domingo 26 de Abril',   hours:'Early 8am · 9am–8pm · P2P', acc:'#0A7B72' },
 ];
 
 const VISUALS = {
@@ -1450,7 +1459,19 @@ const PARK_MAPS = {
     original: 'assets/mapaKingdom.png',
     alt: 'Mapa de Magic Kingdom con numeracion y referencia lateral',
     note: 'En computadora se ajusta al ancho del panel. En iPhone queda ampliado para que puedas arrastrarlo en horizontal y leer mejor la referencia de la derecha.',
-  }
+  },
+  ioa: {
+    src: 'assets/mapaIOA.png',
+    original: 'assets/mapaIOA.png',
+    alt: 'Mapa oficial de Islands of Adventure con todas las atracciones y restaurantes',
+    note: 'Mapa oficial del parque. Deslizá en horizontal para ver la referencia completa de la derecha.',
+  },
+  usf: {
+    src: 'assets/mapaUSF.png',
+    original: 'assets/mapaUSF.png',
+    alt: 'Mapa oficial de Universal Studios Florida con todas las atracciones y restaurantes',
+    note: 'Mapa oficial del parque. Deslizá en horizontal para ver la referencia completa de la derecha.',
+  },
 };
 
 const PARKS = {
@@ -1722,8 +1743,8 @@ const PARKS = {
     name:'Epic Universe', acc:'#C41A1A',
     date:'Viernes 24 de Abril  ·  Early Admission 9:00am',
     early:'9:00am', open:'10:00am', close:'9:00pm',
-    tip:'El parque más nuevo del mundo — <b>abierto desde mayo 2025</b>. <b>Estrategia EPA:</b> ir a Dark Universe (Monsters Unchained) o Isle of Berk (HTTYD) PRIMERO — toda la multitud corre a HP Ministry of Magic y Nintendo World. Dejen HP y Nintendo para la tarde cuando las otras áreas ya tienen fila. Las multitudes son 5-6/10 post-Easter. Virtual Lines posibles para Nintendo/HP en días pico — monitorear la app de Universal.',
-    alerts:['Parque abierto desde mayo 2025 — menos de 1 año de operaciones. Filas altas especialmente en HP y Nintendo. Monitorear app de Universal.', 'Estrategia EPA: la multitud corre a HP y Nintendo — ir a Dark Universe o Isle of Berk primero para aprovechar la entrada temprana.', 'Virtual Lines posibles en Super Nintendo World y Ministry of Magic en días de alta asistencia — abrir la app al llegar para ver si están activas.'],
+    tip:'El parque más nuevo del mundo — <b>abierto desde mayo 2025</b>. Tienen <b>Park-to-Park</b> — pueden cruzar a IOA/USF si quieren. <b>Estrategia EPA (9am):</b> ir a Dark Universe (Monsters Unchained) o Isle of Berk (HTTYD) PRIMERO — toda la multitud corre a HP Ministry of Magic y Nintendo World. <b>Nunca dejen Ministerio de Magia para última hora</b> — cierran la fila antes del cierre. Las multitudes son 5-6/10 post-Easter. Virtual Lines posibles para Nintendo/HP en días pico — monitorear la app.',
+    alerts:['Parque abierto desde mayo 2025 — menos de 1 año de operaciones. Filas altas especialmente en HP y Nintendo. Monitorear app de Universal.', 'Estrategia EPA: la multitud corre a HP y Nintendo — ir a Dark Universe o Isle of Berk primero para aprovechar la entrada temprana.', 'Virtual Lines posibles en Super Nintendo World y Ministry of Magic en días de alta asistencia — abrir la app al llegar para ver si están activas.', 'NUNCA dejar Ministerio de Magia para última hora — cierran la fila mucho antes del horario de cierre del parque.', 'EPA incluye: Harry Potter and the Battle at the Ministry · Hiccup\'s Wing Gliders · Viking Training Camp · Dragon Racer\'s Rally · Toothless Meet & Greet · Mario Kart: Bowser\'s Challenge · Mine-Cart Madness · Yoshi\'s Adventure'],
     info:{
       stats:[
         {label:'Área total', val:'750 acres'},
@@ -1738,6 +1759,10 @@ const PARKS = {
         {icon:'🌃', title:'La noche en Epic es completamente diferente — quedarse hasta el cierre', desc:'El hub Celestial Park se ilumina espectacularmente después de las 8pm. Las fuentes se sincronizan con música. Muchos visitantes se van a las 7pm — las últimas 2 horas son las mejores del día con filas mínimas.'},
         {icon:'🔥', title:'Burning Blade Tavern — pararse cerca para sentir el fuego', desc:'Varias veces por hora el techo de la taberna de Darkmoor se llena de llamas reales. No es un show anunciado — simplemente pasa. Quédense cerca durante la cena y esperen.'},
         {icon:'⚠️', title:'Parque nuevo = más downtime — tener plan B siempre', desc:'Con menos de 1 año de operaciones, las atracciones de Epic tienen más downtime que parques más viejos. Si Battle at the Ministry o Mario Kart están cerradas al llegar, hacer Stardust Racers o HTTYD primero y volver más tarde.'},
+        {icon:'📵', title:'Stardust Racers tiene detector de metales — sin celular', desc:'Stardust Racers (y otras coasters de Epic) tienen detectores de metales. No intentes entrar con el celular — te hacen volver a guardarlo en el locker y perdés tiempo. Guardá el celular antes de hacer la fila.'},
+        {icon:'🌙', title:'Show de cierre Epic — frente a la fuente del Hotel Helios', desc:'Epic tiene show de cierre en el horario de cierre del parque, frente a la fuente del Celestial Park, delante del Hotel Helios. Vale la pena quedarse. Muchas coasters de Celestial Park siguen abiertas después del cierre oficial.'},
+        {icon:'🎟️', title:'Single Rider disponible en Epic — saltate la fila', desc:'En Epic tienen Single Rider en: Stardust Racers, Curse of the Werewolf, Monsters Unchained, Hiccup\'s Wing Gliders, Mario Kart, Mine-Cart Madness, Harry Potter and the Battle at the Ministry.'},
+        {icon:'📱', title:'Mobile order en Epic es casi obligatorio — QR en cada mesa', desc:'En Epic prácticamente todos los restaurantes funcionan con QR en la mesa y mobile order desde la app. Piden la tarjeta con todos los datos. Si no quieren hacer esto, díganle al empleado que prefieren pagar en mostrador.'},
       ],
       waitHits:[
         {n:'HP: Battle at the Ministry', avg:'90–139 min', tip:'EPA → 15–25 min en otros mundos primero'},
@@ -1789,9 +1814,9 @@ const PARKS = {
   },
   usf: {
     name:'Universal Studios Florida', acc:'#0A7B72',
-    date:'Sábado 25 de Abril  ·  Sin EPA (verificar en app)',
-    early:'—', open:'9:00am', close:'9:00pm',
-    tip:'<b>Actualmente sin Early Park Admission para USF</b> — verificar en la app de Universal unos días antes. Llegar 30 min antes de la apertura para entrar primero. A las <b>17hs cruzan en Hogwarts Express a Hogsmeade</b> para Butterbeer y vuelven. <b>Rip Ride Rockit cerrado</b> desde agosto 2025.',
+    date:'Sábado 25 de Abril  ·  Sin EPA · P2P',
+    early:'—', open:'10:00am', close:'9:00pm',
+    tip:'<b>USF sin EPA el 25 de Abril — IOA sí tiene EPA a las 8am.</b> Estrategia: entrar primero por IOA con EPA, hacer Hagrid\'s y VelociCoaster, luego cruzar en <b>Hogwarts Express a Diagon Alley</b> cuando USF abra a las 10am. Tienen <b>Park-to-Park</b> para moverse libremente. <b>Rip Ride Rockit cerrado</b> desde agosto 2025.',
     info:{
       stats:[
         {label:'Área total', val:'110 acres'},
@@ -1800,7 +1825,7 @@ const PARKS = {
         {label:'Dragón Gringotts', val:'cada ~10 min'},
       ],
       tips:[
-        {icon:'🏃', title:'Diagon Alley primero — la fila se dispara en 30 min', desc:'Sin EPA, llegá al parque 20–30 min antes de la apertura y poné primera posición en la entrada. Al abrir, ir directo a Diagon Alley y Escape from Gringotts. A las 9:30am ya tiene 45–75 min de fila.'},
+        {icon:'🏃', title:'IOA primero con EPA 8am → USF al abrir a las 10am', desc:'IOA tiene EPA a las 8am y USF abre recién a las 10am. La estrategia ganadora: entrar a IOA a las 8am con la llave del hotel, hacer Hagrid\'s y VelociCoaster, luego tomar el Hogwarts Express a Diagon Alley cuando USF abra. Directo a Escape from Gringotts apenas llegás.'},
         {icon:'🚂', title:'Hogwarts Express en AMBOS sentidos — son experiencias distintas', desc:'El viaje USF→IOA y IOA→USF tienen contenido completamente diferente adentro del tren. No omitás el de vuelta pensando que ya lo hiciste. Son dos atracciones distintas que requieren ticket Park-to-Park.'},
         {icon:'📞', title:'Cabina de teléfono en Diagon Alley — llamá al Ministerio de Magia', desc:'Hay una cabina de teléfono roja en Diagon Alley. Marcá el código 62442 (MAGIC) y se conecta con el Ministerio de Magia — una grabación en personaje. En Knockturn Alley los efectos de luz y sombras cambian sola.'},
         {icon:'🍺', title:'Moe\'s Tavern y Springfield — no es solo temática, es buena comida', desc:'Springfield tiene Moe\'s Tavern con el Flaming Moe real (humo naranja), Krusty Burger con el menu de la serie y el Kwik-E-Mart. No lo pasen rápido — es una de las áreas temáticas más detalladas del parque.'},
@@ -1814,7 +1839,7 @@ const PARKS = {
         {n:'Men in Black Alien Attack', avg:'15–35 min', tip:'Shooter competitivo'},
       ]
     },
-    alerts:['Sin EPA confirmado para USF — verificar en la app de Universal antes del viaje. IOA y Epic Universe SÍ tienen EPA de 1 hora.', 'Rip Ride Rockit: CERRADA permanentemente desde agosto 2025 — el área está siendo demolida para una nueva atracción.'],
+    alerts:['USF NO tiene EPA el 25 de abril. IOA tiene EPA 8am (abre 9am), USF abre 10am. Estrategia: empezar en IOA con EPA → cruzar a USF vía Hogwarts Express a las 10am.', 'Rip Ride Rockit: CERRADA permanentemente desde agosto 2025 — el área está siendo demolida para una nueva atracción.'],
     atts:[
       {n:'Diagon Alley + Harry Potter and the Escape from Gringotts',note:'El mundo de HP en USF. La fila sube muy rápido — PRIMERA parada al abrir.',hot:true,thrill:'adrenalina',wait:'alta'},
       {n:'Revenge of the Mummy',note:'Coaster indoor con jump scare final — clásica. Media mañana.',hot:true,thrill:'extrema',wait:'media'},
@@ -1824,15 +1849,15 @@ const PARKS = {
       {n:'Hogwarts Express (USF → IOA)',note:'A las 17hs: cruzar a Hogsmeade. Es una atracción en sí mismo.',hot:false,thrill:'suave',wait:'baja'},
     ],
     sched:[
-      {t:'8:30am',txt:'Llegar al parque — 30 min antes para posición en entrada'},
-      {t:'9:00am',txt:'Apertura — Diagon Alley directo · Escape from Gringotts'},
+      {t:'8:00am',txt:'Entrar a IOA con EPA — llave del hotel · VelociCoaster + Hagrid\'s'},
+      {t:'10:00am',txt:'Hogwarts Express IOA → USF (apertura USF) · Diagon Alley directo'},
+      {t:'10:15am',txt:'Escape from Gringotts — primera parada en USF, fila mínima al abrir'},
       {t:'11:30am',txt:'Revenge of the Mummy'},
       {t:'12:30pm',txt:'Leaky Cauldron (almuerzo HP) — mobile order'},
-      {t:'14:00pm',txt:'Men in Black Alien Attack + Fast & Furious'},
+      {t:'14:00pm',txt:'Men in Black Alien Attack + Fast & Furious Supercharged'},
       {t:'15:30pm',txt:'Springfield — The Simpsons Ride'},
-      {t:'17:00pm',txt:'Hogwarts Express → Hogsmeade (IOA)'},
-      {t:'17:45pm',txt:'Butterbeer + explorar Hogsmeade'},
-      {t:'18:30pm',txt:'Hogwarts Express de vuelta a USF'},
+      {t:'17:30pm',txt:'Explorar Diagon Alley · cabina del Ministerio (62442) · Knockturn Alley'},
+      {t:'20:30pm',txt:'Cierre del día · pueden volver a IOA con P2P si quieren'},
     ],
     food:[
       {n:'Leaky Cauldron — Diagon Alley',d:"Shepherd's Pie · Fish & Chips · Great Feast HP · Butterbeer frozen",must:true,plan:true},
@@ -1851,9 +1876,9 @@ const PARKS = {
   ioa: {
     name:'Islands of Adventure', acc:'#0A7B72',
     date:'Domingo 26 de Abril  ·  Early Admission 8:00am',
-    early:'8:00am', open:'9:00am', close:'9:00pm',
-    tip:"Día completo en IOA. VelociCoaster y Hagrid's primero. <b>Hogsmeade ya lo visitaron ayer</b> — tienen todo el día sin apuros. <b>Hagrid's tips:</b> elegir MOTO (no sidecar) para vivir los 7 lanzamientos completos. Hay un <b>botón morado en la motocicleta</b> — apretarlo en el tramo final activa un Easter egg de luz. Después de Hagrid's, <b>VelociCoaster tiene ~20 min de fila</b> — aprovechen para ir de nuevo.",
-    alerts:['Fila de Hagrid\'s puede ser 2-3 horas en horas pico — prioritizarla con early entry a las 8am.'],
+    early:'8:00am', open:'9:00am', close:'8:00pm',
+    tip:"Día completo en IOA. <b>IOA cierra a las 8pm</b>. VelociCoaster y Hagrid's primero con EPA 8am. <b>Hogsmeade ya lo visitaron ayer</b> — tienen todo el día sin apuros. <b>Hagrid's tips:</b> elegir MOTO (no sidecar) para vivir los 7 lanzamientos completos. Hay un <b>botón morado en la motocicleta</b> — apretarlo en el tramo final activa un Easter egg de luz. <b>Jurassic Park River Adventure CERRADA</b> hasta noviembre 2026. Después de Hagrid's, <b>VelociCoaster tiene ~20 min de fila</b>.",
+    alerts:['Fila de Hagrid\'s puede ser 2-3 horas en horas pico — prioritizarla con early entry a las 8am. ELEGIR MOTO (no sidecar) y presionar el botón morado en el tramo final.', 'Jurassic Park River Adventure: CERRADA hasta el 19/11/2026 — no disponible durante el viaje.', 'IOA cierra a las 8pm el 26 de abril. EPA incluye: Forbidden Journey · Flight of the Hippogriff · VelociCoaster · Ollivanders · Hagrid\'s Motorbike Adventure'],
     info:{
       stats:[
         {label:'VelociCoaster vel.', val:'155 km/h'},
@@ -1881,7 +1906,7 @@ const PARKS = {
       {n:'VelociCoaster',note:'La más rápida de Florida. Primera parada con early 8am — es la prioridad.',hot:true,thrill:'extrema',wait:'alta'},
       {n:"Hagrid's Magical Creatures Motorbike",note:'La favorita de casi todos — segunda parada.',hot:true,thrill:'extrema',wait:'alta'},
       {n:'Harry Potter and the Forbidden Journey',note:'Dentro del castillo de Hogwarts — efectos visuales impresionantes.',hot:true,thrill:'adrenalina',wait:'media'},
-      {n:'Jurassic Park River Adventure',note:'Se mojan MUCHO — Ziploc para celulares. Perfecto para el calor.',hot:false,thrill:'moderada',wait:'baja'},
+      {n:'Jurassic Park River Adventure',note:'⛔ CERRADA hasta el 19/11/2026 — no disponible durante el viaje.',hot:false,thrill:'moderada',wait:'baja'},
       {n:'The Incredible Hulk Coaster',note:'Coaster lanzada clásica — 4 inversiones. Marvel Super Hero Island.',hot:false,thrill:'extrema',wait:'media'},
       {n:"Doctor Doom's Fearfall",note:'Torre de caída libre — rápida e intensa. Fila siempre corta.',hot:false,thrill:'adrenalina',wait:'baja'},
       {n:'Toon Lagoon: Popeye & Bluto',note:'Otra donde se mojan — muy divertida en grupo de 6.',hot:false,thrill:'moderada',wait:'baja'},
@@ -1894,11 +1919,10 @@ const PARKS = {
       {t:'10:15am',txt:'VelociCoaster de nuevo — fila ~20 min después de Hagrid\'s'},
       {t:'11:00am',txt:'Harry Potter and the Forbidden Journey'},
       {t:'12:00pm',txt:'Three Broomsticks (almuerzo Hogsmeade) — mobile order'},
-      {t:'13:30pm',txt:'Jurassic Park River Adventure — Ziplocs para celulares'},
-      {t:'15:00pm',txt:"Hulk Coaster + Doctor Doom's Fearfall"},
-      {t:'16:30pm',txt:'Toon Lagoon: Popeye & Bluto'},
-      {t:'18:00pm',txt:'Segundo VelociCoaster si el grupo quiere'},
-      {t:'19:30pm',txt:'Hogwarts Express → USF · Diagon Alley — cierre del viaje ✈'},
+      {t:'13:30pm',txt:'Hulk Coaster + Doctor Doom\'s Fearfall (JPR cerrado hasta nov 2026)'},
+      {t:'15:00pm',txt:'Toon Lagoon: Popeye & Bluto'},
+      {t:'16:30pm',txt:'Segundo VelociCoaster + explorar Hogsmeade'},
+      {t:'18:00pm',txt:'Hogwarts Express → USF · Diagon Alley — cierre del viaje ✈ (IOA cierra 8pm)'},
     ],
     food:[
       {n:'Three Broomsticks — Hogsmeade',d:'Great Hall HP · Rotisserie chicken · Great Feast · Pumpkin Fizz',must:true,plan:true},
@@ -2885,7 +2909,13 @@ function renderTips() {
     {acc:'#C41A1A',tag:'SECRETO HP',title:'Varitas interactivas de Harry Potter',text:'Con una varita interactiva, los medallones en Hogsmeade y Diagon Alley activan el decorado. ~20 puntos por mundo, 45-60 minutos de diversión extra en cada área de HP.'},
     {acc:'#6B28C4',tag:'FUN',title:'Hidden Mickeys escondidos',text:'Por todo Disney hay siluetas de Mickey formadas con 3 círculos. Búsquenlas en el mural de Guardians, en el suelo de Spaceship Earth y en las rocas de Animal Kingdom.'},
     {acc:'#0A7B72',tag:'PRO TIP',title:'Cast Members saben todo',text:'Los empleados saben en tiempo real qué fila está corta ahora. Si es el primer viaje de alguien del grupo, comuníquenselo al check-in del hotel. A veces hay sorpresas muy buenas.'},
-    {acc:'#0A7B72',tag:'CRÍTICO',title:'Hotel Universal Premier incluye Express Pass',text:'Hard Rock, Portofino Bay y Royal Pacific incluyen Express Pass ilimitado para USF, IOA y Epic Universe. Si se hospedan en uno de ellos, úsenlo en todas las atracciones principales sin esperar.'},
+    {acc:'#C41A1A',tag:'⛔ CERRADA',title:'Jurassic Park River Adventure — no disponible',text:'La atracción JPR de Islands of Adventure está cerrada y no reabre hasta el 19 de noviembre de 2026. No va a estar disponible ninguno de sus días de Universal.'},
+    {acc:'#0A7B72',tag:'CRÍTICO IOA',title:'IOA cierra a las 8pm los días 25 y 26 de abril',text:'Islands of Adventure cierra a las 8pm (no 9pm) los días 25 y 26 de abril. Planificá las atracciones sabiendo que tenés menos tiempo que en otros parques. Hagrid\'s y VelociCoaster primero con EPA a las 8am.'},
+    {acc:'#0A7B72',tag:'ESTRATEGIA P2P',title:'Los 3 días Universal son todos Park-to-Park',text:'Tienen Park-to-Park para los 3 parques (IOA + USF + Epic) los días 24, 25 y 26. Pueden moverse libremente entre IOA y USF con el Hogwarts Express. El día 25: entrar a IOA con EPA 8am → cruzar a USF a las 10am en Hogwarts Express.'},
+    {acc:'#0A7B72',tag:'EPA UNIVERSAL',title:'Llave del cuarto = acceso EPA — llevarla todos',text:'Para entrar a los parques en horario temprano necesitan la llave de habitación del hotel. Llevar UNA LLAVE POR PERSONA. Sin la llave no pueden entrar al EPA. Conseguirlas en el check-in (4pm del 23 de abril).'},
+    {acc:'#0A7B72',tag:'METAL DETECTORS',title:'VelociCoaster, Hulk y Stardust Racers — sin celular',text:'Estas tres coasters tienen detectores de metales en la entrada. Si intentás entrar con el celular te mandan a guardarlo y perdés tiempo de fila. Guardalo en el locker antes de hacer la fila, no después.'},
+    {acc:'#C41A1A',tag:'EPIC UNIVERSE',title:'Ministerio de Magia — nunca para última hora',text:'En Epic Universe, muchas veces cierran la fila de Battle at the Ministry antes del horario de cierre del parque. No lo dejen para el final del día. Es la atracción más demandada del parque — hacerla a media mañana cuando las otras áreas ya tuvieron EPA.'},
+    {acc:'#C41A1A',tag:'EPIC DE NOCHE',title:'Celestial Park de noche — quedarse hasta el cierre',text:'La experiencia de Epic Universe de noche es completamente diferente. Las fuentes se iluminan, la atmósfera cambia totalmente. Muchas atracciones de Celestial Park siguen abiertas después del cierre oficial. Hay un show de cierre frente a la fuente del Hotel Helios.'},
   ];
 
   const el = document.getElementById('page-tips');
@@ -3080,6 +3110,9 @@ function showTab(tab) {
   } else if (tab === 'cruise') {
     showPage('cruise');
     document.getElementById('top-context').textContent = 'Crucero — Wonder of the Seas';
+  } else if (tab === 'hotel') {
+    showPage('hotel');
+    document.getElementById('top-context').textContent = 'Hotel Universal';
   }
 }
 
@@ -3113,6 +3146,61 @@ function goHome() {
 }
 
 // ═══════════════════════════════════════════════════════════
+// RENDER HOTEL
+// ═══════════════════════════════════════════════════════════
+function renderHotel() {
+  const acc = '#0A7B72';
+  const el = document.getElementById('page-hotel');
+  el.innerHTML = `
+  <div class="free-hero" style="background:#0A7B7218;border:1px solid #0A7B7240;border-left:4px solid ${acc}">
+    <div class="park-eyebrow" style="color:${acc}">Universal Orlando Resort</div>
+    <div class="free-title" style="color:var(--ink)">Hotel Universal<br><span style="font-size:22px;font-style:italic">Endless Summer — Dockside</span></div>
+    <div class="free-sub">Check-in 23 Abril · Check-out 27 Abril · 4 noches</div>
+  </div>
+
+  <div class="section-label">Check-in</div>
+  <div style="padding:0 16px 8px">
+    <div class="tip-strip" style="border-left:3px solid ${acc}">
+      <b>Horario de check-in: 4:00pm del 23 de abril.</b> Si llegan antes, pueden registrarse igual y preguntar si les guardan las valijas — generalmente acceden aunque sin garantía de espacio.
+    </div>
+  </div>
+  <div class="act-item"><div class="act-icon">🅿️</div><div class="act-body"><div class="act-nm">Estacionar para el check-in</div><p class="act-desc">Al llegar al hotel, estacionar en el parking que está en la entrada, al lado del lobby.</p></div></div>
+  <div class="act-item"><div class="act-icon">📄</div><div class="act-body"><div class="act-nm">Presentar el voucher</div><p class="act-desc">Tienen que mostrar el voucher con toda la info de la reserva. Si no lo llevan impreso, pueden mostrarlo desde el celular o mencionar el código del voucher y el nombre de la reserva.</p></div></div>
+  <div class="act-item"><div class="act-icon">🗝️</div><div class="act-body"><div class="act-nm">Tarjeta llave — una por persona</div><p class="act-desc">Al hacer check-in les entregan <b>una tarjeta por persona</b>. Funciona como: llave de la habitación · acceso para abrir las barreras del parking del hotel · <b>acceso al EPA (Early Park Admission)</b>. ¡Llevarla siempre al parque!</p></div></div>
+  <div class="act-item"><div class="act-icon">🎟️</div><div class="act-body"><div class="act-nm">Tickets de parque — mostrador de tickets en el lobby</div><p class="act-desc">Los tickets NO se entregan en el check-in. Hay que retirarlos en el <b>mostrador de tickets del lobby</b> con el voucher y una tarjeta de crédito a nombre del titular (no cobran nada, solo validan identidad). Si no hay empleados, algunos hoteles tienen kioscos digitales.</p></div></div>
+  <div class="act-item"><div class="act-icon">📱</div><div class="act-body"><div class="act-nm">Vincular tickets a la app</div><p class="act-desc">Una vez retirados los tickets (tarjeta de papel con código de barras), pueden vincularlos a la app de Universal Orlando Resort. Escaneá el código de barras desde la función wallet de la app.</p></div></div>
+
+  <div class="section-label">Transporte a los parques</div>
+  <div class="act-item"><div class="act-icon">🚌</div><div class="act-body"><div class="act-nm">Bus Universal — su opción principal</div><p class="act-desc">Desde Endless Summer Dockside el transporte a los parques es en <b>bus</b>. Los buses salen constantemente. Para USF e IOA: tomar bus a City Walk, caminar recto hasta el final — a la derecha USF, a la izquierda IOA. Para Epic Universe: bus directo al parking de Epic.</p></div></div>
+  <div class="act-item"><div class="act-icon">🚶</div><div class="act-body"><div class="act-nm">Caminando a Epic Universe</div><p class="act-desc">Endless Summer está cerca de Epic Universe. Consultar en el hotel si hay conexión peatonal. De todos modos el bus es la opción más cómoda y segura.</p></div></div>
+  <div class="act-item"><div class="act-icon">🚗</div><div class="act-body"><div class="act-nm">En auto — no recomendado</div><p class="act-desc">Aunque sean huéspedes, en los parques pagan parking. Para USF/IOA: City Walk (6000 Universal Blvd). Para Epic: parking propio (1001 Epic Blvd). Después de las 6pm no se cobra parking (excepto eventos especiales).</p></div></div>
+  <div class="act-item"><div class="act-icon">❄️</div><div class="act-body"><div class="act-nm">Llevar abrigo para el bus</div><p class="act-desc">Hace mucho frío adentro de los micros de Universal. No dejen de llevar una campera o sweater aunque afuera haga calor.</p></div></div>
+
+  <div class="section-label">Ingreso a los parques (EPA)</div>
+  <div class="act-item"><div class="act-icon">⏰</div><div class="act-body"><div class="act-nm">Horarios EPA confirmados</div><p class="act-desc"><b>24 Abril — Epic Universe:</b> EPA 9am (parque abre 10am) · IOA EPA 7am (parque abre 8am) · USF EPA 7am (parque abre 8am)<br><b>25 Abril — IOA:</b> EPA 8am (parque abre 9am) · Epic EPA 9am · USF SIN EPA (abre 10am)<br><b>26 Abril — IOA:</b> EPA 8am (parque abre 9am) · Epic EPA 9am · USF SIN EPA (abre 10am)</p></div></div>
+  <div class="act-item"><div class="act-icon">🗝️</div><div class="act-body"><div class="act-nm">Tener las llaves listas al llegar</div><p class="act-desc">Para ingresar en horario EPA necesitan la llave del hotel. Llevar <b>todas las llaves de los huéspedes</b>. Al llegar al parque, pasar los controles de seguridad antes del horario de apertura para estar listos en la fila.</p></div></div>
+  <div class="act-item"><div class="act-icon">🔒</div><div class="act-body"><div class="act-nm">Seguridad — bolsos y mochilas</div><p class="act-desc">Si llevan bolso o mochila, pasan por revisión de seguridad antes de entrar. Sin mochila pasan muy rápido. Pueden entrar con comida y bebida (sin vidrio ni latas).</p></div></div>
+
+  <div class="section-label">Qué llevar a los parques</div>
+  <div class="act-item"><div class="act-icon">🧊</div><div class="act-body"><div class="act-nm">Botella térmica vacía</div><p class="act-desc">En los puntos Coca-Cola Freestyle pueden recargar agua fría y hielo GRATIS. Hay puntos por todo el parque.</p></div></div>
+  <div class="act-item"><div class="act-icon">🧥</div><div class="act-body"><div class="act-nm">Abrigo aunque haga calor</div><p class="act-desc">Para el bus, juegos cerrados y restaurantes. Hace mucho frío en el micro y en algunas atracciones con AC.</p></div></div>
+  <div class="act-item"><div class="act-icon">🔋</div><div class="act-body"><div class="act-nm">Cargador de celular</div><p class="act-desc">En los parques hay puestos de carga. También venden cargadores descartables dentro del parque.</p></div></div>
+  <div class="act-item"><div class="act-icon">🌧️</div><div class="act-body"><div class="act-nm">Poncho de lluvia</div><p class="act-desc">Son muy económicos fuera del parque. Útil para lluvia tropical y para algunos juegos de agua donde te mojás.</p></div></div>
+  <div class="act-item"><div class="act-icon">👗</div><div class="act-body"><div class="act-nm">Muda de ropa extra (opcional)</div><p class="act-desc">Si quieren subir a juegos de agua y disfrutar de mojarse: shortcito, remera, ojotas, ropa interior — en bolsa aparte en la mochila.</p></div></div>
+  <div class="act-item"><div class="act-icon">🧴</div><div class="act-body"><div class="act-nm">Protector solar, gorra, repelente</div><p class="act-desc">Mucho calor y poca sombra en algunas áreas. SPF 50+ obligatorio. Hay ventiladores con spray de agua que ayudan mucho — más económicos fuera del parque.</p></div></div>
+
+  <div class="section-label">Servicios en los parques</div>
+  <div class="act-item"><div class="act-icon">🔐</div><div class="act-body"><div class="act-nm">Lockers obligatorios</div><p class="act-desc">Muchas atracciones no permiten subir con bolsos ni celular. Hay lockers al lado de cada atracción — gratuitos (pequeños) o pagos (grandes). Registrás tu huella dactilar en la pantalla y te asignan un número de locker. <b>Tenerlo en cuenta antes de hacer la fila para no perder tiempo.</b></p></div></div>
+  <div class="act-item"><div class="act-icon">👤</div><div class="act-body"><div class="act-nm">Single Rider — para ir más rápido</div><p class="act-desc">Fila más rápida donde van a subir solos a los asientos sueltos. <b>USF:</b> Gringotts · Rip Ride Rockit · MIB · Mummy · Transformers. <b>IOA:</b> Spider-Man · Dr. Doom · Forbidden Journey · Hulk · a veces Hagrid's. <b>Epic:</b> Stardust Racers · Werewolf · Monsters Unchained · Hiccup · Mario Kart · Mine-Cart · Battle at Ministry.</p></div></div>
+  <div class="act-item"><div class="act-icon">🗺️</div><div class="act-body"><div class="act-nm">Sin mapas impresos — solo QR</div><p class="act-desc">Ya no hay mapas impresos en los parques. Al llegar busquen los carteles con QR para descargar el mapa digital. Desde la app de Universal Orlando Resort tienen el mapa interactivo y los horarios de shows en tiempo real.</p></div></div>
+  <div class="act-item"><div class="act-icon">⚕️</div><div class="act-body"><div class="act-nm">Guest Services / First Aid</div><p class="act-desc">Guest Services resuelve cualquier problema y puede dar pins de regalo. First Aid para primeros auxilios. Perdieron algo: Lost & Found. En cada parque hay señalética para encontrarlos.</p></div></div>
+
+  <div class="section-label">Check-out</div>
+  <div class="act-item"><div class="act-icon">🧳</div><div class="act-body"><div class="act-nm">Check-out: 27 de Abril, 11:00am</div><p class="act-desc">Desocupar la habitación antes de las 11am. Si ese día tienen parque, pueden dejar las valijas en el hotel y pasar a buscarlas más tarde.</p></div></div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 renderHome();
@@ -3120,6 +3208,7 @@ renderParksLanding();
 renderFreeLanding();
 renderTips();
 renderCruise();
+renderHotel();
 
 // Show install banner after 2s on mobile
 setTimeout(() => {
