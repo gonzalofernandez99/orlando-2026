@@ -999,6 +999,7 @@ body {
 /* ── Shopping person filter ── */
 .shop-filter {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 12px 16px;
   background: var(--white);
@@ -1006,16 +1007,17 @@ body {
   align-items: center;
 }
 .shop-filter-label {
+  width: 100%;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--muted);
   flex-shrink: 0;
-  margin-right: 2px;
 }
 .sfbtn {
   flex: 1;
+  min-width: 0;
   padding: 7px 6px;
   border-radius: 20px;
   border: 1.5px solid var(--rule);
@@ -1032,7 +1034,8 @@ body {
 }
 .sfbtn.active-todos  { background: var(--shop);   color: #fff; border-color: var(--shop); }
 .sfbtn.active-gonza  { background: var(--mk);     color: #fff; border-color: var(--mk);   }
-.sfbtn.active-cami   { background: #DB2777;        color: #fff; border-color: #DB2777;     }
+.sfbtn.active-cami   { background: #DB2777;       color: #fff; border-color: #DB2777;     }
+.sfbtn.active-juntos { background: #0F766E;       color: #fff; border-color: #0F766E;     }
 [data-who].shop-hidden { display: none !important; }
 
 .section-label {
@@ -1461,16 +1464,16 @@ const PARK_MAPS = {
     note: 'En computadora se ajusta al ancho del panel. En iPhone queda ampliado para que puedas arrastrarlo en horizontal y leer mejor la referencia de la derecha.',
   },
   ioa: {
-    src: 'assets/mapaIOA.png',
-    original: 'assets/mapaIOA.png',
-    alt: 'Mapa oficial de Islands of Adventure con todas las atracciones y restaurantes',
-    note: 'Mapa oficial del parque. Deslizá en horizontal para ver la referencia completa de la derecha.',
+    src: 'assets/island_map.png',
+    original: 'assets/island_map.png',
+    alt: 'Mapa de Islands of Adventure con las áreas y atracciones principales del parque',
+    note: 'Mapa cargado en assets para Islands of Adventure. Deslizá en horizontal si querés ver el recorrido con más detalle.',
   },
   usf: {
-    src: 'assets/mapaUSF.png',
-    original: 'assets/mapaUSF.png',
-    alt: 'Mapa oficial de Universal Studios Florida con todas las atracciones y restaurantes',
-    note: 'Mapa oficial del parque. Deslizá en horizontal para ver la referencia completa de la derecha.',
+    src: 'assets/universal_map.png',
+    original: 'assets/universal_map.png',
+    alt: 'Mapa de Universal Studios Florida con las áreas y atracciones principales del parque',
+    note: 'Mapa cargado en assets para Universal Studios Florida. Deslizá en horizontal si querés ver el recorrido con más detalle.',
   },
 };
 
@@ -2311,26 +2314,71 @@ function switchShopTab(btn, contentId) {
   shop.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   const target = shop.querySelector('#' + contentId);
   if (target) target.classList.add('active');
+  updateShoppingFilterVisibility(contentId);
+}
+
+const SHOP_FILTERABLE_TABS = ['st-market', 'st-intl'];
+let currentShoppingFilter = 'todos';
+
+function updateShoppingFilterVisibility(activeTabId) {
+  const shop = document.getElementById('shopping-content');
+  const filter = shop.querySelector('.shop-filter');
+  if (!filter) return;
+  filter.hidden = !SHOP_FILTERABLE_TABS.includes(activeTabId);
+}
+
+function updateShoppingSectionVisibility(container) {
+  container.querySelectorAll('.food-cat-label').forEach(label => {
+    let sibling = label.nextElementSibling;
+    let hasFilterableItems = false;
+    let hasVisibleFilterableItems = false;
+
+    while (sibling && !sibling.classList.contains('food-cat-label')) {
+      if (sibling.hasAttribute('data-who')) {
+        hasFilterableItems = true;
+        if (!sibling.classList.contains('shop-hidden')) hasVisibleFilterableItems = true;
+      }
+      sibling = sibling.nextElementSibling;
+    }
+
+    if (!hasFilterableItems) {
+      label.classList.remove('shop-hidden');
+      return;
+    }
+
+    label.classList.toggle('shop-hidden', !hasVisibleFilterableItems);
+  });
+}
+
+function applyShoppingFilter() {
+  const shop = document.getElementById('shopping-content');
+  SHOP_FILTERABLE_TABS.forEach(tabId => {
+    const tab = shop.querySelector('#' + tabId);
+    if (!tab) return;
+
+    tab.querySelectorAll('[data-who]').forEach(el => {
+      const who = el.getAttribute('data-who');
+      const shouldShow =
+        currentShoppingFilter === 'todos' ||
+        who === currentShoppingFilter ||
+        (currentShoppingFilter === 'gonza' && who === 'juntos') ||
+        (currentShoppingFilter === 'cami' && who === 'juntos');
+      el.classList.toggle('shop-hidden', !shouldShow);
+    });
+
+    updateShoppingSectionVisibility(tab);
+  });
 }
 
 function filterShopping(who, btn) {
+  currentShoppingFilter = who;
   const shop = document.getElementById('shopping-content');
-  // Update button states
   shop.querySelectorAll('.sfbtn').forEach(b => {
-    b.classList.remove('active-todos','active-gonza','active-cami');
+    b.classList.remove('active-todos', 'active-gonza', 'active-cami', 'active-juntos');
   });
-  btn.classList.add('active-' + who);
-  // Show/hide elements with data-who attribute
-  shop.querySelectorAll('[data-who]').forEach(el => {
-    const w = el.getAttribute('data-who');
-    if (who === 'todos') {
-      el.classList.remove('shop-hidden');
-    } else if (who === 'gonza') {
-      el.classList.toggle('shop-hidden', w === 'cami');
-    } else if (who === 'cami') {
-      el.classList.toggle('shop-hidden', w === 'gonza');
-    }
-  });
+  const activeBtn = btn || shop.querySelector(`[data-shopping-filter="${who}"]`);
+  if (activeBtn) activeBtn.classList.add('active-' + who);
+  applyShoppingFilter();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -2372,11 +2420,12 @@ function renderShopping() {
     <div class="ptab" onclick="switchShopTab(this,'st-tips')">Tips</div>
   </div>
 
-  <div class="shop-filter">
+  <div class="shop-filter" hidden>
     <div class="shop-filter-label">Ver:</div>
-    <div class="sfbtn active-todos" onclick="filterShopping('todos',this)">Todos</div>
-    <div class="sfbtn" onclick="filterShopping('gonza',this)">Gonza</div>
-    <div class="sfbtn" onclick="filterShopping('cami',this)">Cami</div>
+    <div class="sfbtn active-todos" data-shopping-filter="todos" onclick="filterShopping('todos',this)">Todos</div>
+    <div class="sfbtn" data-shopping-filter="gonza" onclick="filterShopping('gonza',this)">Gonza</div>
+    <div class="sfbtn" data-shopping-filter="cami" onclick="filterShopping('cami',this)">Cami</div>
+    <div class="sfbtn" data-shopping-filter="juntos" onclick="filterShopping('juntos',this)">Juntos</div>
   </div>
 
   <!-- ── TAB: PLAN DEL DÍA ── -->
@@ -2818,6 +2867,8 @@ function renderShopping() {
     </div>
   </div>
   `;
+  updateShoppingFilterVisibility('st-plan');
+  filterShopping(currentShoppingFilter);
 }
 
 // ═══════════════════════════════════════════════════════════
