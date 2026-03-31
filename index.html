@@ -1006,6 +1006,7 @@ body {
   border-bottom: 1px solid var(--rule);
   align-items: center;
 }
+.shop-filter[hidden] { display: none; }
 .shop-filter-label {
   width: 100%;
   font-size: 10px;
@@ -2358,11 +2359,7 @@ function applyShoppingFilter() {
 
     tab.querySelectorAll('[data-who]').forEach(el => {
       const who = el.getAttribute('data-who');
-      const shouldShow =
-        currentShoppingFilter === 'todos' ||
-        who === currentShoppingFilter ||
-        (currentShoppingFilter === 'gonza' && who === 'juntos') ||
-        (currentShoppingFilter === 'cami' && who === 'juntos');
+      const shouldShow = currentShoppingFilter === 'todos' || who === currentShoppingFilter;
       el.classList.toggle('shop-hidden', !shouldShow);
     });
 
