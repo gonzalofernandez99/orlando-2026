@@ -775,6 +775,33 @@ body {
 .att-badge.thrill-adrenalina { background:#7C3AED; color:#fff; }
 .att-badge.thrill-moderada   { background:#0278B0; color:#fff; }
 .att-badge.thrill-suave      { background:#4A4860; color:#fff; }
+.att-badge.wait-nula  { background:#F4F4F4; color:#6B7280; }
+.att-badge.priority-obligatorio   { background:#FEE2E2; color:#991B1B; }
+.att-badge.priority-estaria-bueno { background:#FEF3C7; color:#92400E; }
+.att-badge.priority-opcional      { background:#D1FAE5; color:#065F46; }
+
+/* Attraction filter bar */
+.att-filter-bar {
+  display: flex; gap: 6px; padding: 10px 12px;
+  background: var(--bg2); border-bottom: 1px solid var(--rule);
+  flex-wrap: wrap; align-items: center;
+}
+.att-filter-bar-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--muted); margin-right: 2px;
+}
+.att-filter-btn {
+  font-size: 11px; font-weight: 600; padding: 5px 12px;
+  border-radius: 100px; border: 1.5px solid var(--rule);
+  cursor: pointer; background: var(--white); color: var(--ink2);
+  transition: all .15s; line-height: 1;
+}
+.att-filter-btn.active {
+  border-color: var(--park-acc, #333);
+  color: var(--park-acc, #333);
+  background: var(--white);
+}
+.att-item.att-hidden { display: none !important; }
 
 /* ───────────────────────────────────────────────────────────
    CRUISE COLOR
@@ -1509,13 +1536,19 @@ const PARKS = {
       ]
     },
     atts:[
-      {n:'Guardians of the Galaxy: Cosmic Rewind', note:'Sin boarding group. Primera parada obligatoria con early entry 8:30am.', hot:true, thrill:'extrema', wait:'alta'},
-      {n:'Test Track 3.0 — presentado por GM', note:'¡Reimaginado julio 2025! Nueva experiencia futurista. Segunda parada antes que suba la fila.', hot:true, thrill:'moderada', wait:'media'},
-      {n:'Frozen Ever After', note:'Mundo Noruega — mejor a las 11am con fila moderada.', hot:true, thrill:'suave', wait:'media'},
-      {n:"Remy's Ratatouille Adventure", note:'Francia — fila sube rápido, ir antes del mediodía.', hot:false, thrill:'suave', wait:'media'},
-      {n:"Soarin' Around the World", note:'Mejor entre las 16 y 17hs cuando bajan las filas.', hot:false, thrill:'moderada', wait:'baja'},
-      {n:'Mission: SPACE (Orange)', note:'Simulador centrífugo con G-forces reales — para el final del día.', hot:false, thrill:'adrenalina', wait:'baja'},
-      {n:'Living with the Land', note:'Recorrido por invernaderos reales — relajante entre atracciones grandes.', hot:false, thrill:'suave', wait:'baja'},
+      {n:'Spaceship Earth', note:'El viaje icónico dentro de la esfera gigante por la historia de la comunicación humana. Breve e imperdible — es el símbolo de EPCOT.', hot:true, thrill:'suave', wait:'baja', priority:'obligatorio'},
+      {n:'Guardians of the Galaxy: Cosmic Rewind', note:'Coaster invertida que arranca de 0 a 100 km/h hacia atrás con playlist de los 80s. Sin early entry la fila es 60–90 min todo el día — no perder esta ventana.', hot:true, thrill:'extrema', wait:'alta', priority:'obligatorio'},
+      {n:'Test Track 3.0', note:'Diseñás tu vehículo virtual y lo sometés a pruebas hasta llegar a 100 km/h en la pista exterior. Completamente reimaginado en julio 2025.', hot:true, thrill:'adrenalina', wait:'media', priority:'obligatorio'},
+      {n:"Soarin' Around the World", note:'Vuelo cinematográfico sobre destinos del mundo en pantalla hemiesférica gigante con viento y olores sincronizados. La sensación de volar es perfecta.', hot:true, thrill:'moderada', wait:'media', priority:'obligatorio'},
+      {n:'Frozen Ever After', note:'Paseo en barca por el reino de Arendelle con personajes de Frozen y la sala de Elsa con cristales de hielo espectaculares. Más entretenido de lo que suena.', hot:true, thrill:'suave', wait:'media', priority:'obligatorio'},
+      {n:"Remy's Ratatouille Adventure", note:'Te miniaturizás al tamaño de una rata y corrés por la cocina del Gusteau. La animación y los efectos son increíbles — fila sube rápido antes del mediodía.', hot:true, thrill:'suave', wait:'media', priority:'obligatorio'},
+      {n:'Mission: SPACE (Orange)', note:'Simulador centrífugo de lanzamiento a Marte con G-forces reales. Intenso de verdad — no apto para quienes tienen problemas con el movimiento rotacional.', hot:false, thrill:'adrenalina', wait:'baja', priority:'estaria-bueno'},
+      {n:'The Seas with Nemo & Friends', note:'Paseo bajo el mar con proyecciones de Nemo sobre el acuario real más grande de EPCOT. Relajante — el final te lleva al acuario real con rayas y tortugas.', hot:false, thrill:'suave', wait:'baja', priority:'estaria-bueno'},
+      {n:'Turtle Talk with Crush', note:'Crush la tortuga responde preguntas del público en tiempo real con IA de animación facial. Sorprendentemente gracioso — los adultos se ríen tanto como los chicos.', hot:false, thrill:'suave', wait:'baja', priority:'estaria-bueno'},
+      {n:'Gran Fiesta Tour', note:'Paseo en barca por México con los Tres Caballeros dentro de la pirámide azteca. Relajante, con AC y prácticamente sin fila.', hot:false, thrill:'suave', wait:'nula', priority:'estaria-bueno'},
+      {n:'Living with the Land', note:'Paseo en barca por los invernaderos reales donde Disney cultiva verduras para sus restaurantes. Educativo e inesperadamente interesante.', hot:false, thrill:'suave', wait:'baja', priority:'opcional'},
+      {n:'Journey of Water (Moana)', note:'Sendero de agua interactiva inspirado en Moana — podés activar fuentes y efectos de agua. No es una atracción sino un paseo — perfecto para refrescarse.', hot:false, thrill:'suave', wait:'nula', priority:'opcional'},
+      {n:'Journey into Imagination with Figment', note:'Figment la mascota morada te guía por el Instituto de la Imaginación. Un clásico querido de EPCOT que no ha envejecido del todo.', hot:false, thrill:'suave', wait:'baja', priority:'opcional'},
     ],
     sched:[
       {t:'8:30am',txt:'Llegan — Early Entry EPCOT (hotel Disney)'},
@@ -1581,12 +1614,17 @@ const PARKS = {
       ]
     },
     atts:[
-      {n:'Rise of the Resistance',note:'La mejor atracción de Disney. Fila normal — early entry 8:30am es la ventaja clave.',hot:true,thrill:'adrenalina',wait:'alta'},
-      {n:'Millennium Falcon: Smugglers Run',note:'Nueva misión con Grogu y Mandalorian — segunda parada con early entry.',hot:true,thrill:'moderada',wait:'media'},
-      {n:'Tower of Terror',note:'Caídas aleatorias a 60 km/h. Media mañana con filas bajas.',hot:true,thrill:'extrema',wait:'media'},
-      {n:'Slinky Dog Dash',note:'Toy Story Land — con Rock n\' Roller Coaster cerrado, ahora tiene la fila más larga del área. Ir temprano.',hot:false,thrill:'moderada',wait:'alta'},
-      {n:'Toy Story Mania',note:'Shooter interactivo — muy competitivo en grupo de 6.',hot:false,thrill:'suave',wait:'baja'},
-      {n:'Alien Swirling Saucers',note:'Relajada — tarde para descansar entre las grandes.',hot:false,thrill:'suave',wait:'baja'},
+      {n:'Rise of the Resistance',note:'La atracción más inmersiva de Disney — captura, AT-AT walkers, Kylo Ren en persona, escape épico. Dura 28 minutos y parece una película de Star Wars real.',hot:true,thrill:'adrenalina',wait:'alta',priority:'obligatorio'},
+      {n:'Tower of Terror',note:'El ascensor del Twilight Zone que cae al azar — a veces te hace caer 3 veces seguidas. La vista del parque antes de caer es espectacular.',hot:true,thrill:'extrema',wait:'media',priority:'obligatorio'},
+      {n:'Slinky Dog Dash',note:'Coaster de Toy Story con lanzamiento y el paisaje de Toy Story Land. Con Rock n\' Roller Coaster cerrado es ahora la fila más larga del área — hacerla temprano.',hot:true,thrill:'moderada',wait:'alta',priority:'obligatorio'},
+      {n:"Mickey & Minnie's Runaway Railway",note:'Entrás adentro de un cartoon de Mickey en 2D sin gafas 3D — tecnología de proyección innovadora. Más impresionante de lo que esperás visualmente.',hot:true,thrill:'suave',wait:'media',priority:'obligatorio'},
+      {n:'Millennium Falcon: Smugglers Run',note:'Controlás la Millennium Falcon con joysticks — 2 pilotos, 2 artilleros, 2 ingenieros. El resultado cambia según el desempeño del grupo. Single Rider disponible.',hot:false,thrill:'moderada',wait:'media',priority:'estaria-bueno'},
+      {n:'Toy Story Mania',note:'Shooter interactivo 4D con mini-juegos de Toy Story. Muy competitivo en grupo — van a terminar discutiendo el puntaje al salir.',hot:false,thrill:'suave',wait:'media',priority:'estaria-bueno'},
+      {n:'Star Tours',note:'Simulador de vuelo galáctico con destinos aleatorios — más de 100 combinaciones posibles en cada viaje. Clásico renovado con personajes de los últimos films.',hot:false,thrill:'moderada',wait:'baja',priority:'estaria-bueno'},
+      {n:'Beauty and the Beast Live on Stage',note:'Musical de 25 minutos con actores, sets y vestuario nivel Broadway. Uno de los mejores shows de Disney — perfecto para el mediodía con calor.',hot:false,thrill:'suave',wait:'baja',priority:'estaria-bueno'},
+      {n:'For the First Time in Forever (Frozen Sing-Along)',note:'Dos historiadores narran la historia de Frozen con las reinas en escena — más gracioso de lo esperado. Show de 30 min en teatro con AC.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
+      {n:'Indiana Jones Epic Stunt Spectacular',note:'Show de 30 minutos con stuntmen recreando escenas de Indy con explosiones reales. Un clásico de Hollywood Studios que no ha envejecido mal.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
+      {n:'Alien Swirling Saucers',note:'Los aliens del Crane de Toy Story te hacen girar suavemente. Para recuperar el estómago entre las atracciones grandes.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
     ],
     sched:[
       {t:'8:30am',txt:'Llegan — Early Entry Hollywood Studios'},
@@ -1642,13 +1680,17 @@ const PARKS = {
       ]
     },
     atts:[
-      {n:'Avatar: Flight of Passage',note:'La más inmersiva de Orlando. Early entry 7:30am: solo 15-20 min de espera.',hot:true,thrill:'extrema',wait:'alta'},
-      {n:"Na'vi River Journey",note:'En Pandora mientras el área sigue tranquila — segunda parada.',hot:true,thrill:'suave',wait:'media'},
-      {n:'Expedition Everest',note:'Coaster con yeti y tramo inesperado en reversa. Clásico.',hot:true,thrill:'extrema',wait:'media'},
-      {n:'Kilimanjaro Safaris',note:'Safari real con animales africanos — mejor temprano por la mañana.',hot:false,thrill:'suave',wait:'baja'},
-      {n:'Festival of the Lion King',note:'Show en vivo espectacular con 30 actores — recomendado a las 13:30hs.',hot:false,thrill:'suave',wait:'baja'},
-      {n:'Zootopia: Better Zoogether!',note:'Reemplazó a "It\'s Tough to Be a Bug!" en noviembre 2025 — show interactivo nuevo en el Árbol de la Vida.',hot:false,thrill:'suave',wait:'baja'},
-      {n:'Kali River Rapids',note:'Se mojan MUCHO — llevar bolsa Ziploc para el celular. Perfecto con el calor.',hot:false,thrill:'moderada',wait:'baja'},
+      {n:'Avatar: Flight of Passage',note:'Montás en un banshee sobre Pandora — la sensación de volar es la más realista de cualquier parque del mundo. Early entry 7:30am = 15 min de fila; sin EPA = 2–3 horas.',hot:true,thrill:'extrema',wait:'alta',priority:'obligatorio'},
+      {n:'Expedition Everest',note:'Coaster con yeti que te manda hacia atrás en oscuridad total en un tramo imprevisto. El rugido del yeti sorprende siempre — uno de los mejores coasters de Disney.',hot:true,thrill:'adrenalina',wait:'media',priority:'obligatorio'},
+      {n:'Kilimanjaro Safaris',note:'Safari en vehículo abierto real por sabanas africanas con jirafas, elefantes y leones. Mejor antes de las 10am — los animales se retiran con el calor del mediodía.',hot:true,thrill:'suave',wait:'media',priority:'obligatorio'},
+      {n:'Festival of the Lion King',note:'Show de 30 minutos con 30+ actores, acróbatas, fuego y personajes del Rey León en vivo. El mejor show de Disney — hacerlo entre 13:30–14hs para escapar del calor máximo.',hot:true,thrill:'suave',wait:'baja',priority:'obligatorio'},
+      {n:"Na'vi River Journey",note:'Paseo en barca por Pandora bioluminiscente con el animatrónico de la Chamán Na\'vi — el más avanzado de Disney. Hacerlo justo después de Flight of Passage.',hot:false,thrill:'suave',wait:'media',priority:'estaria-bueno'},
+      {n:'Kali River Rapids',note:'Rafting por los rápidos de Asia — se mojan MUY seriamente, no un poco. Llevar Ziploc para el celular. Con el calor de abril es la mejor parte del día.',hot:false,thrill:'moderada',wait:'baja',priority:'estaria-bueno'},
+      {n:'Finding Nemo: The Big Blue... and Beyond!',note:'Musical actualizado con Nemo, Dory y Squirt con puppetry y marionetas increíbles. El reemplazo del show original — más colorido y energético.',hot:false,thrill:'suave',wait:'baja',priority:'estaria-bueno'},
+      {n:'Gorilla Falls Exploration Trail',note:'Sendero entre gorilas, okapis y mandriles en un ambiente africano hiperrealista. Sin fila — entrás y salís cuando quieras. Tarda 20–30 minutos.',hot:false,thrill:'suave',wait:'nula',priority:'opcional'},
+      {n:'Maharajah Jungle Trek',note:'Trek por ruinas palaciegas asiáticas entre tigres de Bengala, tapires y murciélagos de la fruta. Uno de los mejores zoológicos del mundo dentro de un parque temático.',hot:false,thrill:'suave',wait:'nula',priority:'opcional'},
+      {n:'Wilderness Explorers',note:'Programa de actividades estilo explorador para recorrer el parque con misiones en cada área. Divertido si tienen tiempo y ganas al final del día.',hot:false,thrill:'suave',wait:'nula',priority:'opcional'},
+      {n:'Zootopia: Better Zoogether!',note:'Show interactivo con proyección que reemplazó a "It\'s Tough to Be a Bug!" en noviembre 2025. Buen finale tranquilo del día en el Árbol de la Vida.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
     ],
     sched:[
       {t:'7:30am',txt:'Llegan — Early Entry Animal Kingdom'},
@@ -1707,14 +1749,21 @@ const PARKS = {
       ]
     },
     atts:[
-      {n:'Seven Dwarfs Mine Train',note:'PRIMERA parada con early entry 8:30am — la fila más larga del parque sin early.',hot:true,thrill:'moderada',wait:'alta'},
-      {n:'Tron Lightcycle / Run',note:'Al abrir el parque a las 9am — NO está en early entry. Correr apenas abra.',hot:true,thrill:'extrema',wait:'alta'},
-      {n:'Space Mountain',note:'Coaster en oscuridad total — disponible en early entry, o mediodía.',hot:true,thrill:'adrenalina',wait:'media'},
-      {n:'Haunted Mansion',note:'999 fantasmas — Liberty Square · la fila avanza rápido a cualquier hora.',hot:false,thrill:'suave',wait:'baja'},
-      {n:"Tiana's Bayou Adventure",note:'La ex-Splash Mountain renovada — tarde cuando bajan las filas.',hot:false,thrill:'moderada',wait:'media'},
-      {n:'Pirates of the Caribbean',note:'Clásico imprescindible · excelente para descansar del calor.',hot:false,thrill:'suave',wait:'baja'},
-      {n:'Jungle Cruise',note:'Los chistes malos son parte de la experiencia. Para la tarde.',hot:false,thrill:'suave',wait:'baja'},
-      {n:"Buzz Lightyear's Space Ranger Spin",note:'Reabrió el 8 de abril 2026 renovado — shooter competitivo en grupo.',hot:false,thrill:'suave',wait:'baja'},
+      {n:'Tron Lightcycle / Run',note:'El coaster más rápido de Disney (105 km/h). Montás en una cápsula recostada y salís lanzado hacia el exterior del parque. NO está en early entry — correr exacto a las 9am.',hot:true,thrill:'extrema',wait:'alta',priority:'obligatorio'},
+      {n:'Seven Dwarfs Mine Train',note:'Vagones que se balancean lateralmente entre las minas de los 7 enanitos. PRIMERA parada con early entry 8:30am — sin early tiene 60–90 min todo el día.',hot:true,thrill:'moderada',wait:'alta',priority:'obligatorio'},
+      {n:'Space Mountain',note:'Coaster en oscuridad total por el espacio. Sin inversiones pero los giros y caídas sorprenden porque no ves nada — disponible en early entry o por la noche.',hot:true,thrill:'adrenalina',wait:'media',priority:'obligatorio'},
+      {n:'Haunted Mansion',note:'Mansión de 999 fantasmas con efectos especiales increíbles. El sistema Doom Buggy (carga continua) hace que la fila avance rápido a cualquier hora del día.',hot:true,thrill:'suave',wait:'media',priority:'obligatorio'},
+      {n:'Pirates of the Caribbean',note:'El original de Jack Sparrow — barcos, batallas y piratas animatrónicos en paseo en barca. Clásico absoluto, excelente para descansar del calor de la tarde.',hot:true,thrill:'suave',wait:'baja',priority:'obligatorio'},
+      {n:"Tiana's Bayou Adventure",note:'La ex-Splash Mountain completamente renovada con el universo de Tiana y los bayous de New Orleans. Hay una bajada final con salpicadura — no empapa.',hot:true,thrill:'moderada',wait:'media',priority:'obligatorio'},
+      {n:"Buzz Lightyear's Space Ranger Spin",note:'Shooter interactivo con pistola láser — competís con el grupo para llegar al rango más alto. Reabrió renovado el 8 de abril 2026.',hot:true,thrill:'suave',wait:'baja',priority:'obligatorio'},
+      {n:"Peter Pan's Flight",note:'Volás en barco pirata sobre Londres y Nunca Jamás — iluminación negra y detalle de paisaje mágico. El problema es la fila irracional de 50–70 min para 3 minutos de atracción.',hot:false,thrill:'suave',wait:'alta',priority:'estaria-bueno'},
+      {n:"It's a Small World",note:'Paseo en barca por el mundo con muñecos cantando. Icónico, relajante y con AC — ideal para recuperar energía entre atracciones grandes.',hot:false,thrill:'suave',wait:'baja',priority:'estaria-bueno'},
+      {n:'The Many Adventures of Winnie the Pooh',note:'Paseo tranquilo por el mundo de Pooh con efectos visuales sorprendentes. Mejor que lo que parece desde afuera — corto pero encantador.',hot:false,thrill:'suave',wait:'media',priority:'estaria-bueno'},
+      {n:"Mickey's PhilharMagic",note:'Show 4D con el sombrero mágico de Mickey, personajes Disney y efectos de olor, agua y viento. El mejor show inmersivo del parque.',hot:false,thrill:'suave',wait:'baja',priority:'estaria-bueno'},
+      {n:'Jungle Cruise',note:'Crucero por la jungla con animatrónicos y los chistes malos más famosos de Disney. Los comentarios del capitán son el verdadero show.',hot:false,thrill:'suave',wait:'baja',priority:'estaria-bueno'},
+      {n:'Monsters Inc. Laugh Floor',note:'Show de comedia interactiva con Monstruos S.A. — el sistema elige a alguien del público para el chiste principal. Más divertido de lo esperado.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
+      {n:'Tomorrowland Speedway',note:'Autos en pista fija que no pueden salirse — lento pero fotogénico. Para llenar un hueco o matar tiempo.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
+      {n:'Tomorrowland PeopleMover',note:'Tren elevado y tranquilo con vistas de Tomorrowland y Space Mountain por dentro. El descanso perfecto para los pies — prácticamente sin fila.',hot:false,thrill:'suave',wait:'nula',priority:'opcional'},
     ],
     sched:[
       {t:'8:30am',txt:'Llegan — Early Entry Magic Kingdom (solo Fantasyland + Tomorrowland)'},
@@ -1778,13 +1827,18 @@ const PARKS = {
       ]
     },
     atts:[
-      {n:'Monsters Unchained: The Curse of Frankenstein',note:'IR PRIMERO con EPA — la multitud corre a HP/Nintendo, esto queda vacío. Coaster indoor intenso en Darkmoor.',hot:true,thrill:'extrema',wait:'media'},
-      {n:"How to Train Your Dragon: Dragons Flight",note:'Segunda parada EPA — Isle of Berk. Coaster de lanzamiento espectacular.',hot:true,thrill:'extrema',wait:'alta'},
-      {n:'Stardust Racers',note:'Las dos coasters gemelas del Celestial Park — near-misses sincronizados. Hacer cuando HP/Nintendo estén llenos.',hot:true,thrill:'adrenalina',wait:'media'},
-      {n:'HP: Battle at the Ministry',note:'La más demandada. Ir a media mañana cuando Dark Universe/Berk ya tienen fila corta.',hot:true,thrill:'adrenalina',wait:'alta'},
-      {n:"Mario Kart: Bowser's Challenge",note:'Verificar Virtual Line en la app al llegar. El Power-Up Band (~$35) mejora la experiencia.',hot:true,thrill:'moderada',wait:'media'},
-      {n:"Yoshi's Adventure + DK Mine-Cart Madness",note:'Nintendo World — fila generalmente más corta que Mario Kart.',hot:false,thrill:'moderada',wait:'baja'},
-      {n:'Explorar los 5 mundos completos',note:'Los ambientes son increíbles — el Celestial Park de noche es espectacular.',hot:false,thrill:'suave',wait:'baja'},
+      {n:'Monsters Unchained: The Frankenstein Experiment',note:'IR PRIMERO con EPA — la multitud corre a HP/Nintendo. Coaster indoor intenso por el laboratorio del Dr. Frankenstein con tramo en oscuridad total y drop sorpresa.',hot:true,thrill:'extrema',wait:'media',priority:'obligatorio'},
+      {n:"Hiccup's Wing Gliders",note:'Coaster de lanzamiento espectacular por Isle of Berk — la sensación de volar con tu dragón es increíble. Segunda parada con EPA antes que suba la fila.',hot:true,thrill:'extrema',wait:'alta',priority:'obligatorio'},
+      {n:'HP: Battle at the Ministry',note:'La más demandada del parque — aventura inmersiva dentro del Ministerio de Magia con batalla mágica y efectos prácticos y digitales combinados. Ir a media mañana cuando Dark Universe ya tiene fila corta.',hot:true,thrill:'adrenalina',wait:'alta',priority:'obligatorio'},
+      {n:"Mario Kart: Bowser's Challenge",note:'Controlás un kart en AR con casco — lanzás conchas y competís contra Bowser en Mario Kart en primera persona. Verificar Virtual Line en la app al llegar. Power-Up Band (~$35) lo eleva a otro nivel.',hot:true,thrill:'moderada',wait:'media',priority:'obligatorio'},
+      {n:"Donkey Kong Mine-Cart Madness",note:'Coaster estilo mine-cart en Super Nintendo World con drops inesperados y efectos sincronizados — más intenso de lo que parece desde afuera. Fila generalmente más corta que Mario Kart.',hot:false,thrill:'moderada',wait:'alta',priority:'estaria-bueno'},
+      {n:"Dragon Racer's Rally",note:'Coaster familiar suspendida que simula volar en carrera sobre Isle of Berk — más intenso de lo que parece visualmente. Excelente entre las grandes.',hot:false,thrill:'moderada',wait:'baja',priority:'estaria-bueno'},
+      {n:'Fyre Drill',note:'Atracción giratoria de alta velocidad en Darkmoor con efectos de fuego y humo — intenso y sorprendente. Fila corta la mayoría del día.',hot:false,thrill:'adrenalina',wait:'baja',priority:'estaria-bueno'},
+      {n:'Curse of the Werewolf',note:'Coaster de lanzamiento en Darkmoor con inversiones en oscuridad y efectos de neblina y luz. Single Rider disponible — la fila cae significativamente.',hot:false,thrill:'extrema',wait:'media',priority:'estaria-bueno'},
+      {n:"Yoshi's Adventure",note:'Paseo tranquilo buscando huevos de Yoshi por Super Nintendo World — con Power-Up Band se vuelve interactivo. Ideal para descansar entre las grandes.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
+      {n:'Le Cirque Arcanus',note:'Show del mundo de Harry Potter ambientado en el circo de criaturas mágicas de Las Bestias Fantásticas — actuaciones en vivo con efectos prácticos impresionantes.',hot:false,thrill:'suave',wait:'nula',priority:'opcional'},
+      {n:'The Untrainable Dragon',note:'Show interactivo con Toothless en Isle of Berk — actuación en vivo con marioneta mecánica a escala real del Furia Nocturna. El efecto de vuelo es sorprendente.',hot:false,thrill:'suave',wait:'nula',priority:'opcional'},
+      {n:'Constellation Carousel',note:'Carrusel temático en el Celestial Park hub — criaturas cósmicas. Sin fila, vista del parque central. Mejor para la foto y el descanso de media tarde.',hot:false,thrill:'suave',wait:'nula',priority:'opcional'},
     ],
     sched:[
       {t:'9:00am',txt:'Llegan — Early Admission (hotel Universal) · revisar app por Virtual Lines'},
@@ -1845,12 +1899,17 @@ const PARKS = {
     },
     alerts:['USF NO tiene EPA el 25 de abril. IOA tiene EPA 8am (abre 9am), USF abre 10am. Estrategia: empezar en IOA con EPA → cruzar a USF vía Hogwarts Express a las 10am.', 'Rip Ride Rockit: CERRADA permanentemente desde agosto 2025 — el área está siendo demolida para una nueva atracción.'],
     atts:[
-      {n:'Diagon Alley + Harry Potter and the Escape from Gringotts',note:'El mundo de HP en USF. La fila sube muy rápido — PRIMERA parada al abrir.',hot:true,thrill:'adrenalina',wait:'alta'},
-      {n:'Revenge of the Mummy',note:'Coaster indoor con jump scare final — clásica. Media mañana.',hot:true,thrill:'extrema',wait:'media'},
-      {n:'Men in Black Alien Attack',note:'Shooter interactivo — muy competitivo en grupo de 6.',hot:false,thrill:'moderada',wait:'baja'},
-      {n:'Fast & Furious Supercharged',note:'Experiencia de velocidad inmersiva — tarde del día.',hot:false,thrill:'moderada',wait:'baja'},
-      {n:'The Simpsons Ride (Springfield)',note:'Springfield completo es increíble de explorar — tarde.',hot:false,thrill:'moderada',wait:'baja'},
-      {n:'Hogwarts Express (USF → IOA)',note:'A las 17hs: cruzar a Hogsmeade. Es una atracción en sí mismo.',hot:false,thrill:'suave',wait:'baja'},
+      {n:'Harry Potter and the Escape from Gringotts',note:'Aventura multimedia escapando de Gringotts con Harry, Ron y Hermione — combina coaster, 4D, fuego y agua. PRIMERA parada al abrir USF cuando llegás desde IOA vía Hogwarts Express.',hot:true,thrill:'adrenalina',wait:'alta',priority:'obligatorio'},
+      {n:'Revenge of the Mummy',note:'Coaster indoor con efectos de fuego y un jump scare final completamente inesperado. Underrated — muchos la saltan y es de las mejores del parque. Fila corta en la mañana.',hot:true,thrill:'extrema',wait:'media',priority:'obligatorio'},
+      {n:'Hogwarts Express (USF → IOA)',note:'Viaje al andén 9¾ con historia completamente diferente al de vuelta — experiencia narrativa propia con efectos y personajes. Requiere Park-to-Park ticket. Una atracción en sí misma.',hot:true,thrill:'suave',wait:'baja',priority:'obligatorio'},
+      {n:'Transformers: The Ride-3D',note:'Aventura 4D con los Autobots — movimiento sincronizado con pantalla gigante y efectos físicos. Tecnología similar a Spider-Man pero con acción más intensa. Fila baja la mayoría del día.',hot:true,thrill:'moderada',wait:'baja',priority:'obligatorio'},
+      {n:'Despicable Me Minion Mayhem',note:'Simulador donde te transformás en minion — caótico, divertido y con efectos inmersivos. Para el mediodía cuando las filas grandes bajan.',hot:false,thrill:'suave',wait:'baja',priority:'estaria-bueno'},
+      {n:'Men in Black Alien Attack',note:'Shooter interactivo — el grupo compite para eliminar más aliens y los puntajes son públicos al final. Muy competitivo en grupo de 6. Fila siempre corta.',hot:false,thrill:'moderada',wait:'baja',priority:'estaria-bueno'},
+      {n:'The Simpsons Ride',note:'Simulador de movimiento por Krustylandia lleno de chistes y referencias de la serie. La ambientación de Springfield alrededor es tan buena como la atracción en sí.',hot:false,thrill:'moderada',wait:'baja',priority:'estaria-bueno'},
+      {n:'Fast & Furious Supercharged',note:'Ride de movimiento con pantalla envolvente y los personajes de la franquicia — no es una coaster sino experiencia de velocidad inmersiva. Para el final del día con fila mínima.',hot:false,thrill:'moderada',wait:'baja',priority:'estaria-bueno'},
+      {n:'Villain-Con Minion Blast',note:'Shooter interactivo con los villanos de Despicable Me — tecnología de apuntado por app. La versión más nueva y renovada del área de los Minions.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
+      {n:'Race Through New York Starring Jimmy Fallon',note:'Simulador cómico de vuelo por Nueva York — la sala de espera tiene juegos interactivos propios mientras esperás el turno virtual.',hot:false,thrill:'suave',wait:'nula',priority:'opcional'},
+      {n:'ET Adventure',note:'La atracción original de 1990 donde ET te llama por tu nombre al final. Un clásico nostálgico — no es intensa pero tiene mucho encanto retro y vale la foto en la bicicleta voladora.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
     ],
     sched:[
       {t:'8:00am',txt:'Entrar a IOA con EPA — llave del hotel · VelociCoaster + Hagrid\'s'},
@@ -1907,14 +1966,18 @@ const PARKS = {
       ]
     },
     atts:[
-      {n:'VelociCoaster',note:'La más rápida de Florida. Primera parada con early 8am — es la prioridad.',hot:true,thrill:'extrema',wait:'alta'},
-      {n:"Hagrid's Magical Creatures Motorbike",note:'La favorita de casi todos — segunda parada.',hot:true,thrill:'extrema',wait:'alta'},
-      {n:'Harry Potter and the Forbidden Journey',note:'Dentro del castillo de Hogwarts — efectos visuales impresionantes.',hot:true,thrill:'adrenalina',wait:'media'},
-      {n:'Jurassic Park River Adventure',note:'⛔ CERRADA hasta el 19/11/2026 — no disponible durante el viaje.',hot:false,thrill:'moderada',wait:'baja'},
-      {n:'The Incredible Hulk Coaster',note:'Coaster lanzada clásica — 4 inversiones. Marvel Super Hero Island.',hot:false,thrill:'extrema',wait:'media'},
-      {n:"Doctor Doom's Fearfall",note:'Torre de caída libre — rápida e intensa. Fila siempre corta.',hot:false,thrill:'adrenalina',wait:'baja'},
-      {n:'Toon Lagoon: Popeye & Bluto',note:'Otra donde se mojan — muy divertida en grupo de 6.',hot:false,thrill:'moderada',wait:'baja'},
-      {n:'Hogwarts Express (IOA → USF)',note:'Cierre del viaje: experiencia diferente a la ida — no se lo pierdan ✈',hot:false,thrill:'suave',wait:'baja'},
+      {n:"Hagrid's Magical Creatures Motorbike Adventure",note:'La mejor atracción del mundo según muchos visitantes — 7 lanzamientos por el bosque prohibido con encuentros de criaturas mágicas reales. Elegir siempre MOTO (no sidecar) y presionar el botón morado en el tramo final.',hot:true,thrill:'extrema',wait:'alta',priority:'obligatorio'},
+      {n:'VelociCoaster',note:'La más rápida de Florida (155 km/h) — 4 inversiones y lanzamientos sobre la laguna. El tramo exterior sobre el agua sin inversión es pura velocidad. PRIMERA parada con EPA 8am.',hot:true,thrill:'extrema',wait:'alta',priority:'obligatorio'},
+      {n:'Harry Potter and the Forbidden Journey',note:'Vuelo sobre Hogwarts con los personajes originales filmados especialmente para la atracción. La cola dentro del castillo es un museo de HP — no apresures la fila, mirá todo.',hot:true,thrill:'adrenalina',wait:'media',priority:'obligatorio'},
+      {n:'The Amazing Adventures of Spider-Man',note:'Atracción de movimiento+4D con Spider-Man que definió el estándar del parque temático moderno. Tecnología de 1999 que sigue siendo impresionante — el recorrido por Nueva York es impecable.',hot:true,thrill:'moderada',wait:'media',priority:'obligatorio'},
+      {n:'The Incredible Hulk Coaster',note:'Launch coaster clásica con 4 inversiones y lanzamiento electromagnético con rugido icónico. Un ícono visual del parque — fila moderada en horario no pico.',hot:false,thrill:'extrema',wait:'media',priority:'estaria-bueno'},
+      {n:'Skull Island: Reign of Kong',note:'Recorrido en camión enorme por la isla de Kong — Kong en 3D de pantalla gigante más animatrónicos de criaturas prehistóricas. Intenso en los jump scares.',hot:false,thrill:'moderada',wait:'baja',priority:'estaria-bueno'},
+      {n:'Hogwarts Express (IOA → USF)',note:'El tren de vuelta tiene historia completamente diferente a la ida — de Hogsmeade a Diagon Alley. Con P2P ticket. El cierre simbólico perfecto del viaje.',hot:false,thrill:'suave',wait:'baja',priority:'estaria-bueno'},
+      {n:'Flight of the Hippogriff',note:'Coaster familiar suspendida cerca de Hogwarts — más intenso de lo que parece. La vista de Hogsmeade desde arriba es espectacular. Buena opción entre las grandes.',hot:false,thrill:'moderada',wait:'media',priority:'estaria-bueno'},
+      {n:"Doctor Doom's Fearfall",note:'Torre de caída libre con lanzamiento hacia arriba y caída de 40 metros — rápida e intensa. La fila siempre está corta y dura 30 segundos de adrenalina pura.',hot:false,thrill:'adrenalina',wait:'baja',priority:'opcional'},
+      {n:"Dudley Do-Right's Ripsaw Falls",note:'Bajada en barca por rápidos — empapan MÁS que Kali River Rapids. Ziploc obligatorio para el celular. Perfecto con el calor de abril pero sin ropa de recambio es arriesgado.',hot:false,thrill:'moderada',wait:'baja',priority:'opcional'},
+      {n:"Popeye's Bilge-Rat Barges",note:'Rafting circular aleatorio — mojarse garantizado, el ángulo de caída es impredecible. La bolsa Ziploc no es opcional acá. Para cuando ya dieron todo.',hot:false,thrill:'moderada',wait:'baja',priority:'opcional'},
+      {n:'The Cat in the Hat',note:'Paseo tranquilo y psicodélico por el mundo de Dr. Seuss. Para bajar revoluciones entre las grandes — suave, colorida y sin casi fila.',hot:false,thrill:'suave',wait:'baja',priority:'opcional'},
     ],
     sched:[
       {t:'8:00am',txt:'Llegan — Early Admission Islands of Adventure'},
@@ -2155,22 +2218,36 @@ function renderPark(id) {
 
   // Tab: Attractions
   html += `<div class="tab-content active" id="t-atts">`;
+  const hasPriority = pk.atts.some(a => a.priority);
+  if (hasPriority) {
+    html += `<div class="att-filter-bar" style="--park-acc:${acc}">
+      <span class="att-filter-bar-label">Filtrar:</span>
+      <button class="att-filter-btn active" onclick="filterAtts(this,null)">Todos</button>
+      <button class="att-filter-btn" onclick="filterAtts(this,'obligatorio')">🔴 No me lo pierdo</button>
+      <button class="att-filter-btn" onclick="filterAtts(this,'estaria-bueno')">🟠 Estaría bueno</button>
+      <button class="att-filter-btn" onclick="filterAtts(this,'opcional')">🟢 Opcional</button>
+    </div>`;
+  }
   pk.atts.forEach((att, i) => {
-    const waitLabel = att.wait==='alta' ? '🔴 Fila alta' : att.wait==='media' ? '🟡 Fila media' : '🟢 Fila baja';
+    const waitLabel = att.wait==='alta' ? '🔴 Fila alta' : att.wait==='media' ? '🟡 Fila media' : att.wait==='nula' ? '⚪ Sin fila' : '🟢 Fila baja';
     const waitClass = `wait-${att.wait||'baja'}`;
     const thrillLabel = att.thrill==='extrema' ? '🔥 Extrema' : att.thrill==='adrenalina' ? '⚡ Adrenalina' : att.thrill==='moderada' ? '💧 Moderada' : '😌 Suave';
     const thrillClass = `thrill-${att.thrill||'suave'}`;
-    html += `<div class="att-item">
+    const priorityLabel = att.priority==='obligatorio' ? '🔴 No me lo pierdo' : att.priority==='estaria-bueno' ? '🟠 Estaría bueno' : att.priority==='opcional' ? '🟢 Opcional' : '';
+    const priorityClass = att.priority ? `priority-${att.priority}` : '';
+    const dataAttr = att.priority ? ` data-priority="${att.priority}"` : '';
+    html += `<div class="att-item"${dataAttr}>
       <div class="att-num-col" style="background:${att.hot ? acc+'18':'var(--bg2)'};color:${att.hot ? acc:'var(--muted)'}">
         ${i+1}
       </div>
       <div class="att-body">
         <div class="att-n${att.hot ? '' : ' dim'}">${att.n}</div>
         <div class="att-note">${att.note}</div>
-        ${att.wait||att.thrill ? `<div class="att-badges">
+        <div class="att-badges">
+          ${priorityLabel ? `<span class="att-badge ${priorityClass}">${priorityLabel}</span>` : ''}
           ${att.thrill ? `<span class="att-badge ${thrillClass}">${thrillLabel}</span>` : ''}
           ${att.wait ? `<span class="att-badge ${waitClass}">${waitLabel}</span>` : ''}
-        </div>` : ''}
+        </div>
       </div>
     </div>`;
   });
@@ -2306,6 +2383,20 @@ function switchPTab(btn, contentId) {
   park.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   const target = park.querySelector('#' + contentId);
   if (target) target.classList.add('active');
+}
+
+function filterAtts(btn, priority) {
+  const bar = btn.closest('.att-filter-bar');
+  bar.querySelectorAll('.att-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const tabContent = bar.closest('.tab-content');
+  tabContent.querySelectorAll('.att-item[data-priority]').forEach(item => {
+    if (!priority || item.dataset.priority === priority) {
+      item.classList.remove('att-hidden');
+    } else {
+      item.classList.add('att-hidden');
+    }
+  });
 }
 
 function switchShopTab(btn, contentId) {
