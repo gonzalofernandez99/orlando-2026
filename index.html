@@ -2410,7 +2410,7 @@ function switchShopTab(btn, contentId) {
 }
 
 const SHOP_FILTERABLE_TABS = ['st-market', 'st-intl'];
-let currentShoppingFilter = 'todos';
+let activeShoppingFilters = new Set();
 
 function updateShoppingFilterVisibility(activeTabId) {
   const shop = document.getElementById('shopping-content');
@@ -2450,7 +2450,16 @@ function applyShoppingFilter() {
 
     tab.querySelectorAll('[data-who]').forEach(el => {
       const who = el.getAttribute('data-who');
-      const shouldShow = currentShoppingFilter === 'todos' || who === currentShoppingFilter;
+      let shouldShow;
+      if (activeShoppingFilters.size === 0) {
+        shouldShow = true;
+      } else if (who === 'todos') {
+        shouldShow = true;
+      } else if (who === 'juntos') {
+        shouldShow = activeShoppingFilters.has('juntos') || activeShoppingFilters.has('gonza') || activeShoppingFilters.has('cami');
+      } else {
+        shouldShow = activeShoppingFilters.has(who);
+      }
       el.classList.toggle('shop-hidden', !shouldShow);
     });
 
@@ -2458,14 +2467,26 @@ function applyShoppingFilter() {
   });
 }
 
-function filterShopping(who, btn) {
-  currentShoppingFilter = who;
+function toggleShoppingFilter(who, btn) {
   const shop = document.getElementById('shopping-content');
+  if (who === 'todos') {
+    activeShoppingFilters.clear();
+  } else {
+    if (activeShoppingFilters.has(who)) {
+      activeShoppingFilters.delete(who);
+    } else {
+      activeShoppingFilters.add(who);
+    }
+  }
   shop.querySelectorAll('.sfbtn').forEach(b => {
+    const f = b.getAttribute('data-shopping-filter');
     b.classList.remove('active-todos', 'active-gonza', 'active-cami', 'active-juntos');
+    if (f === 'todos') {
+      if (activeShoppingFilters.size === 0) b.classList.add('active-todos');
+    } else {
+      if (activeShoppingFilters.has(f)) b.classList.add('active-' + f);
+    }
   });
-  const activeBtn = btn || shop.querySelector(`[data-shopping-filter="${who}"]`);
-  if (activeBtn) activeBtn.classList.add('active-' + who);
   applyShoppingFilter();
 }
 
@@ -2473,6 +2494,7 @@ function filterShopping(who, btn) {
 // RENDER SHOPPING
 // ═══════════════════════════════════════════════════════════
 function renderShopping() {
+  activeShoppingFilters.clear();
   const el = document.getElementById('shopping-content');
   el.innerHTML = `
   ${renderMediaBanner('shopping', 'Dia Libre', 'Compras en Orlando', 'Outlet Marketplace · International Premium Outlets · I-Drive')}
@@ -2502,70 +2524,21 @@ function renderShopping() {
   </div>
 
   <div class="park-tabs" style="--park-acc:var(--shop)">
-    <div class="ptab active" onclick="switchShopTab(this,'st-plan')">Plan del día</div>
-    <div class="ptab" onclick="switchShopTab(this,'st-market')">Marketplace</div>
+    <div class="ptab active" onclick="switchShopTab(this,'st-market')">Marketplace</div>
     <div class="ptab" onclick="switchShopTab(this,'st-intl')">Int'l Premium</div>
     <div class="ptab" onclick="switchShopTab(this,'st-tips')">Tips</div>
   </div>
 
-  <div class="shop-filter" hidden>
+  <div class="shop-filter">
     <div class="shop-filter-label">Ver:</div>
-    <div class="sfbtn active-todos" data-shopping-filter="todos" onclick="filterShopping('todos',this)">Todos</div>
-    <div class="sfbtn" data-shopping-filter="gonza" onclick="filterShopping('gonza',this)">Gonza</div>
-    <div class="sfbtn" data-shopping-filter="cami" onclick="filterShopping('cami',this)">Cami</div>
-    <div class="sfbtn" data-shopping-filter="juntos" onclick="filterShopping('juntos',this)">Juntos</div>
-  </div>
-
-  <!-- ── TAB: PLAN DEL DÍA ── -->
-  <div class="tab-content active" id="st-plan">
-    <div class="sched-item" data-who="todos">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">11:00</div></div>
-      <div class="sched-txt"><b>Outlet Marketplace</b> — 5269 International Dr · Primera parada</div>
-    </div>
-    <div class="sched-item" data-who="todos">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">11:00</div></div>
-      <div class="sched-txt">Bloque deportivo — Nike · Adidas · PUMA · New Balance (juntos) + Under Armour (Gonza paralelo)</div>
-    </div>
-    <div class="sched-item" data-who="todos">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">11:40</div></div>
-      <div class="sched-txt">Bloque ropa — Calvin Klein · Levi's · Tommy Hilfiger · American Eagle · GUESS (juntos) + U.S. Polo Assn. (Gonza paralelo)</div>
-    </div>
-    <div class="sched-item" data-who="gonza">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">12:15</div></div>
-      <div class="sched-txt">Accesorios — Discount Luggage + Watch Depot (Gonza solo · Cami descansa)</div>
-    </div>
-    <div class="sched-item" data-who="todos">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">12:30</div></div>
-      <div class="sched-txt"><b>Salida caminando →</b> International Premium Outlets · 4951 International Dr</div>
-    </div>
-    <div class="sched-item" data-who="todos">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">12:30</div></div>
-      <div class="sched-txt">Zona deportiva (entrada norte) — Nike · Adidas · Under Armour · PUMA · New Balance · North Face · Columbia · JD Sports · Foot Locker (juntos) + ASICS · HUK · Oakley (Gonza)</div>
-    </div>
-    <div class="sched-item" data-who="todos">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">1:45</div></div>
-      <div class="sched-txt">Galería ropa — H&M · Gap · CK x2 · Tommy · Levi's · Lacoste · AE · Banana Republic · Polo RL · Diesel · DKNY · Hollister · GUESS x2 (juntos) + Nautica (Cami) + BOSS · HUGO (Gonza)</div>
-    </div>
-    <div class="sched-item" data-who="todos">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">2:45</div></div>
-      <div class="sched-txt"><b>Almuerzo food court</b> — Five Guys · Dave's Hot Chicken · Asian Chao · Sarku Japan</div>
-    </div>
-    <div class="sched-item" data-who="todos">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">3:30</div></div>
-      <div class="sched-txt">Lujo y accesorios — Armani Outlet · Sunglass Hut (juntos) + Armani Exchange x2 (Gonza) + Coach · Michael Kors · Marc Jacobs (Cami)</div>
-    </div>
-    <div class="sched-item" data-who="todos">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">4:30</div></div>
-      <div class="sched-txt">Belleza y tech — Victoria's Secret · Cosmetics Co. (Cami) + L'Occitane · Fragrance Outlet · PRO TECH Garmin (Gonza)</div>
-    </div>
-    <div class="sched-item" data-who="cami">
-      <div class="sched-time-col"><div class="sched-time-pill" style="background:var(--shop)">5:15</div></div>
-      <div class="sched-txt">Disney's Character Warehouse (Cami) + últimas compras libres · Cierre 7pm</div>
-    </div>
+    <div class="sfbtn active-todos" data-shopping-filter="todos" onclick="toggleShoppingFilter('todos',this)">Todos</div>
+    <div class="sfbtn" data-shopping-filter="gonza" onclick="toggleShoppingFilter('gonza',this)">Gonza</div>
+    <div class="sfbtn" data-shopping-filter="cami" onclick="toggleShoppingFilter('cami',this)">Cami</div>
+    <div class="sfbtn" data-shopping-filter="juntos" onclick="toggleShoppingFilter('juntos',this)">Juntos</div>
   </div>
 
   <!-- ── TAB: OUTLET MARKETPLACE ── -->
-  <div class="tab-content" id="st-market">
+  <div class="tab-content active" id="st-market">
     <div class="dest-item">
       <div class="dest-name-row">
         <div class="dest-nm">Outlet Marketplace</div>
@@ -2955,8 +2928,8 @@ function renderShopping() {
     </div>
   </div>
   `;
-  updateShoppingFilterVisibility('st-plan');
-  filterShopping(currentShoppingFilter);
+  updateShoppingFilterVisibility('st-market');
+  applyShoppingFilter();
 }
 
 // ═══════════════════════════════════════════════════════════
